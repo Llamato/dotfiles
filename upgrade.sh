@@ -1,2 +1,2 @@
 #!/bin/sh
-nixos-rebuild switch --upgrade
+nix flake update
