@@ -25,7 +25,7 @@ in {
   environment.systemPackages = with pkgs; [
     clipse wl-clipboard
     grim slurp ffmpegthumbnailer
-    waybar dunst anyrun kitty nautilus
+    waybar dunst anyrun kitty nautilus imv
     gtk-engine-murrine gnome-themes-extra
     killall xorg.xrandr libnotify playerctl
     kdePackages.breeze kdePackages.breeze-icons qt6ct

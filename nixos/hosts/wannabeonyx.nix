@@ -105,7 +105,6 @@
       godot
       telegram-desktop
       fastfetch
-      kicad
       mesa
       mesa-demos
       vulkan-tools
@@ -120,6 +119,9 @@
       obsidian
       virt-manager
       gparted
+      zip
+      rocmPackages.rocm-smi
+      rsync
     ];
   };
 
@@ -189,7 +191,7 @@
     #Enable linux lib dir.
     programs.nix-ld.enable = true;
 
-  #Virtual maschine manager setup
+  #Virtual machine manager setup
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = ["tina"];
   virtualisation.libvirtd = {

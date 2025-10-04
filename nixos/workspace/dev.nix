@@ -28,8 +28,7 @@
 
   environment.systemPackages = with pkgs; [
     renderdoc
-    imhex
-    gdb 
+    imhex 
     lldb 
     tracy
     bat 
@@ -44,10 +43,13 @@
     bat
     cloc
     vscodium
-    zip
+    jetbrains.idea-ultimate jetbrains.jdk
+    pkgs.jetbrains.rider
+    jetbrains.webstorm nodejs_24
+    kicad
+    lmstudio
   ];
 
   #clangd service
   systemd.user.services.clangd.enable = true;
-  #systemd.user.services.clangd.environment =
 }
