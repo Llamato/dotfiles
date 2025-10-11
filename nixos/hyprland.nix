@@ -4,6 +4,8 @@
   easymotion = inputs.easymotion.packages.${pkgs.system}.hyprland-easymotion;
   xdg-desktop-portal-hyprland = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   split-monitor-workspaces = inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces;
+  hyprtrails = inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails; #As of yet unused
+
 in {
   imports = [
     inputs.hyprland.nixosModules.default
@@ -31,5 +33,6 @@ in {
     kdePackages.breeze kdePackages.breeze-icons qt6ct
     hyprpaper hypridle hyprlock hyprpicker hyprpolkitagent
     adwaita-icon-theme phinger-cursors tokyonight-gtk-theme
+    pwvucontrol
   ];
 }

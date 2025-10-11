@@ -4,10 +4,18 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    gcalc = {
+      url = "github:llamato/gcalc";
+    };
 
     hyprland = {
       url = "github:hyprwm/Hyprland?ref=v0.51.0";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    hyprland-plugins = {
+      url = github:hyprwm/hyprland-plugins;
+      inputs.hyprland.follows = "hyprland";
     };
 
     easymotion = {

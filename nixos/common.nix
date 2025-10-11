@@ -7,9 +7,9 @@
     experimental-features = "nix-command flakes";
   };
 
-  nix.gc = {
+  /*nix.gc = {
     dates = "daily";
     automatic = true;
     options = "--delete-older-than 7d";
-  };
+  };*/
 }

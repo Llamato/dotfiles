@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
 
@@ -12,6 +12,16 @@
 
   # Extra filesystems
   boot.supportedFilesystems = [ "bcachefs" "ntfs" "bitlocker" ];
+  
+  # Extra Kernel modules
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+  boot.kernelModules = [ "v4l2loopback" ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Cam, Virt Cam" exclusive_caps=1
+  '';
+  security.polkit.enable = true;
 
   networking.hostName = "wannabeonyx"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -60,6 +70,12 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  #Nautilus directory and network integrations.
+  services.gvfs.enable = true;
+
+  #Kwallet
+  security.pam.services.kwallet.enable = true;
   
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -79,6 +95,17 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
+
+  #Set up PGP
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-qt;
+  };
+  programs.seahorse.enable = true;
+
+  #Tina's own programs
+  #gcalc = inputs.gcalc.packages.${pkgs.system}.default;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tina = {
@@ -110,18 +137,24 @@
       vulkan-tools
       python3
       libreoffice-qt6-fresh
-      xsane
-      gocr
+      simple-scan #gocr unpaper netpbm
       rnote
       wayland
       blueman
-      obs-studio
       obsidian
       virt-manager
       gparted
       zip
       rocmPackages.rocm-smi
       rsync
+      xz
+      stress
+      liquidctl
+      ani-cli
+      transmission_4-qt
+      inputs.gcalc.packages.${pkgs.system}.default
+      hardinfo2
+      qdiskinfo
     ];
   };
 
@@ -134,6 +167,21 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Open Bordcast software
+  programs.gphoto2.enable = true;
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-vaapi #optional AMD hardware acceleration
+      obs-gstreamer
+      obs-vkcapture
+    ];
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -142,7 +190,6 @@
     btop
     spacenavd
     libspnav
-    pwvucontrol
     dislocker
   ];
 

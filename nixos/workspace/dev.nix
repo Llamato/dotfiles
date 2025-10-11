@@ -44,7 +44,7 @@
     cloc
     vscodium
     jetbrains.idea-ultimate jetbrains.jdk
-    pkgs.jetbrains.rider
+    jetbrains.rider
     jetbrains.webstorm nodejs_24
     kicad
     lmstudio
