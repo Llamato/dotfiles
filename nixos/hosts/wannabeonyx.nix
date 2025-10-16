@@ -17,10 +17,20 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
   ];
+
   boot.kernelModules = [ "v4l2loopback" ];
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Cam, Virt Cam" exclusive_caps=1
   '';
+
+  #Clean temp dir on boot
+  boot.tmp.cleanOnBoot = true;
+  boot.tmp.useTmpfs = true;
+
+  #Enable Architecture emulation in QEMU
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux"];
+
+
   security.polkit.enable = true;
 
   networking.hostName = "wannabeonyx"; # Define your hostname.
@@ -30,7 +40,7 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
+  # Enable network manager
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -74,9 +84,6 @@
   #Nautilus directory and network integrations.
   services.gvfs.enable = true;
 
-  #Kwallet
-  security.pam.services.kwallet.enable = true;
-  
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -104,6 +111,17 @@
   };
   programs.seahorse.enable = true;
 
+  # Enable Kwallet for GPG
+  security.pam.services.kwallet.enable = true;
+
+  # Enable Docker 
+  #virtualisation.docker.enable = true;
+  users.extraGroups.docker.members = [ "tina" ]; #Bad because this is effectively equivalent to being root according to https://nixos.wiki/wiki/Docker (dla: 12.10.2025)
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
   #Tina's own programs
   #gcalc = inputs.gcalc.packages.${pkgs.system}.default;
 
@@ -113,6 +131,8 @@
     description = "Tina";
     extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ];
     packages = with pkgs; [
+      inputs.gcalc.packages.${pkgs.system}.default
+      inputs.gcrypt.packages.${pkgs.system}.default
       git
       kdePackages.kate
       thunderbird
@@ -149,12 +169,11 @@
       rsync
       xz
       stress
-      liquidctl
       ani-cli
       transmission_4-qt
-      inputs.gcalc.packages.${pkgs.system}.default
       hardinfo2
       qdiskinfo
+      tree
     ];
   };
 
@@ -191,6 +210,8 @@
     spacenavd
     libspnav
     dislocker
+    liquidctl
+    qemu
   ];
 
   systemd.user.services.spacenavd.enable = true;

@@ -4,8 +4,13 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     gcalc = {
       url = "github:llamato/gcalc";
+    };
+
+    gcrypt = {
+      url = "github:llamato/gcrypt";
     };
 
     hyprland = {
@@ -14,13 +19,13 @@
     };
 
     hyprland-plugins = {
-      url = github:hyprwm/hyprland-plugins;
+      url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
 
     easymotion = {
-      inputs.hyprland.follows = "hyprland";
       url = "github:zakk4223/hyprland-easymotion";
+      inputs.hyprland.follows = "hyprland";
     };
 
     hyprsplit = {
@@ -41,6 +46,7 @@
     systems = [
       "x86_64-linux"
       "aarch64-linux"
+      "armv7l-linux"
       "x86_64-darwin"
       "aarch64-darwin"
     ];

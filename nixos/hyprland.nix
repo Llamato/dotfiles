@@ -32,7 +32,7 @@ in {
     killall xorg.xrandr libnotify playerctl
     kdePackages.breeze kdePackages.breeze-icons qt6ct
     hyprpaper hypridle hyprlock hyprpicker hyprpolkitagent
-    adwaita-icon-theme phinger-cursors tokyonight-gtk-theme
-    pwvucontrol
+    adwaita-icon-theme phinger-cursors tokyonight-gtk-theme 
+    pwvucontrol networkmanagerapplet
   ];
 }

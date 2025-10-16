@@ -48,6 +48,7 @@
     jetbrains.webstorm nodejs_24
     kicad
     lmstudio
+    nil
   ];
 
   #clangd service
