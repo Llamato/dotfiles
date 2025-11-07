@@ -33,6 +33,6 @@ in {
     kdePackages.breeze kdePackages.breeze-icons qt6ct
     hyprpaper hypridle hyprlock hyprpicker hyprpolkitagent
     adwaita-icon-theme phinger-cursors tokyonight-gtk-theme 
-    pwvucontrol networkmanagerapplet
+    networkmanagerapplet file-roller gnome-keyring
   ];
 }

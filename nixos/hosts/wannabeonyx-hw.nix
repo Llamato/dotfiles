@@ -63,30 +63,24 @@
     };
   };
 
-  #Enable closed source printer driver package
-    services.printing.drivers = [ 
-      pkgs.hplip
-    ];
+  #CPU monitoring 
+  hardware.cpu.amd.ryzen-smu.enable = true;
 
-    #Enable networked printers
-    services.avahi = {
-      enable = true;
-      nssmdns4 = true;
-      openFirewall = true;
-    };
+  #Hardware specific packages
+  environment.systemPackages = with pkgs; [
+    rocmPackages.rocm-smi
+    mt-st ncdu
+    lm_sensors
+    linuxKernel.packages.linux_zen.cpupower
+    cpupower-gui
+  ];
+  #Hardware specific services
+  services.cpupower-gui.enable = true;
 
-    #Printer sharing
-    /*services.printing = {
-      listenAddresses = [ "*:631" ];
-      allowFrom = [ "all" ];
-      browsing = true;
-      defaultShared = true;
-      openFirewall = true;
-    };*/
+  #GPU drivers (6800xt)
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
-  #Scanner setup
-  hardware.sane.enable = true;
-  
-  #Network scanning
-  services.avahi.nssmdns = true;
+  #Bluetooth drivers (Asus proarts have that on board)
+  hardware.bluetooth.enable = true;
+
 }

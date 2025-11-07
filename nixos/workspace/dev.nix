@@ -46,6 +46,7 @@
     jetbrains.idea-ultimate jetbrains.jdk
     jetbrains.rider
     jetbrains.webstorm nodejs_24
+    jetbrains.clion
     kicad
     lmstudio
     nil

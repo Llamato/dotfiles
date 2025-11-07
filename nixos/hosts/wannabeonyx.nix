@@ -84,21 +84,50 @@
   #Nautilus directory and network integrations.
   services.gvfs.enable = true;
 
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
+  # Enable sound without pipewire.
+  services.pulseaudio = {
+    enable = false;
+    
+    # Daemon configuration to fix auto-regulation
+    extraConfig = ''
+      # Disable echo cancellation/AGC
+      unload-module module-echo-cancel
+      load-module module-echo-cancel aec_method=webrtc aec_args="analog_gain_control=0,digital_gain_control=0"
+    '';
+  };
+
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
+    audio.enable = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    alsa.enable = true;
+    extraConfig.pipewire = {
+    "99-mic-fix" = {
+      "context.modules" = [
+        {
+          name = "libpipewire-module-access";
+          args = {
+            rules = [
+              {
+                matches = [
+                  [
+                    { "application.process.binary" = "electron";}
+                    { "application.process.binary" = "webcord"; }
+                    { "application.process.binary" = "firefox"; }
+                    { "application.process.binary" = "vesktop"; }
+                  ]
+                ];
+                default_permissions = "rx";
+              }
+            ];
+          };
+        }
+      ];
+    };
   };
+};
+
+  security.rtkit.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -109,7 +138,7 @@
     enableSSHSupport = true;
     pinentryPackage = pkgs.pinentry-qt;
   };
-  programs.seahorse.enable = true;
+  programs.seahorse.enable = true; #pgp gui
 
   # Enable Kwallet for GPG
   security.pam.services.kwallet.enable = true;
@@ -136,7 +165,7 @@
       git
       kdePackages.kate
       thunderbird
-      vesktop
+      vesktop #discord
       ffmpeg
       sl
       cool-retro-term
@@ -157,7 +186,7 @@
       vulkan-tools
       python3
       libreoffice-qt6-fresh
-      simple-scan #gocr unpaper netpbm
+      simple-scan gocr unpaper netpbm
       rnote
       wayland
       blueman
@@ -165,7 +194,6 @@
       virt-manager
       gparted
       zip
-      rocmPackages.rocm-smi
       rsync
       xz
       stress
@@ -174,6 +202,15 @@
       hardinfo2
       qdiskinfo
       tree
+      nix-tree
+      element-desktop cinny-desktop
+      vscodium
+      texlive.combined.scheme-full
+      steam-run
+      p7zip
+      hexedit
+      openssl
+      testdisk
     ];
   };
 
@@ -206,12 +243,16 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    btop
     spacenavd
     libspnav
     dislocker
     liquidctl
     qemu
+    pwvucontrol
+    iotop
+    powertop
+    ryzen-monitor-ng
+    (btop.override { rocmSupport = true; })
   ];
 
   systemd.user.services.spacenavd.enable = true;
@@ -242,11 +283,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
-  #Video drivers
-  services.xserver.videoDrivers = [ "amdgpu" ];
-  hardware.bluetooth.enable = true;
-
   #fonts
   fonts = {
     enableDefaultPackages = true;
@@ -278,5 +314,21 @@
       };
     };
   };
+
+    #Enable closed source printer driver package
+    services.printing.drivers = [ 
+      pkgs.hplip
+    ];
+
+    #Enable networked printers
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+
+  #Scanner setup
+  hardware.sane.enable = true;
+
 }
 
