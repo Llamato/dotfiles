@@ -1,5 +1,6 @@
 {config, lib, pkgs, ...}: {
-  programs.nix-ld.enable = true;
+  
+  programs.nix-ld.enable =  lib.mkDefault true;
 
   programs.direnv = {
     enable = true;
@@ -47,9 +48,11 @@
     jetbrains.rider
     jetbrains.webstorm nodejs_24
     jetbrains.clion
-    kicad
     lmstudio
     nil
+    bun
+    godot
+    mesa clinfo mesa-demos vulkan-tools
   ];
 
   #clangd service

@@ -9,8 +9,8 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "mptsas" "thunderbolt" "mpt3sas" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelModules = [ "kvm-amd"];
+  boot.initrd.kernelModules = [ "amdgpu" "nct6775" ];
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -24,14 +24,16 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  swapDevices = [ ];
+  swapDevices = [{
+   device = "/dev/nvme0n1p6";
+  }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  #networking.useDHCP = lib.mkDefault true;
+  networking.interfaces.eno1.useDHCP = lib.mkDefault true;
   # networking.interfaces.eno2.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp11s0.useDHCP = lib.mkDefault true;
 
@@ -67,18 +69,21 @@
   hardware.cpu.amd.ryzen-smu.enable = true;
 
   #Hardware specific packages
+  programs.coolercontrol.enable = true;
   environment.systemPackages = with pkgs; [
     rocmPackages.rocm-smi
     mt-st ncdu
     lm_sensors
-    linuxKernel.packages.linux_zen.cpupower
-    cpupower-gui
+    liquidctl
+    openrgb-with-all-plugins
   ];
   #Hardware specific services
-  services.cpupower-gui.enable = true;
-
+  #services.cpupower-gui.enable = true;
+  services.hardware.openrgb.enable = true;
+  
   #GPU drivers (6800xt)
   services.xserver.videoDrivers = [ "amdgpu" ];
+  hardware.amdgpu.opencl.enable = true;
 
   #Bluetooth drivers (Asus proarts have that on board)
   hardware.bluetooth.enable = true;

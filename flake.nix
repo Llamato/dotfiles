@@ -13,8 +13,14 @@
       url = "github:llamato/gcrypt";
     };
 
+    stenc = {
+      url = "github:llamato/stenc";
+    };
+
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.51.0";
+      #url = "github:hyprwm/Hyprland?ref=v0.51.0";
+      url = "github:hyprwm/Hyprland?ref=v0.52.1";
+      #url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -59,13 +65,16 @@
     nixosConfigurations = {
       wannabeonyx = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = { inherit inputs outputs; };
         modules = [
           ./nixos/hosts/wannabeonyx.nix
           ./nixos/hosts/wannabeonyx-hw.nix
           ./nixos/common.nix
           ./nixos/hyprland.nix
           ./nixos/workspace/dev.nix
+          ./nixos/workspace/eda.nix
+          ./nixos/workspace/3d.nix
+          #./nixos/workspace/nordvpn.nix
         ];
       };
     };

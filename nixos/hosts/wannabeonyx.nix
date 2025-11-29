@@ -3,8 +3,10 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, ... }:
-
 {
+
+  # Lix (What the hell is lix?)
+  #nix.package = pkgs.lixPackageSets.stable.lix;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -25,7 +27,7 @@
 
   #Clean temp dir on boot
   boot.tmp.cleanOnBoot = true;
-  boot.tmp.useTmpfs = true;
+  boot.tmp.useTmpfs = false;
 
   #Enable Architecture emulation in QEMU
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux"];
@@ -41,7 +43,7 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable network manager
-  networking.networkmanager.enable = true;
+  #networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -111,10 +113,10 @@
               {
                 matches = [
                   [
-                    { "application.process.binary" = "electron";}
-                    { "application.process.binary" = "webcord"; }
-                    { "application.process.binary" = "firefox"; }
-                    { "application.process.binary" = "vesktop"; }
+                    { "application.process.binary" = "electron"; }
+                    { "application.process.binary" = "webcord";  }
+                    { "application.process.binary" = "firefox";  }
+                    { "application.process.binary" = "vesktop";  }
                   ]
                 ];
                 default_permissions = "rx";
@@ -151,9 +153,6 @@
     setSocketVariable = true;
   };
 
-  #Tina's own programs
-  #gcalc = inputs.gcalc.packages.${pkgs.system}.default;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tina = {
     isNormalUser = true;
@@ -162,28 +161,21 @@
     packages = with pkgs; [
       inputs.gcalc.packages.${pkgs.system}.default
       inputs.gcrypt.packages.${pkgs.system}.default
+      inputs.stenc.packages.${pkgs.system}.stenc archivemount
       git
       kdePackages.kate
       thunderbird
-      vesktop #discord
+      vesktop discord
       ffmpeg
       sl
       cool-retro-term
-      krita
-      gimp3
-      blender
-      freecad
-      audacity
       kdePackages.kdenlive
       vice
       vlc
+      gimp3
       rawtherapee
-      godot
       telegram-desktop
       fastfetch
-      mesa
-      mesa-demos
-      vulkan-tools
       python3
       libreoffice-qt6-fresh
       simple-scan gocr unpaper netpbm
@@ -197,8 +189,6 @@
       rsync
       xz
       stress
-      ani-cli
-      transmission_4-qt
       hardinfo2
       qdiskinfo
       tree
@@ -206,14 +196,13 @@
       element-desktop cinny-desktop
       vscodium
       texlive.combined.scheme-full
-      steam-run
       p7zip
       hexedit
       openssl
-      testdisk
+      kdePackages.ark
     ];
   };
-
+  
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -242,17 +231,21 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
+    wget dig
     spacenavd
     libspnav
     dislocker
-    liquidctl
     qemu
     pwvucontrol
-    iotop
     powertop
     ryzen-monitor-ng
+    sg3_utils iotop
+    inetutils iperf3 vnstat
     (btop.override { rocmSupport = true; })
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "mbedtls-2.28.10"
   ];
 
   systemd.user.services.spacenavd.enable = true;
@@ -274,7 +267,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -291,9 +284,6 @@
       nerd-fonts.droid-sans-mono
     ];
   };
-
-    #Enable linux lib dir.
-    programs.nix-ld.enable = true;
 
   #Virtual machine manager setup
   programs.virt-manager.enable = true;
@@ -330,5 +320,27 @@
   #Scanner setup
   hardware.sane.enable = true;
 
-}
+  #Direct server link setup
+  networking = {
+    interfaces = {
+      eno2 = {
+        ipv4.addresses = [{
+          address = "10.0.0.2";
+          prefixLength = 24;
+        }];
+      };
+    };
+  };
 
+  #Nix OS Manpages
+  documentation = {
+    enable = true;
+    dev.enable = true;
+    man = {
+      enable = true;
+      mandoc.enable = true;
+      generateCaches = true;
+      man-db.enable = false;
+    };
+  };
+}
