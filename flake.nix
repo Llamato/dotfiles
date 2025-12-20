@@ -76,6 +76,7 @@
           ./nixos/hosts/wannabeonyx-hw.nix
           ./nixos/common.nix
           ./nixos/hyprland.nix
+          ./nixos/modules/kate-wakatime.nix
           ./nixos/workspace/dev.nix
           ./nixos/workspace/eda.nix
           ./nixos/workspace/3d.nix
