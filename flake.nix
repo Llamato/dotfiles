@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
 
     gcalc = {
       url = "github:llamato/gcalc";
@@ -11,6 +12,10 @@
 
     gcrypt = {
       url = "github:llamato/gcrypt";
+    };
+
+    gbounce = {
+      url = "github:llamato/glossyBallBounce";
     };
 
     stenc = {
@@ -74,6 +79,7 @@
           ./nixos/workspace/dev.nix
           ./nixos/workspace/eda.nix
           ./nixos/workspace/3d.nix
+          #./nixos/workspace/dbuild.nix
           #./nixos/workspace/nordvpn.nix
         ];
       };

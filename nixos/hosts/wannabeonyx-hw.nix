@@ -5,13 +5,28 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+    [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "mptsas" "thunderbolt" "mpt3sas" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" "nct6775" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "thunderbolt" "mptsas" "mpt3sas" "sg" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ "amdgpu" "nct6775" ]; 
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  #boot.blacklistedKernelModules = [ ];
+
+  #Swap
+  #swapDevices = [{
+   # device = "/dev/disk/by-partuuid/477d0796-5b48-44d2-b736-4581951477c5";
+    #randomEncryption.enable = true; 
+  #}];
+
+  #LTFS
+  boot.kernelPatches = [{
+    name = "enable-scsi-proc-fs";
+    patch = null; # No actual patch file is needed, just the config
+    extraConfig = ''
+      SCSI_PROC_FS y
+    '';
+  }];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/4feaab09-e6e9-4631-8c3e-acd7c85790a3";
@@ -23,10 +38,6 @@
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
-
-  swapDevices = [{
-   device = "/dev/nvme0n1p6";
-  }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -75,7 +86,9 @@
     mt-st ncdu
     lm_sensors
     liquidctl
-    openrgb-with-all-plugins
+    pciutils
+    usbutils
+    #openrgb-with-all-plugins
   ];
   #Hardware specific services
   #services.cpupower-gui.enable = true;

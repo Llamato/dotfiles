@@ -49,12 +49,18 @@
     jetbrains.webstorm nodejs_24
     jetbrains.clion
     lmstudio
-    nil
+    nil #nixd
     bun
     godot
     mesa clinfo mesa-demos vulkan-tools
+    vice
   ];
 
   #clangd service
   systemd.user.services.clangd.enable = true;
+
+  #Adb setup
+  programs.adb.enable = true;
+  users.users.tina.extraGroups = [ "adbusers" ];
+  nixpkgs.config.android_sdk.accept_license = true;
 }

@@ -2,8 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
-{
+{ config, pkgs, inputs, lib, ... }: {
 
   # Lix (What the hell is lix?)
   #nix.package = pkgs.lixPackageSets.stable.lix;
@@ -13,7 +12,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Extra filesystems
-  boot.supportedFilesystems = [ "bcachefs" "ntfs" "bitlocker" ];
+  boot.supportedFilesystems = [ "bcachefs" "xfs" "ntfs" "bitlocker" "exfat" "vfat" ];
   
   # Extra Kernel modules
   boot.extraModulePackages = with config.boot.kernelPackages; [
@@ -30,8 +29,7 @@
   boot.tmp.useTmpfs = false;
 
   #Enable Architecture emulation in QEMU
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux"];
-
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" "riscv64-linux" ];
 
   security.polkit.enable = true;
 
@@ -154,53 +152,25 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.tina = {
+  users.users = {
+    tina = {
+      isNormalUser = true;
+      description = "Tina";
+      extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ];
+      packages = with pkgs; [
+        
+      ];
+    };
+
+    romana = {
     isNormalUser = true;
-    description = "Tina";
-    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ];
-    packages = with pkgs; [
-      inputs.gcalc.packages.${pkgs.system}.default
-      inputs.gcrypt.packages.${pkgs.system}.default
-      inputs.stenc.packages.${pkgs.system}.stenc archivemount
-      git
-      kdePackages.kate
-      thunderbird
-      vesktop discord
-      ffmpeg
-      sl
-      cool-retro-term
-      kdePackages.kdenlive
-      vice
-      vlc
-      gimp3
-      rawtherapee
-      telegram-desktop
-      fastfetch
-      python3
-      libreoffice-qt6-fresh
-      simple-scan gocr unpaper netpbm
-      rnote
-      wayland
-      blueman
-      obsidian
-      virt-manager
-      gparted
-      zip
-      rsync
-      xz
-      stress
-      hardinfo2
-      qdiskinfo
-      tree
-      nix-tree
-      element-desktop cinny-desktop
-      vscodium
-      texlive.combined.scheme-full
-      p7zip
-      hexedit
-      openssl
-      kdePackages.ark
-    ];
+    home = "/home/romana";
+    password = "6301";
+    openssh.authorizedKeys.keys = [ 
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM30of3vRzm2aB5f+b9HVVNKh811emm7ZD4OW9v2tfcx u0_a468@localhost" 
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAING7VPuszU2P1fYm/h8ZTywzfNhHHPZFFbL2pUdIQfSq flash@bios"
+      ];
+    };
   };
   
   # Install firefox.
@@ -239,9 +209,55 @@
     pwvucontrol
     powertop
     ryzen-monitor-ng
-    sg3_utils iotop
+    sg3_utils iotop mission-center
     inetutils iperf3 vnstat
+    cifs-utils
     (btop.override { rocmSupport = true; })
+
+    #Formerly user packages
+    inputs.gcalc.packages.${pkgs.system}.default
+    inputs.gcrypt.packages.${pkgs.system}.default
+    inputs.gbounce.packages.${pkgs.system}.default
+    inputs.stenc.packages.${pkgs.system}.stenc archivemount
+    git
+    kdePackages.kate
+    thunderbird
+    vesktop discord
+    ffmpeg
+    sl
+    cool-retro-term
+    kdePackages.kdenlive rawtherapee
+    vlc
+    gimp3
+    telegram-desktop
+    fastfetch cpufetch gpufetch
+    python3
+    libreoffice-qt6-fresh
+    simple-scan gocr unpaper netpbm
+    rnote
+    wayland
+    blueman
+    obsidian
+    virt-manager
+    gparted
+    zip xz rsync
+    stress
+    hardinfo2
+    qdiskinfo
+    tree
+    nix-tree
+    element-desktop cinny-desktop
+    texlive.combined.scheme-full
+    p7zip
+    hexedit
+    openssl
+    kdePackages.ark
+    jdk8 jdk24
+    wlvncc
+    distrobox
+    monero-gui
+    kdePackages.kget
+    oqs-provider #quantum security
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
@@ -261,7 +277,21 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 3001 ];
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      UseDns = true;
+      X11Forwarding = false;
+      PermitRootLogin = "no";
+      AllowUsers = [
+        "tina"
+        "romana"
+      ];
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -320,18 +350,6 @@
   #Scanner setup
   hardware.sane.enable = true;
 
-  #Direct server link setup
-  networking = {
-    interfaces = {
-      eno2 = {
-        ipv4.addresses = [{
-          address = "10.0.0.2";
-          prefixLength = 24;
-        }];
-      };
-    };
-  };
-
   #Nix OS Manpages
   documentation = {
     enable = true;
@@ -343,4 +361,36 @@
       man-db.enable = false;
     };
   };
+
+  #Direct server link setup
+  networking = {
+    interfaces = {
+      eno2 = {
+        ipv4.addresses = [{
+          address = "10.0.0.2";
+          prefixLength = 24;
+        }];
+      };
+    };
+    wireless = {
+      enable = true;
+      networks = {
+        "Ponto-3" = {
+          psk = "Ponto-233603";
+        };
+      };
+    };
+  };
+
+  #VPN things
+  services.tailscale.enable = true;
+
+  #Distro box
+  virtualisation.podman = {
+  enable = true;
+  dockerCompat = true;
+};
+
+# Dynamic linking (impure)
+#programs.nix-ld.enable = true;
 }
