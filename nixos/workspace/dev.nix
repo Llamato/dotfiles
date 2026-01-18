@@ -44,23 +44,29 @@
     bat
     cloc
     vscodium
-    jetbrains.idea-ultimate jetbrains.jdk
-    jetbrains.rider
-    jetbrains.webstorm nodejs_24
-    jetbrains.clion
+    #jetbrains.idea-ultimate jetbrains.jdk
+    #jetbrains.rider
+    #jetbrains.webstorm nodejs_24
+    #jetbrains.clion
     lmstudio
-    nil #nixd
+    nixd
     bun
     godot
     mesa clinfo mesa-demos vulkan-tools
     vice
+    jdk8
+    renderdoc
+    kmod
   ];
 
-  #clangd service
+  # clangd service
   systemd.user.services.clangd.enable = true;
 
-  #Adb setup
+  # Adb setup
   programs.adb.enable = true;
   users.users.tina.extraGroups = [ "adbusers" ];
   nixpkgs.config.android_sdk.accept_license = true;
+
+  # Waka Time for Kate
+  #services.kate-wakatime.enable = true;
 }

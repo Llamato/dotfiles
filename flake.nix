@@ -2,10 +2,12 @@
   description = "Tina's NixOS configurations and dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    #nixpkgs2511.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
-
+    nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
     gcalc = {
       url = "github:llamato/gcalc";
     };
@@ -23,9 +25,7 @@
     };
 
     hyprland = {
-      #url = "github:hyprwm/Hyprland?ref=v0.51.0";
-      url = "github:hyprwm/Hyprland?ref=v0.52.1";
-      #url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -64,24 +64,38 @@
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
     #nixosModules = import ./nixos/modules/default.nix;
-    # overlays = import ./nixos/overlay.nix {inherit inputs outputs;};
+    #overlays = import ./nixos/overlays/overlays.nix {inherit inputs outputs;};
     #packages = forAllSystems (system: import ./nixos/packages nixpkgs.legacyPackages.${system});
 
     nixosConfigurations = {
       wannabeonyx = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs outputs; };
+        specialArgs = { 
+          inherit inputs outputs;
+          /*overlays = [
+            (import ./nixos/overlays/qns-ssh.nix {})
+          ];*/
+         };
         modules = [
+          #({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
           ./nixos/hosts/wannabeonyx.nix
           ./nixos/hosts/wannabeonyx-hw.nix
           ./nixos/common.nix
-          ./nixos/hyprland.nix
-          ./nixos/modules/kate-wakatime.nix
+
+          ./nixos/modules/hyprland.nix
+          #./nixos/modules/kate-wakatime.nix
+          
+          ./nixos/workspace/ssh.nix
           ./nixos/workspace/dev.nix
           ./nixos/workspace/eda.nix
           ./nixos/workspace/3d.nix
+          #./nixos/workspace/zvitWg.nix
           #./nixos/workspace/dbuild.nix
           #./nixos/workspace/nordvpn.nix
+
+          #Only needed when not using the overlay
+          #./nixos/modules/oqs-openssh.nix
+          #./nixos/workspace/qssh.nix
         ];
       };
     };

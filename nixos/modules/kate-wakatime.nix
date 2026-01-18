@@ -3,7 +3,7 @@
 
 let
   # Derivation for kate-wakatime plugin
-  kateWakatime = pkgs.stdenv.mkDerivation rec {
+  kateWakatime = pkgs.stdenv.mkDerivation {
     pname = "kate-wakatime";
     version = "unstable-2025-01-01";
 
