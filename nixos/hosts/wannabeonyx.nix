@@ -84,9 +84,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  #Nautilus directory and network integrations.
-  services.gvfs.enable = true;
-
   # Enable sound without pipewire.
   services.pulseaudio = {
     enable = false;
@@ -356,7 +353,9 @@
   #Direct server link setup
   networking = {
     interfaces = {
-      eno2 = {
+
+      eno1 = { #1gbit/s
+        useDHCP = false;
         ipv4.addresses = [
           {
             address = "192.168.3.21";
@@ -364,7 +363,18 @@
           }
         ];
       };
+
+      eno2 = { #10gbit/s
+        useDHCP = false;
+        ipv4.addresses = [
+          {
+            address = "10.20.30.2";
+            prefixLength = 24;
+          }
+        ];
+      };
     };
+
 #    wireless = {
 #      enable = true;
 #      networks = {
@@ -377,9 +387,9 @@
      #How do we get on the internet
      defaultGateway = { 
       address = "192.168.3.1";
-      #interface = "eno2"; 
+      interface = "eno1"; 
     };
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
   };
 
   #VPN things

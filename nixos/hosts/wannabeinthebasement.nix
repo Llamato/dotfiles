@@ -134,17 +134,19 @@
 
       #Internet via 1gbit/s
       eno1 = {
+        useDHCP = false;
         ipv4.addresses = [{
           address = "192.168.3.14";
           prefixLength = 24;
         }];
       };
 
-      #Local network via 2.5gbit/s fibre
+      #Local network via 10gbit/s fibre
       enp67s0f1 = {
+        useDHCP = false;
         ipv4.addresses = [
           {
-            address = "192.168.3.15";
+            address = "10.20.30.3";
             prefixLength = 24;
           }
         ];
@@ -155,7 +157,7 @@
       address = "192.168.3.1";
       interface = "eno1"; 
     };
-    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    nameservers = [ "1.1.1.1" "1.0.0.1" ];
   };
 
   # This value determines the NixOS release from which the default
