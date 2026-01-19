@@ -49,7 +49,7 @@
     #jetbrains.webstorm nodejs_24
     #jetbrains.clion
     lmstudio
-    nixd
+    nixd nixfmt
     bun
     godot
     mesa clinfo mesa-demos vulkan-tools

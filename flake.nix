@@ -50,64 +50,76 @@
     };
   };
 
-  outputs = {self, nixpkgs, nixpkgs-unstable, easymotion,
-            hyprland, split-monitor-workspaces, hyprsplit, ...
-  }@inputs: let
-    inherit (self) outputs;
-    systems = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "armv7l-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-  in {
-    #nixosModules = import ./nixos/modules/default.nix;
-    #overlays = import ./nixos/overlays/overlays.nix {inherit inputs outputs;};
-    #packages = forAllSystems (system: import ./nixos/packages nixpkgs.legacyPackages.${system});
-
-    nixosConfigurations = {
-      wannabeonyx = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { 
-          inherit inputs outputs;
-          /*overlays = [
-            (import ./nixos/overlays/qns-ssh.nix {})
-          ];*/
-         };
-        modules = [
-          #({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
-          ./nixos/hosts/wannabeonyx.nix
-          ./nixos/hosts/wannabeonyx-hw.nix
-          ./nixos/common.nix
-
-          ./nixos/modules/hyprland.nix
-          #./nixos/modules/kate-wakatime.nix
-          
-          ./nixos/workspace/ssh.nix
-          ./nixos/workspace/dev.nix
-          ./nixos/workspace/eda.nix
-          ./nixos/workspace/3d.nix
-          #./nixos/workspace/zvitWg.nix
-          #./nixos/workspace/dbuild.nix
-          #./nixos/workspace/nordvpn.nix
-
-          #Only needed when not using the overlay
-          #./nixos/modules/oqs-openssh.nix
-          #./nixos/workspace/qssh.nix
-        ];
-      };
-    };
-    wannabeinthebasement = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = {
-        inherit inputs outputs;
-      };
-      modules = [
-        ./nixos/hosts/wannabeinthebasement.nix
-        ./nixos/hosts/wannabeinthebasement-hw.nix
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      easymotion,
+      hyprland,
+      split-monitor-workspaces,
+      hyprsplit,
+      ...
+    }@inputs:
+    let
+      inherit (self) outputs;
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "armv7l-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+    in
+    {
+      #nixosModules = import ./nixos/modules/default.nix;
+      #overlays = import ./nixos/overlays/overlays.nix {inherit inputs outputs;};
+      #packages = forAllSystems (system: import ./nixos/packages nixpkgs.legacyPackages.${system});
+
+      nixosConfigurations = {
+        wannabeonyx = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs outputs;
+            /*
+              overlays = [
+                (import ./nixos/overlays/qns-ssh.nix {})
+              ];
+            */
+          };
+          modules = [
+            #({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
+            ./nixos/hosts/wannabeonyx.nix
+            ./nixos/hosts/wannabeonyx-hw.nix
+            ./nixos/common.nix
+
+            ./nixos/modules/hyprland.nix
+            #./nixos/modules/kate-wakatime.nix
+
+            ./nixos/workspace/ssh.nix
+            ./nixos/workspace/dev.nix
+            ./nixos/workspace/eda.nix
+            ./nixos/workspace/3d.nix
+            #./nixos/workspace/zvitWg.nix
+            #./nixos/workspace/dbuild.nix
+            #./nixos/workspace/nordvpn.nix
+
+            #Only needed when not using the overlay
+            #./nixos/modules/oqs-openssh.nix
+            #./nixos/workspace/qssh.nix
+          ];
+        };
+        wannabeinthebasement = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs outputs;
+          };
+          modules = [
+            ./nixos/hosts/wannabeinthebasement.nix
+            ./nixos/hosts/wannabeinthebasement-hw.nix
+          ];
+        };
+      };
     };
-  };
 }
