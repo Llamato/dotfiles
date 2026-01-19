@@ -142,6 +142,15 @@
       };
 
       #Local network via 10gbit/s fibre
+      enp67s0f0 = {
+        useDHCP = false;
+        ipv4.addresses = [
+          {
+            address = "10.20.30.4";
+            prefixLength = 24;
+          }
+        ];
+      };
       enp67s0f1 = {
         useDHCP = false;
         ipv4.addresses = [
