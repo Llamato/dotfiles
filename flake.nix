@@ -99,5 +99,15 @@
         ];
       };
     };
+    wannabeinthebasement = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = {
+        inherit inputs outputs;
+      };
+      modules = [
+        ./nixos/hosts/wannabeinthebasement.nix
+        ./nixos/hosts/wannabeinthebasement-hw.nix
+      ];
+    };
   };
 }
