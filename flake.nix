@@ -90,9 +90,9 @@
           };
           modules = [
             #({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
+            ./common.nix
             ./nixos/hosts/wannabeonyx.nix
             ./nixos/hosts/wannabeonyx-hw.nix
-            ./nixos/common.nix
 
             ./nixos/modules/hyprland.nix
             #./nixos/modules/kate-wakatime.nix

@@ -356,19 +356,13 @@
   #Direct server link setup
   networking = {
     interfaces = {
-      eno1 = {
+      eno2 = {
         ipv4.addresses = [
           {
             address = "192.168.3.21";
             prefixLength = 24;
           }
         ];
-      };
-      eno2 = {
-        ipv4.addresses = [{
-          address = "10.0.0.2";
-          prefixLength = 24;
-        }];
       };
     };
 #    wireless = {
@@ -379,10 +373,11 @@
 #        };
 #      };
 #    };
+
      #How do we get on the internet
      defaultGateway = { 
       address = "192.168.3.1";
-      interface = "eno1"; 
+      #interface = "eno2"; 
     };
     nameservers = [ "1.1.1.1" "8.8.8.8" ];
   };
