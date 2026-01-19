@@ -18,7 +18,7 @@
         in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);*/
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "thunderbolt" "mptsas" "mpt3sas" "sg" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" "nct6775" ]; 
+  boot.initrd.kernelModulesnan = [ "amdgpu" "nct6775" ]; 
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   #boot.blacklistedKernelModules = [ ];
