@@ -121,7 +121,7 @@
   services.openssh.enable = true;
 
   # Enable custom fan controller
-  services.dellfancontroller.enable = true;
+  services.dellfancontroller.enable = false;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
