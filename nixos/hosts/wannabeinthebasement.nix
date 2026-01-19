@@ -120,6 +120,9 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Enable custom fan controller
+  services.dellfancontroller.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
