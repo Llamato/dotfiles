@@ -356,6 +356,14 @@
   #Direct server link setup
   networking = {
     interfaces = {
+      eno1 = {
+        ipv4.addresses = [
+          {
+            address = "192.168.3.21";
+            prefixLength = 24;
+          }
+        ];
+      };
       eno2 = {
         ipv4.addresses = [{
           address = "10.0.0.2";
@@ -363,21 +371,23 @@
         }];
       };
     };
-    wireless = {
-      enable = true;
-      networks = {
-        "Ponto-3" = {
-          psk = "Ponto-233603";
-        };
-      };
+#    wireless = {
+#      enable = true;
+#      networks = {
+#        "Ponto-3" = {
+#          psk = "Ponto-233603";
+#        };
+#      };
+#    };
+     defaultGateway = { 
+      address = "192.168.3.1";
+      interface = "eno1"; 
     };
-    defaultGateway = { 
-      address = "10.0.0.1"; 
-    };
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
   };
 
   #VPN things
-  services.tailscale.enable = true;
+#  services.tailscale.enable = true;
 
 # Dynamic linking (impure)
 #programs.nix-ld.enable = true;
