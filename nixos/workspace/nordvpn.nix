@@ -7,7 +7,7 @@
     # FIXME: Set as an absolute path to a file containing your token. It's a
     # secret to be careful with permissions and ownership etc... and do not
     # include the token in your nix config.
-    tokenFile = "/home/tina/dotfiles/nixos/workspace/token.txt";
+    tokenFile = "/home/tina/dotfiles/token.txt";
     # This template works as is but you can customise it if you want
     template = pkgs.writeText "template.conf" ''
       [Interface]
