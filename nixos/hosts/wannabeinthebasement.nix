@@ -149,14 +149,6 @@
           }
         ];
       };
-
-      #Direct Link via 10gbit/s copper
-      enp67s0f0 = {
-        ipv4.addresses = [{
-          address = "10.0.0.1";
-          prefixLength = 24;
-        }];
-      };
     };
     #How do we get on the internet
     defaultGateway = { 
