@@ -13,6 +13,7 @@ let
     MIDSPEED=0x20
     HIGHSPEED=0x64
 
+    ${ipmitool}/bin/ipmitool raw 0x30 0x30 0x01 0x00
     while true; do
         HIGHESTTEMP=$(${ipmitool}/bin/ipmitool sdr type temperature | ${pkgs.gnugrep}/bin/grep -Po '\d+(?= degrees C)' | sort -n | tail -1)
         if [ -z "$HIGHESTTEMP" ]; then
