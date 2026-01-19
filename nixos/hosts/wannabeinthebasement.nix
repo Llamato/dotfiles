@@ -131,7 +131,20 @@
 
       #Internet via 1gbit/s
       eno1 = {
-        useDHCP = true;
+        ipv4.addresses = [{
+          address = "192.168.3.14";
+          prefixLength = 24;
+        }];
+      };
+
+      #Local network via 2.5gbit/s fibre
+      enp67s0f1 = {
+        ipv4.addresses = [
+          {
+            address = "192.168.3.15";
+            prefixLength = 24;
+          }
+        ];
       };
 
       #Direct Link via 10gbit/s copper
@@ -142,6 +155,12 @@
         }];
       };
     };
+    #How do we get on the internet
+    defaultGateway = { 
+      address = "192.168.3.1";
+      interface = "eno1"; 
+    };
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
   };
 
   # This value determines the NixOS release from which the default
