@@ -1,4 +1,5 @@
-{pkgs, lib, ...} : {
+{ pkgs, lib, ... }:
+{
   #Smb direct remote mount
   security.wrappers."mount.cifs" = {
     program = "mount.cifs";

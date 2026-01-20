@@ -1,6 +1,10 @@
-{ config, pkgs, inputs, lib, ... }: {
+{
+  pkgs,
+  ...
+}:
+{
   #Quantum
-  imports = [../modules/oqs-openssh.nix ];
+  imports = [ ../modules/oqs-openssh.nix ];
 
   #Server
   services.openssh = {
@@ -17,16 +21,29 @@
       X11Forwarding = false;
       PermitRootLogin = "no";
       KexAlgorithms = null;
-      AllowUsers = [ "tina" "romana" ];
+      AllowUsers = [
+        "tina"
+        "romana"
+      ];
     };
   };
 
   #Client
   programs.ssh = {
     package = pkgs.oqs-openssh;
-    kexAlgorithms = [ "curve25519-sha256" "curve25519-sha256@libssh.org" "diffie-hellman-group-exchange-sha256" "diffie-hellman-group14-sha256" ];
-    pubkeyAcceptedKeyTypes = [ "ssh-rsa" "ssh-ed25519" "ssh-falcon512" "ssh-falcon1024" ];
+    kexAlgorithms = [
+      "curve25519-sha256"
+      "curve25519-sha256@libssh.org"
+      "diffie-hellman-group-exchange-sha256"
+      "diffie-hellman-group14-sha256"
+    ];
+    pubkeyAcceptedKeyTypes = [
+      "ssh-rsa"
+      "ssh-ed25519"
+      "ssh-falcon512"
+      "ssh-falcon1024"
+    ];
     #extraConfig = "#Extra config";
   };
-  environment.systemPackages = with pkgs;[ sshfs];
+  environment.systemPackages = with pkgs; [ sshfs ];
 }

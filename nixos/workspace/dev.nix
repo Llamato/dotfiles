@@ -1,6 +1,12 @@
-{config, lib, pkgs, ...}: {
-  
-  programs.nix-ld.enable =  lib.mkDefault true;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+
+  programs.nix-ld.enable = lib.mkDefault true;
 
   programs.direnv = {
     enable = true;
@@ -29,17 +35,17 @@
 
   environment.systemPackages = with pkgs; [
     renderdoc
-    imhex 
-    lldb 
+    imhex
+    lldb
     tracy
-    bat 
+    bat
     bat-extras.batman
-    gh 
-    lazygit 
+    gh
+    lazygit
     github-desktop
     config.boot.kernelPackages.perf
-    linux-manual 
-    man-pages 
+    linux-manual
+    man-pages
     man-pages-posix
     bat
     cloc
@@ -49,10 +55,14 @@
     #jetbrains.webstorm nodejs_24
     #jetbrains.clion
     lmstudio
-    nixd nixfmt
+    nixd
+    nixfmt
     bun
     godot
-    mesa clinfo mesa-demos vulkan-tools
+    mesa
+    clinfo
+    mesa-demos
+    vulkan-tools
     vice
     jdk8
     renderdoc

@@ -1,4 +1,5 @@
-{config, lib, pkgs, inputs, outputs, ...}: {
+{ config, ... }:
+{
   nix.settings = {
     log-lines = "35";
     max-jobs = "auto";
@@ -7,9 +8,11 @@
     experimental-features = "nix-command flakes";
   };
 
-  /*nix.gc = {
-    dates = "daily";
-    automatic = true;
-    options = "--delete-older-than 7d";
-  };*/
+  /*
+    nix.gc = {
+      dates = "daily";
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
+  */
 }

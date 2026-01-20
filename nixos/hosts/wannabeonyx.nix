@@ -2,7 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }: {
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
 
   # Lix (What the hell is lix?)
   #nix.package = pkgs.lixPackageSets.stable.lix;
@@ -12,8 +18,15 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Extra filesystems
-  boot.supportedFilesystems = [ "bcachefs" "xfs" "ntfs" "bitlocker" "exfat" "vfat" ];
-  
+  boot.supportedFilesystems = [
+    "bcachefs"
+    "xfs"
+    "ntfs"
+    "bitlocker"
+    "exfat"
+    "vfat"
+  ];
+
   # Extra Kernel modules
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback
@@ -32,7 +45,11 @@
   #boot.loader.systemd-boot.memtest86.enable = true;
 
   #Enable Architecture emulation in QEMU
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" "riscv64-linux" ];
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "armv7l-linux"
+    "riscv64-linux"
+  ];
 
   security.polkit.enable = true;
 
@@ -87,7 +104,7 @@
   # Enable sound without pipewire.
   services.pulseaudio = {
     enable = false;
-    
+
     # Daemon configuration to fix auto-regulation
     extraConfig = ''
       # Disable echo cancellation/AGC
@@ -102,30 +119,30 @@
     pulse.enable = true;
     alsa.enable = true;
     extraConfig.pipewire = {
-    "99-mic-fix" = {
-      "context.modules" = [
-        {
-          name = "libpipewire-module-access";
-          args = {
-            rules = [
-              {
-                matches = [
-                  [
-                    { "application.process.binary" = "electron"; }
-                    { "application.process.binary" = "webcord";  }
-                    { "application.process.binary" = "firefox";  }
-                    { "application.process.binary" = "vesktop";  }
-                  ]
-                ];
-                default_permissions = "rx";
-              }
-            ];
-          };
-        }
-      ];
+      "99-mic-fix" = {
+        "context.modules" = [
+          {
+            name = "libpipewire-module-access";
+            args = {
+              rules = [
+                {
+                  matches = [
+                    [
+                      { "application.process.binary" = "electron"; }
+                      { "application.process.binary" = "webcord"; }
+                      { "application.process.binary" = "firefox"; }
+                      { "application.process.binary" = "vesktop"; }
+                    ]
+                  ];
+                  default_permissions = "rx";
+                }
+              ];
+            };
+          }
+        ];
+      };
     };
   };
-};
 
   security.rtkit.enable = true;
 
@@ -139,15 +156,15 @@
     pinentryPackage = pkgs.pinentry-qt;
   };
 
-  programs.seahorse.enable = true; #pgp gui
+  programs.seahorse.enable = true; # pgp gui
 
   # Enable Kwallet for GPG
   security.pam.services.kwallet.enable = true;
 
-  # Enable Docker 
+  # Enable Docker
   virtualisation.docker.enable = true;
 
-  users.extraGroups.docker.members = [ "tina" ]; #Bad because this is effectively equivalent to being root according to https://nixos.wiki/wiki/Docker (dla: 12.10.2025)
+  users.extraGroups.docker.members = [ "tina" ]; # Bad because this is effectively equivalent to being root according to https://nixos.wiki/wiki/Docker (dla: 12.10.2025)
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
@@ -158,27 +175,34 @@
     tina = {
       isNormalUser = true;
       description = "Tina";
-      extraGroups = [ "networkmanager" "wheel" "scanner" "lp" "docker" ];
-      openssh.authorizedKeys.keys = [ 
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "scanner"
+        "lp"
+        "docker"
+      ];
+      openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINmuHyyOtAxG1GSuqIoeeGfV8XfLQGzS6zalYuAumlD+ tina_modern"
         "ssh-falcon1024 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 tina@wannabeonyx"
-        "ssh-falcon512 AAAADXNzaC1mYWxjb241MTIAAAOBCYselVfYAiMNMr/352O5W05OFNCDgR/VQOKtihMduSTDbZFYUxXU+b8Kh3IBg9A3aw0FcMp6PayAiu5oV5WL0zdoivJP1pGakIKUdFhdFCH9xtfIiJGQP9b7X8dpKtaYXF0TnVgVNcHqi13W/1AX4bQtiJ92WFoTcUklFy7SuL5M1vmmKM+olOoWXdChD+wW49ffqaTmyJUT5PtVCdIj+aCKDiWsxl+X12Z6NGq5LcteXbeqtZCytymU6RGKyHyswpb+CVQzCdA2YdjzKcy7pRzKJqzUJ9JRTHaAUUQ7PlgGnfjakGXC4bMg7xLEw/CUBaVCOqqFJFJdxwADUo52LPK3gdZ2KrM55GZgYhxG8FMDChxYsXAzhUQmPgSGX8pDZfTUcMoBEjGRWMB7Q6OELL8DtiRZW+lG4zFhHlYV/gk4A/NSdIR6ikqIbRroqlTcl1q13JIfRl8STJbQ5VDPWUWrSYLQPRh9gsObblERZq6QKGjfrtkw5APBEHtCKTavCVeN6kKiC9dPPfbFYumt67bOrIkLmvpgjA0YGlKiCgj1l7rtS5pp5hAUymxlVRYoX+Usk4rB6LVJtD74sUpn7u6GioG365gBZ2HOdn0WT0eZbceJQ1i7qCuilqAfDN4rwVGNTS3FHoa1bgo9OQGWu6ArHA6ryQ6JSqQ1qibGDJGfPdjHxOPKnVkwN/TG+g29EfCAEKd0wo+J3AkKrWF58lgfx7jOyPrWCXh2EYC5cx50ujL78e1C4gephmZb7/ZzCqb02KuUMEqr0Tvn+wupWXhoXtVdONYHWJlgTYm8aHXA/IhyNWCHFGl0rELlXuxWlRXrFmTq73ccBRHrZhBtxV/yg6d7Pr65txKi3nzJD8H56UNPhIqJrk0jr7HsZbhXwAQd7KhJwDcTAj7oTkEtoYhHtQCuigvssKIqg/6KMF4KjmKLuggt+VidBRYFh/fo7CWHdDdGoS78W8LmCiyv4JrMxnBCA5aKUDEXq8rauuHKkO8wAD6N98BORNazEKC5fKxDYAHYW/bYYWQofaSgygx/daYVvZ/dDyDGxkIUBUAKjSsCLEQd+M2qvpv/QMgOYUQhWy/KOgaDgzCX6KQDOBscJVIBp9DWWJuh0dGuliCCgbP2CMb+VlonMY/dJX00Vnb62nhmRKyi56UHTb1LxlgVtztpVRIphbKrfZlCOE3v tina@wannabeonyx" ];
+        "ssh-falcon512 AAAADXNzaC1mYWxjb241MTIAAAOBCYselVfYAiMNMr/352O5W05OFNCDgR/VQOKtihMduSTDbZFYUxXU+b8Kh3IBg9A3aw0FcMp6PayAiu5oV5WL0zdoivJP1pGakIKUdFhdFCH9xtfIiJGQP9b7X8dpKtaYXF0TnVgVNcHqi13W/1AX4bQtiJ92WFoTcUklFy7SuL5M1vmmKM+olOoWXdChD+wW49ffqaTmyJUT5PtVCdIj+aCKDiWsxl+X12Z6NGq5LcteXbeqtZCytymU6RGKyHyswpb+CVQzCdA2YdjzKcy7pRzKJqzUJ9JRTHaAUUQ7PlgGnfjakGXC4bMg7xLEw/CUBaVCOqqFJFJdxwADUo52LPK3gdZ2KrM55GZgYhxG8FMDChxYsXAzhUQmPgSGX8pDZfTUcMoBEjGRWMB7Q6OELL8DtiRZW+lG4zFhHlYV/gk4A/NSdIR6ikqIbRroqlTcl1q13JIfRl8STJbQ5VDPWUWrSYLQPRh9gsObblERZq6QKGjfrtkw5APBEHtCKTavCVeN6kKiC9dPPfbFYumt67bOrIkLmvpgjA0YGlKiCgj1l7rtS5pp5hAUymxlVRYoX+Usk4rB6LVJtD74sUpn7u6GioG365gBZ2HOdn0WT0eZbceJQ1i7qCuilqAfDN4rwVGNTS3FHoa1bgo9OQGWu6ArHA6ryQ6JSqQ1qibGDJGfPdjHxOPKnVkwN/TG+g29EfCAEKd0wo+J3AkKrWF58lgfx7jOyPrWCXh2EYC5cx50ujL78e1C4gephmZb7/ZzCqb02KuUMEqr0Tvn+wupWXhoXtVdONYHWJlgTYm8aHXA/IhyNWCHFGl0rELlXuxWlRXrFmTq73ccBRHrZhBtxV/yg6d7Pr65txKi3nzJD8H56UNPhIqJrk0jr7HsZbhXwAQd7KhJwDcTAj7oTkEtoYhHtQCuigvssKIqg/6KMF4KjmKLuggt+VidBRYFh/fo7CWHdDdGoS78W8LmCiyv4JrMxnBCA5aKUDEXq8rauuHKkO8wAD6N98BORNazEKC5fKxDYAHYW/bYYWQofaSgygx/daYVvZ/dDyDGxkIUBUAKjSsCLEQd+M2qvpv/QMgOYUQhWy/KOgaDgzCX6KQDOBscJVIBp9DWWJuh0dGuliCCgbP2CMb+VlonMY/dJX00Vnb62nhmRKyi56UHTb1LxlgVtztpVRIphbKrfZlCOE3v tina@wannabeonyx"
+      ];
       packages = [
-        
+
       ];
     };
 
     romana = {
-    isNormalUser = true;
-    home = "/home/romana";
-    password = "6301";
-    openssh.authorizedKeys.keys = [ 
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM30of3vRzm2aB5f+b9HVVNKh811emm7ZD4OW9v2tfcx u0_a468@localhost" 
+      isNormalUser = true;
+      home = "/home/romana";
+      password = "6301";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM30of3vRzm2aB5f+b9HVVNKh811emm7ZD4OW9v2tfcx u0_a468@localhost"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAING7VPuszU2P1fYm/h8ZTywzfNhHHPZFFbL2pUdIQfSq flash@bios"
       ];
     };
   };
-  
+
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -197,7 +221,7 @@
       wlrobs
       obs-backgroundremoval
       obs-pipewire-audio-capture
-      obs-vaapi #optional AMD hardware acceleration
+      obs-vaapi # optional AMD hardware acceleration
       obs-gstreamer
       obs-vkcapture
     ];
@@ -206,7 +230,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget dig
+    wget
+    dig
     spacenavd
     libspnav
     dislocker
@@ -214,50 +239,67 @@
     pwvucontrol
     powertop
     ryzen-monitor-ng
-    sg3_utils iotop mission-center
-    ethtool inetutils iperf3 vnstat
+    sg3_utils
+    iotop
+    mission-center
+    ethtool
+    inetutils
+    iperf3
+    vnstat
     cifs-utils
 
     #Formerly user packages
     inputs.gcalc.packages.${pkgs.system}.default
     inputs.gcrypt.packages.${pkgs.system}.default
     inputs.gbounce.packages.${pkgs.system}.default
-    inputs.stenc.packages.${pkgs.system}.stenc archivemount
+    inputs.stenc.packages.${pkgs.system}.stenc
+    archivemount
     git
     kdePackages.kate
     thunderbird
     discord
     ffmpeg
-    cool-retro-term sl
-    kdePackages.kdenlive rawtherapee
+    cool-retro-term
+    sl
+    kdePackages.kdenlive
+    rawtherapee
     vlc
     gimp3
     telegram-desktop
-    fastfetch cpufetch gpufetch
+    fastfetch
+    cpufetch
+    gpufetch
     python3
     libreoffice-qt6-fresh
-    simple-scan gocr unpaper netpbm
+    simple-scan
+    gocr
+    unpaper
+    netpbm
     rnote
     wayland
     blueman
     obsidian
     virt-manager
     gparted
-    zip unzip xz rsync
+    zip
+    unzip
+    xz
+    rsync
     stress
     hardinfo2
     qdiskinfo
     tree
     nix-tree
-    element-desktop #cinny-desktop
+    element-desktop # cinny-desktop
     texlive.combined.scheme-full
     p7zip
     hexedit
     kdePackages.ark
     wlvncc
-    monero-gui bitcoin
+    monero-gui
+    bitcoin
     #vscode-fhs
-     docker-compose  
+    docker-compose
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
@@ -293,7 +335,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-  
+
   #fonts
   fonts = {
     enableDefaultPackages = true;
@@ -305,35 +347,37 @@
 
   #Virtual machine manager setup
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["tina"];
+  users.groups.libvirtd.members = [ "tina" ];
   virtualisation.libvirtd = {
-  enable = true;
-  onBoot = "start";
-  qemu = {
-    package = pkgs.qemu_kvm;
-    runAsRoot = true;
-    swtpm.enable = true;
-    /*ovmf = {
-      enable = true;
-      packages = [(pkgs.OVMF.override {
-        secureBoot = true;
-        tpmSupport = true;
-        }).fd];
-      };*/
+    enable = true;
+    onBoot = "start";
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+      /*
+        ovmf = {
+        enable = true;
+        packages = [(pkgs.OVMF.override {
+          secureBoot = true;
+          tpmSupport = true;
+          }).fd];
+        };
+      */
     };
   };
 
-    #Enable closed source printer driver package
-    services.printing.drivers = [ 
-      pkgs.hplip
-    ];
+  #Enable closed source printer driver package
+  services.printing.drivers = [
+    pkgs.hplip
+  ];
 
-    #Enable networked printers
-    services.avahi = {
-      enable = true;
-      nssmdns4 = true;
-      openFirewall = true;
-    };
+  #Enable networked printers
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   #Scanner setup
   hardware.sane.enable = true;
@@ -354,7 +398,8 @@
   networking = {
     interfaces = {
 
-      eno1 = { #2.5gbit/s local network
+      eno1 = {
+        # 2.5gbit/s local network
         useDHCP = false;
         ipv4.addresses = [
           {
@@ -364,7 +409,8 @@
         ];
       };
 
-      eno2 = { #10gbit/s direct connect
+      eno2 = {
+        # 10gbit/s direct connect
         useDHCP = false;
         ipv4.addresses = [
           {
@@ -375,26 +421,29 @@
       };
     };
 
-#    wireless = {
-#      enable = true;
-#      networks = {
-#        "Ponto-3" = {
-#          psk = "Ponto-233603";
-#        };
-#      };
-#    };
+    #    wireless = {
+    #      enable = true;
+    #      networks = {
+    #        "Ponto-3" = {
+    #          psk = "Ponto-233603";
+    #        };
+    #      };
+    #    };
 
-     #How do we get on the internet
-     defaultGateway = { 
+    #How do we get on the internet
+    defaultGateway = {
       address = "192.168.3.1";
-      interface = "eno1"; 
+      interface = "eno1";
     };
-    nameservers = [ "1.1.1.1" "1.0.0.1" ];
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
   };
 
   #VPN things
-#  services.tailscale.enable = true;
+  #  services.tailscale.enable = true;
 
-# Dynamic linking (impure)
-#programs.nix-ld.enable = true;
+  # Dynamic linking (impure)
+  #programs.nix-ld.enable = true;
 }

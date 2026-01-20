@@ -1,8 +1,13 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   ipmitool = pkgs.ipmitool;
-  
+
   dellfancontroller = pkgs.writeShellScriptBin "dellfancontroller" ''
     #!/bin/sh
     LOWTEMP=50
@@ -39,7 +44,7 @@ in
     enable = lib.mkEnableOption "Dell PowerEdge fan controller";
   };
 
-  config = lib.mkIf (config.services.dellfancontroller or {}).enable {
+  config = lib.mkIf (config.services.dellfancontroller or { }).enable {
     environment.systemPackages = [
       pkgs.ipmitool
       dellfancontroller
@@ -49,7 +54,7 @@ in
       description = "Dell PowerEdge Fan Controller";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
-      
+
       serviceConfig = {
         Type = "simple";
         ExecStart = "${dellfancontroller}/bin/dellfancontroller";

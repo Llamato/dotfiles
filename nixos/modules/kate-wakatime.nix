@@ -1,5 +1,10 @@
 # Made by Computer_Q (https://github.com/QuintenMuyllaert)
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   # Derivation for kate-wakatime plugin
@@ -14,7 +19,11 @@ let
       hash = "sha256-H3VgL7CpiJphU0G50F8gvpCIa3/S6uP6EjhVcuim5fI=";
     };
 
-    nativeBuildInputs = [ pkgs.cmake pkgs.extra-cmake-modules pkgs.pkg-config ];
+    nativeBuildInputs = [
+      pkgs.cmake
+      pkgs.extra-cmake-modules
+      pkgs.pkg-config
+    ];
     buildInputs = [
       pkgs.qt6.qtbase
       pkgs.kdePackages.ktexteditor
@@ -49,7 +58,11 @@ let
     src = null;
 
     nativeBuildInputs = [ pkgs.makeWrapper ];
-    buildInputs = [ pkgs.kdePackages.kate kateWakatime pkgs.qt6.qtbase ];
+    buildInputs = [
+      pkgs.kdePackages.kate
+      kateWakatime
+      pkgs.qt6.qtbase
+    ];
 
     dontWrapQtApps = true;
 
@@ -79,7 +92,8 @@ let
     checkPhase = ":";
   };
 
-in {
+in
+{
   # Define the NixOS module options
   options = {
     services.kate-wakatime = {
@@ -93,12 +107,14 @@ in {
 
   # Module configuration
   config = lib.mkIf config.services.kate-wakatime.enable {
-    environment.systemPackages =
-      [ kateWakatime wakaKateWrapper pkgs.wakatime-cli ];
+    environment.systemPackages = [
+      kateWakatime
+      wakaKateWrapper
+      pkgs.wakatime-cli
+    ];
 
     # Ensure Kate finds the plugin and Qt plugins
-    environment.variables.KATE_PLUGIN_PATH =
-      "${kateWakatime}/lib/qt6/plugins/kf6/ktexteditor";
+    environment.variables.KATE_PLUGIN_PATH = "${kateWakatime}/lib/qt6/plugins/kf6/ktexteditor";
     environment.variables.QT_PLUGIN_PATH = "${pkgs.qt6.qtbase}/lib/qt6/plugins";
   };
 }
