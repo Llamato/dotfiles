@@ -215,7 +215,7 @@
     powertop
     ryzen-monitor-ng
     sg3_utils iotop mission-center
-    inetutils iperf3 vnstat
+    ethtool inetutils iperf3 vnstat
     cifs-utils
 
     #Formerly user packages
@@ -354,7 +354,7 @@
   networking = {
     interfaces = {
 
-      eno1 = { #1gbit/s
+      eno1 = { #2.5gbit/s local network
         useDHCP = false;
         ipv4.addresses = [
           {
@@ -364,11 +364,11 @@
         ];
       };
 
-      eno2 = { #10gbit/s
+      eno2 = { #10gbit/s direct connect
         useDHCP = false;
         ipv4.addresses = [
           {
-            address = "10.20.30.2";
+            address = "10.0.0.2";
             prefixLength = 24;
           }
         ];
