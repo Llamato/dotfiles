@@ -188,7 +188,7 @@ in {
     networks."30-usb-main" = {
       matchConfig.Name = "enp4s0u1c2";
       networkConfig = { 
-        Address = [ "192.168.3.13/24" ];
+        Address = [ "192.168.3.13/24" "10.20.30.4/24" ];
       };
       dhcpV4Config = {
         RouteMetric = 2000; # higher priority than bond

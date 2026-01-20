@@ -145,7 +145,7 @@
   networking = {
     interfaces = {
 
-      #Internet via 1gbit/s
+      #Internet and low speed network via 1gbit/s
       eno1 = {
         useDHCP = false;
         ipv4.addresses = [
@@ -164,10 +164,6 @@
             address = "10.20.30.3";
             prefixLength = 24;
           }
-          {
-            address = "192.168.3.15";
-            prefixLength = 24;
-          }
         ];
       };
     };
@@ -177,7 +173,7 @@
       address = "192.168.3.1";
       interface = "eno1";
     };
-    
+
     nameservers = [
       "1.1.1.1"
       "1.0.0.1"
