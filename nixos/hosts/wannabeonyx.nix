@@ -414,7 +414,7 @@
         useDHCP = false;
         ipv4.addresses = [
           {
-            address = "10.0.0.2";
+            address = "10.20.30.2";
             prefixLength = 24;
           }
         ];
