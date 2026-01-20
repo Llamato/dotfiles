@@ -97,14 +97,14 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     ledmon
-    wget iperf
+    wget git
+    iperf ethtool
     gparted
     btop
     fastfetch
     megacli ipmitool
     pciutils lshw
     smartmontools e2fsprogs
-    git
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
