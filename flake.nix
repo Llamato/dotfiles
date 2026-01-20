@@ -2,7 +2,6 @@
   description = "Tina's NixOS configurations and dotfiles";
 
   inputs = {
-    #nixpkgs2511.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs";
@@ -78,6 +77,7 @@
       #packages = forAllSystems (system: import ./nixos/packages nixpkgs.legacyPackages.${system});
 
       nixosConfigurations = {
+
         wannabeonyx = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
@@ -110,6 +110,7 @@
             #./nixos/workspace/qssh.nix
           ];
         };
+
         wannabeinthebasement = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
@@ -121,6 +122,35 @@
             ./nixos/modules/dellfancontrol.nix
           ];
         };
+
+        llamkatttserver = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs outputs; };
+        modules = [
+          ({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
+          ./common.nix
+          ./nixos/hosts/llamkattthpmicroserver.nix
+          ./nixos/hosts/llamkattthpmicroserver-hw.nix
+
+          #./nixos/modules/oqs-openssh.nix
+
+          #./nixos/services/ssh.nix
+          #./nixos/services/qssh.nix
+          ./nixos/services/cssh.nix
+          ./nixos/services/smb.nix
+          #./nixos/services/ftp.nix
+          #./nixos/services/telent.nix
+          ./nixos/services/virtualmaschines.nix
+          ./nixos/services/traefik.nix
+          ./nixos/services/bunserver.nix
+          #./nixos/services/transmission.nix
+          ./nixos/services/dbuild.nix
+          #./nixos/services/nordvpn.nix
+          #./nixos/services/zvitWg.nix
+          #./nixos/services/homeassistent.nix
+        ];
+      };
+
       };
     };
 }
