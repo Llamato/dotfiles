@@ -173,7 +173,6 @@
       address = "192.168.3.1";
       interface = "eno1";
     };
-
     nameservers = [
       "1.1.1.1"
       "1.0.0.1"
