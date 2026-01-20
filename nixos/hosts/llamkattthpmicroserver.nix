@@ -178,7 +178,7 @@ in {
     networks."20-bond0" = {
       matchConfig.Name = "bond0";
       networkConfig = {
-        Address = "192.168.3.11/24";
+        Address = [ "192.168.3.11/24" "10.20.30.6/24"];
         Gateway = "192.168.3.1";
         DNS = [ "1.1.1.1" "1.0.0.1" ];
       };
