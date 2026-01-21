@@ -9,16 +9,15 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
-
-  networking.hostName = "wannabeinthebasementRusb"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  #networking.networkmanager.enable = true;
+  # Extra filesystems
+  boot.supportedFilesystems = [
+    "bcachefs"
+    "xfs"
+    "ntfs"
+    "bitlocker"
+    "exfat"
+    "vfat"
+  ];
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -106,10 +105,8 @@
     wget
     git
     ethtool
-    inetutils
-    iperf3
-    vnstat
-    gparted
+    inetutils iperf3 vnstat
+    gptfdisk
     btop
     fastfetch
     megacli
@@ -141,6 +138,8 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
+
+  networking.hostName = "wannabeinthebasementRusb";
 
   networking = {
     interfaces = {
