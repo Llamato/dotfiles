@@ -12,7 +12,7 @@
               owner = "open-quantum-safe";
               repo = "openssh";
               rev = "OQS-v10";
-              sha256 = "sha256-kY8GU6t367lXwyQBoPhkrwL5KMpFuH7qB7qxsnQnkR0=";
+              sha256 = "sha256-YXuK6Lg790fkglVgJAWatkivqjqvJUL0bD/UCVhk2VI=";
             };
 
             nativeBuildInputs = [

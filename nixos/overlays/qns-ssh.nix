@@ -2,13 +2,12 @@
 final: prev: {            # 2. These are the standard overlay arguments
   oqs-openssh = prev.stdenv.mkDerivation {
     pname = "oqs-openssh";
-    version = "OQS-v10";
+    version = "OQS-OpenSSH-snapshot-2025-05";
 
     src = prev.fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "openssh";
-      rev = "OQS-v10";
-      sha256 = "sha256-kY8GU6t367lXwyQBoPhkrwL5KMpFuH7qB7qxsnQnkR0=";
+      sha256 = "sha256-YXuK6Lg790fkglVgJAWatkivqjqvJUL0bD/UCVhk2VI=";
     };
 
     nativeBuildInputs = [ 

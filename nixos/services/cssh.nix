@@ -1,6 +1,10 @@
-{ config, pkgs, inputs, lib, ... }: {
+{ pkgs, ... }: {
+
+  #Quantum
+  imports = [ ../modules/oqs-openssh.nix ];
+
   services.openssh = {
-    package = pkgs.openssh;
+    package = pkgs.oqs-openssh;
     enable = true;
     allowSFTP = true;
     ports = [ 22 ];
@@ -15,7 +19,13 @@
       UseDns = true;
       X11Forwarding = false;
       PermitRootLogin = "no";
-      KexAlgorithms = ["curve25519-sha256"];
+      KexAlgorithms = [
+        "mlkem768x25519-sha256"
+        #"sntrup761x25519-sha512"
+        "curve25519-sha256"
+        "diffie-hellman-group-exchange-sha256"
+        "diffie-hellman-group14-sha256"
+      ];
       AllowUsers = [
         "tina"
         "romana"
@@ -47,10 +57,4 @@
       }
     ];
   };
-  
-  programs.ssh.pubkeyAcceptedKeyTypes = [
-    "ssh-falcon512"
-    "ssh-falcon1024"
-    "ssh-ed25519"
-  ];
 }
