@@ -240,8 +240,7 @@
     powertop
     ryzen-monitor-ng
     sg3_utils
-    iotop
-    mission-center
+    iotop mission-center
     ethtool
     inetutils
     iperf3
