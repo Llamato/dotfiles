@@ -191,16 +191,6 @@
 
       ];
     };
-
-    romana = {
-      isNormalUser = true;
-      home = "/home/romana";
-      password = "6301";
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM30of3vRzm2aB5f+b9HVVNKh811emm7ZD4OW9v2tfcx u0_a468@localhost"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAING7VPuszU2P1fYm/h8ZTywzfNhHHPZFFbL2pUdIQfSq flash@bios"
-      ];
-    };
   };
 
   # Install firefox.
@@ -240,11 +230,7 @@
     powertop
     ryzen-monitor-ng
     sg3_utils
-    iotop mission-center
-    ethtool
-    inetutils
-    iperf3
-    vnstat
+    vnstat iperf3 iotop mission-center ethtool inetutils
     cifs-utils
 
     #Formerly user packages

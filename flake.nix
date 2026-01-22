@@ -26,7 +26,7 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland";
+      url = "github:hyprwm/Hyprland?ref=v0.53.1";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -79,16 +79,10 @@
       #packages = forAllSystems (system: import ./nixos/packages nixpkgs.legacyPackages.${system});
 
       nixosConfigurations = {
-
         wannabeonyx = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs outputs;
-            /*
-              overlays = [
-                (import ./nixos/overlays/qns-ssh.nix {})
-              ];
-            */
           };
           modules = [
             #({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
@@ -99,7 +93,7 @@
             ./nixos/modules/hyprland.nix
             #./nixos/modules/kate-wakatime.nix
 
-            ./nixos/workspace/ssh.nix
+            #./nixos/workspace/ssh.nix
             ./nixos/workspace/dev.nix
             ./nixos/workspace/eda.nix
             ./nixos/workspace/3d.nix
@@ -129,7 +123,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
-          ({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
+          #({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
           ./common.nix
           ./nixos/hosts/llamkattthpmicroserver.nix
           ./nixos/hosts/llamkattthpmicroserver-hw.nix
