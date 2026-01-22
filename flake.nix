@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
     nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
@@ -54,7 +56,7 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
-      easymotion,
+      nix-darwin, easymotion,
       hyprland,
       split-monitor-workspaces,
       hyprsplit,
@@ -152,5 +154,15 @@
       };
 
       };
+      darwinConfigurations = {
+      apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = {inherit inputs outputs;};
+        modules = [
+          ./common.nix
+          ./darwin/hosts/apowerbooksgrandchild.nix
+        ];
+      };
     };
+  };
 }

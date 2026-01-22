@@ -8,14 +8,14 @@
 
   programs.nix-ld.enable = lib.mkDefault true;
 
-  programs.direnv = {
+  /*programs.direnv = {
     enable = true;
     loadInNixShell = true;
     enableZshIntegration = true;
     enableFishIntegration = true;
-  };
+  };*/
 
-  documentation = {
+  /*documentation = {
     enable = true;
     dev.enable = true;
     man = {
@@ -24,7 +24,7 @@
       generateCaches = true;
       man-db.enable = false;
     };
-  };
+  };*/
 
   programs.git = {
     enable = true;
