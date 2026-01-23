@@ -122,6 +122,7 @@ in {
     };
   };
   environment.systemPackages = with pkgs; [
+    screen
     iperf iotop vnstat inetutils
     lm_sensors
     btop
