@@ -90,6 +90,7 @@
     lshw
     smartmontools
     e2fsprogs
+    minicom
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
