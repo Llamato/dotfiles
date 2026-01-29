@@ -7,7 +7,7 @@
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.device = "/dev/disk/by-uuid/34cf0c01-1c7d-4488-8db3-b1913b8aec37";
   boot.loader.grub.useOSProber = true;
   
   # Extra filesystems
