@@ -33,6 +33,7 @@
   fileSystems."/mnt/stripe" = {
     device = "/dev/disk/by-uuid/c1c7c450-9c31-4bc7-8642-b0d263660c38";
     fsType = "bcachefs";
+    options = [ "nofail" ];
   };
 
   swapDevices = [ ];
