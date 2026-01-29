@@ -7,7 +7,7 @@
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/disk/by-uuid/34cf0c01-1c7d-4488-8db3-b1913b8aec37";
+  boot.loader.grub.device = "/dev/disk/by-id/usb-USB_SanDisk_3.2Gen1_0101b46449c6505a1415e87b396199107099b9cb7c9acb7303efb7db9f60d9514a25000000000000000000003a0578a3ff865000955581077fac1d28-0:0";
   boot.loader.grub.useOSProber = true;
   
   # Extra filesystems
