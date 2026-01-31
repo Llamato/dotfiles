@@ -35,6 +35,9 @@ in
     terminal = "cool-retro-term";
   };
 
+  #Webbrowser
+  programs.firefox.enable = true;
+
   #xdg config
   xdg.terminal-exec = {
     enable = true;
@@ -58,7 +61,7 @@ in
     waybar
     dunst
     (pkgs.callPackage inputs.nixpkgs-unstable { }).vicinae
-    kitty
+    kitty cool-retro-term
     nautilus
     gnome-disk-utility
     imv
