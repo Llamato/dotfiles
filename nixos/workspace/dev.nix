@@ -54,7 +54,7 @@
     #jetbrains.rider
     #jetbrains.webstorm nodejs_24
     #jetbrains.clion
-    lmstudio
+    #lmstudio
     nixd
     nixfmt
     bun
