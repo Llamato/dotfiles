@@ -68,7 +68,6 @@
     nixfmt
     bun
     godot
-    mesa
     clinfo
     mesa-demos
     vulkan-tools

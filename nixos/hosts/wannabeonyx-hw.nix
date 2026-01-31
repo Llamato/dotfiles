@@ -130,6 +130,7 @@
     pciutils
     hwloc
     usbutils
+    mesa
     #ryzen-monitor-ng
     (btop.override { rocmSupport = true; })
     #openrgb-with-all-plugins
