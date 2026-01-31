@@ -69,8 +69,6 @@
     bun
     godot
     clinfo
-    mesa-demos
-    vulkan-tools
     vice
     jdk8
     renderdoc

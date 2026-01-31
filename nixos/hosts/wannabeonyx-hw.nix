@@ -124,15 +124,16 @@
   programs.coolercontrol.enable = true;
   programs.corectrl.enable = true;
   environment.systemPackages = with pkgs; [
-    rocmPackages.rocm-smi
     lm_sensors
     liquidctl # Corsair monitoring and settings
     pciutils
     hwloc
     usbutils
     mesa
-    #ryzen-monitor-ng
+    mesa-demos
+    vulkan-tools
     (btop.override { rocmSupport = true; })
+    rocmPackages.rocm-smi
     #openrgb-with-all-plugins
     #(pkgs.callPackage inputs.nixpkgs-hyprgirl { }).ryzen-monitor-ng
   ];

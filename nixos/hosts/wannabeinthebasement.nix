@@ -18,6 +18,7 @@
     "bitlocker"
     "exfat"
     "vfat"
+    "zfs"
   ];
 
   # Set your time zone.
@@ -73,7 +74,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     screen
     ledmon
     wget
@@ -116,6 +116,7 @@
   networking.firewall.enable = false;
 
   networking.hostName = "wannabeinthebasementRusb";
+  networking.hostId = "00006301";
 
   networking = {
     interfaces = {
