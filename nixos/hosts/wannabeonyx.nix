@@ -149,15 +149,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  #Set up PGP
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
-
-  programs.seahorse.enable = true; # pgp gui
-
   # Enable Kwallet for GPG
   security.pam.services.kwallet.enable = true;
 

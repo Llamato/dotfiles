@@ -26,6 +26,15 @@
     };
   };*/
 
+  #Set up PGP
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-qt;
+  };
+  programs.seahorse.enable = true; # pgp gui
+
+  #Set up git
   programs.git = {
     enable = true;
     lfs.enable = true;
