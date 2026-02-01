@@ -20,6 +20,8 @@
     "zfs"
   ];
 
+  boot.zfs.extraPools = ["new-pool"];
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
