@@ -143,41 +143,59 @@ in {
   ];
 
   #Networking
+  systemd.network = {
+    enable = true;
+
+    # LACP bond setup
+    netdevs."10-bond0" = {
+      netdevConfig = {                                                                             
+        Name = "bond0";                                                                            
+        Kind = "bond";                                                                             
+      };   
+
+      bondConfig = {                                                                               
+        Mode = "802.3ad";                                                                          
+        TransmitHashPolicy = "layer3+4";                                                           
+        MIIMonitorSec = "1s";                                                                      
+        #LACPTransmitRate = "fast";                                                           
+      };                                                                                           
+    };                                                                                             
+                                                                                                   
+    # Bond slaves                                                                                  
+    networks."10-eno1" = {                                                                         
+      matchConfig.Name = "eno1";                                                                   
+      networkConfig.Bond = "bond0";                                                                
+    };                                                                                             
+                                                                                                   
+    networks."10-eno2" = {
+      matchConfig.Name = "eno2";
+      networkConfig.Bond = "bond0";
+    };
+
+    # Bond IP config (static)
+    networks."20-bond0" = {
+      matchConfig.Name = "bond0";
+      networkConfig = {
+        Address = [ "192.168.3.11/24" ];
+        Gateway = "192.168.3.1";
+        DNS = [ "1.1.1.1" "1.0.0.1" ];
+      };
+    };
+
+    # Usb 2.5gbit/s Main
+    networks."30-usb-main" = {
+      matchConfig.Name = "enp4s0u1c2";
+      networkConfig = { 
+        Address = [ "10.20.30.4/24" ];
+      };
+      dhcpV4Config = {
+        RouteMetric = 2000; # higher priority than bond
+      };
+    };
+  };
+
   #networkmanager.enable = lib.mkForce false;
   networking.firewall.enable = false;  
   networking.useNetworkd = true;
   networking.useDHCP = false;
-  networking = {
-    interfaces = {
-      
-      # 1git/s copper fallback
-      eno1 = {
-        ipv4.addresses = [
-          {
-            address = "192.168.3.11";
-            prefixLength = 24;
-          }
-        ];
-      };
-
-      enp4s0u1c2 = {
-        ipv4.addresses = [
-          {
-            address = "10.20.30.4";
-            prefixLength = 24;
-          }
-        ];
-      };
-    };
-
-    #How do we get on the internet
-    defaultGateway = {
-      address = "192.168.3.1";
-      interface = "eno1";
-    };
-    nameservers = [
-      "192.168.3.1"
-      "192.168.1.1"
-    ];
-  };
 }
