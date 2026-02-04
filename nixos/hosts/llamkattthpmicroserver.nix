@@ -155,10 +155,10 @@ in {
 
       bondConfig = {                                                                               
         Mode = "802.3ad";                                                                          
-        TransmitHashPolicy = "layer3+4";                                                           
+        TransmitHashPolicy = "layer2+3";                                                           
         MIIMonitorSec = "1s";                                                                      
-        #LACPTransmitRate = "fast";                                                           
-      };                                                                                           
+        #LACPTransmitRate = "fast";                                                                 
+      };                                                                                             
     };                                                                                             
                                                                                                    
     # Bond slaves                                                                                  
@@ -187,6 +187,7 @@ in {
       matchConfig.Name = "enp4s0u1c2";
       networkConfig = { 
         Address = [ "10.20.30.4/24" ];
+        Gateway = "10.20.30.1";
       };
       dhcpV4Config = {
         RouteMetric = 2000; # higher priority than bond

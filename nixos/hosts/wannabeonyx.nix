@@ -218,9 +218,10 @@
     powertop
     ryzen-monitor-ng
     sg3_utils
-    vnstat iperf3 iotop mission-center ethtool inetutils net-tools
+    vnstat iperf3 iotop mission-center ethtool inetutils net-tools mtr
     cifs-utils
-
+    ghidra
+    
     #Formerly user packages
     inputs.gcalc.packages.${pkgs.system}.default
     inputs.gcrypt.packages.${pkgs.system}.default
@@ -273,6 +274,10 @@
     bitcoin
     #vscode-fhs
     docker-compose
+    android-file-transfer
+    mtpfs
+    exiftool
+    cinny
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
