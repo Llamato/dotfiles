@@ -155,7 +155,7 @@ in {
 
       bondConfig = {                                                                               
         Mode = "802.3ad";                                                                          
-        TransmitHashPolicy = "layer3+4";                                                           
+        TransmitHashPolicy = "layer2+3";                                                           
         MIIMonitorSec = "1s";                                                                                                                                     
       };                                                                                             
     };                                                                                             
@@ -171,7 +171,6 @@ in {
       networkConfig.Bond = "bond0";
     };
 
-    # Bond IP config (static)
     networks."20-bond0" = {
       matchConfig.Name = "bond0";
       networkConfig = {
