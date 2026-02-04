@@ -110,50 +110,73 @@
   # Enable custom fan controller
   services.dellfancontroller.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
-
   networking.hostName = "wannabeinthebasementRusb";
   networking.hostId = "00006301";
+  networking.firewall.enable = false;  
+  networking.useNetworkd = true;
+  networking.useDHCP = false;
+  systemd.network = {
+    enable = true;
 
-  networking = {
-    interfaces = {
+    # LACP bond setup
+    netdevs."10-bond0" = {
+      netdevConfig = {                                                                             
+        Name = "bond0";                                                                            
+        Kind = "bond";                                                                             
+      };   
 
-      #Internet and low speed network via 1gbit/s
-      eno1 = {
-        useDHCP = false;
-        ipv4.addresses = [
-          {
-            address = "192.168.3.14";
-            prefixLength = 24;
-          }
-        ];
-      };
+      bondConfig = {                                                                               
+        Mode = "802.3ad";                                                                          
+        TransmitHashPolicy = "layer3+4";                                                           
+        MIIMonitorSec = "1s";                                                                                                                                    
+      };                                                                                             
+    };                                                                                             
+                                                                                                   
+    # Bond slaves                                                                                  
+    networks."10-eno1" = {                                                                         
+      matchConfig.Name = "eno1";                                                                   
+      networkConfig.Bond = "bond0";                                                                
+    };                                                                                             
+                                                                                                   
+    networks."10-eno2" = {
+      matchConfig.Name = "eno2";
+      networkConfig.Bond = "bond0";
+    };
 
-      #Local network via 10gbit/s fibre
-      enp67s0f0 = {
-        useDHCP = false;
-        ipv4.addresses = [
-          {
-            address = "10.20.30.3";
-            prefixLength = 24;
-          }
-        ];
+    networks."10-eno3" = {                                                                         
+      matchConfig.Name = "eno3";                                                                   
+      networkConfig.Bond = "bond0";                                                                
+    };                                                                                             
+                                                                                                   
+    networks."10-eno4" = {
+      matchConfig.Name = "eno4";
+      networkConfig.Bond = "bond0";
+    };
+
+    # Bond IP config (static)
+    networks."20-bond0" = {
+      matchConfig.Name = "bond0";
+      networkConfig = {
+        Address = [ "192.168.3.14/24" ];
+        Gateway = "192.168.3.1";
+        DNS = [ "1.1.1.1" "1.0.0.1" ];
       };
     };
 
-    #How do we get on the internet
-    defaultGateway = {
-      address = "192.168.3.1";
-      interface = "eno1";
+    # Fibre 10gbit/s Main
+    networks."30-fibre-main" = {
+      matchConfig.Name = "enp67s0f0";
+      networkConfig = { 
+        Address = [ "10.20.30.3/24" ];
+        #Gateway = "10.20.30.1";
+      };
+
+      dhcpV4Config = {
+        RouteMetric = 2000; # higher priority than bond
+      };
     };
-    nameservers = [
-      "8.8.8.8"
-    ];
   };
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
