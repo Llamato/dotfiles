@@ -108,6 +108,33 @@
           ];
         };
 
+        llamkatttserver = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            #({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
+            ./common.nix
+            ./nixos/hosts/llamkattthpmicroserver.nix
+            ./nixos/hosts/llamkattthpmicroserver-hw.nix
+
+            #./nixos/modules/oqs-openssh.nix
+
+            #./nixos/services/ssh.nix
+            #./nixos/services/qssh.nix
+            ./nixos/services/cssh.nix
+            ./nixos/services/smb.nix
+            #./nixos/services/ftp.nix
+            #./nixos/services/telent.nix
+            ./nixos/services/virtualmaschines.nix
+            ./nixos/services/traefik.nix
+            ./nixos/services/bunserver.nix
+            #./nixos/services/transmission.nix
+            ./nixos/services/dbuild.nix
+            #./nixos/services/nordvpn.nix
+            #./nixos/services/zvitWg.nix
+            #./nixos/services/homeassistent.nix
+          ];
+        };
         wannabeinthebasement = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
@@ -117,37 +144,9 @@
             ./nixos/hosts/wannabeinthebasement.nix
             ./nixos/hosts/wannabeinthebasement-hw.nix
             ./nixos/modules/dellfancontrol.nix
+            (import ./nixos/services/smb.nix {shareName = "stripe";})
           ];
         };
-
-        llamkatttserver = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs outputs; };
-        modules = [
-          #({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
-          ./common.nix
-          ./nixos/hosts/llamkattthpmicroserver.nix
-          ./nixos/hosts/llamkattthpmicroserver-hw.nix
-
-          #./nixos/modules/oqs-openssh.nix
-
-          #./nixos/services/ssh.nix
-          #./nixos/services/qssh.nix
-          ./nixos/services/cssh.nix
-          ./nixos/services/smb.nix
-          #./nixos/services/ftp.nix
-          #./nixos/services/telent.nix
-          ./nixos/services/virtualmaschines.nix
-          ./nixos/services/traefik.nix
-          ./nixos/services/bunserver.nix
-          #./nixos/services/transmission.nix
-          ./nixos/services/dbuild.nix
-          #./nixos/services/nordvpn.nix
-          #./nixos/services/zvitWg.nix
-          #./nixos/services/homeassistent.nix
-        ];
-      };
-
       };
       darwinConfigurations = {
       apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
