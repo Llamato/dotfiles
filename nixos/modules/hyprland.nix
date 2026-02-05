@@ -86,5 +86,6 @@ in
     networkmanagerapplet
     file-roller
     gnome-keyring
+    pwvucontrol
   ];
 }

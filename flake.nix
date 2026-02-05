@@ -149,11 +149,11 @@
         ];
       };
       
-      wannabethinkpad = nixpkgs.lib.nixosSystem {
+      wannabethinkpad = nixpkgs-unstable.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
-          /etc/nixos/apple-silicon-support
+          ./nixos/modules/apple-silicon-support
           ./common.nix
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
