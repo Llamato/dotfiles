@@ -1,7 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["tina"];
+  users.groups.libvirtd.members = [ "tina"] ;
   virtualisation.libvirtd = {
   enable = true;
   onBoot = "start";

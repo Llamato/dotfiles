@@ -117,7 +117,9 @@
             ./nixos/hosts/wannabeinthebasement.nix
             ./nixos/hosts/wannabeinthebasement-hw.nix
             ./nixos/modules/dellfancontrol.nix
+            
             (import ./nixos/services/smb.nix {shareName = "stripe";})
+            ./nixos/services/virtualmaschines.nix
           ];
         };
 
