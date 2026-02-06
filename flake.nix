@@ -137,7 +137,7 @@
           #./nixos/services/ssh.nix
           #./nixos/services/qssh.nix
           ./nixos/services/cssh.nix
-          ./nixos/services/smb.nix
+          (import ./nixos/services/smb.nix {shareName = "raid";})
           #./nixos/services/ftp.nix
           #./nixos/services/telent.nix
           ./nixos/services/virtualmaschines.nix

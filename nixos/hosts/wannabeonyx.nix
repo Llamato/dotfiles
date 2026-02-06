@@ -380,7 +380,7 @@
         useDHCP = false;
         ipv4.addresses = [
           {
-            address = "192.168.3.21";
+            address = "10.20.30.11";
             prefixLength = 24;
           }
         ];
@@ -396,23 +396,34 @@
           }
         ];
       };
+      enp106s0u1 = {
+        # 1gbit/s fallback
+        useDHCP = false;
+        ipv4.addresses = [
+          {
+            address = "192.168.3.25";
+            prefixLength = 24;
+          }
+        ];
+      };
     };
 
-    #    wireless = {
-    #      enable = true;
-    #      networks = {
-    #        "Ponto-3" = {
-    #          psk = "Ponto-233603";
-    #        };
-    #      };
-    #    };
+    wireless = {
+      enable = false;
+      networks = {
+        "Ponto-3" = {
+          psk = "ponto-233603";
+        };
+      };
+    };
 
     #How do we get on the internet
     defaultGateway = {
       address = "192.168.3.1";
-      interface = "eno1";
+      interface = "enp106s0u1";
     };
     nameservers = [
+      "1.1.1.1"
       "9.9.9.9"
     ];
   };

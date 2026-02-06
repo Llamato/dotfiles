@@ -185,7 +185,7 @@ in {
       matchConfig.Name = "enp4s0u1c2";
       networkConfig = { 
         Address = [ "10.20.30.4/24" ];
-        Gateway = "10.20.30.1";
+        #Gateway = "10.20.30.1";
       };
       dhcpV4Config = {
         RouteMetric = 2000; # higher priority than bond
