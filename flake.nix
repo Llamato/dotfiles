@@ -9,6 +9,8 @@
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
     nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
+
+    nixos-boot.url = "github:Melkor333/nixos-boot";
     gcalc = {
       url = "github:llamato/gcalc";
     };
@@ -60,6 +62,7 @@
       hyprland,
       split-monitor-workspaces,
       hyprsplit,
+      nixos-boot,
       ...
     }@inputs:
     let
@@ -105,6 +108,8 @@
             #Only needed when not using the overlay
             #./nixos/modules/oqs-openssh.nix
             #./nixos/workspace/qssh.nix
+
+            nixos-boot.nixosModules.default
           ];
         };
 

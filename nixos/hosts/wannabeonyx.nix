@@ -14,8 +14,36 @@
   #nix.package = pkgs.lixPackageSets.stable.lix;
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  nixos-boot.enable = true;
+  boot = {
+    plymouth = {
+      enable = true;
+      themePackages = with pkgs; [
+        # By default we would install all themes
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "rings" ];
+        })
+      ];
+    };
+
+    # Enable "Silent boot"
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+    kernelParams = [
+      "quiet"
+      "udev.log_level=3"
+      "systemd.show_status=auto"
+    ];
+
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot.enable = true;
+    # Hide the OS choice for bootloaders.
+    # It's still possible to open the bootloader list by pressing any key
+    # It will just not appear on screen unless a key is pressed
+    timeout = 0;
+    };
+  };
 
   # Extra filesystems
   boot.supportedFilesystems = [
