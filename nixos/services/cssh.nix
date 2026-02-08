@@ -33,6 +33,7 @@
         "amber"
         "zvit"
         "xlr8"
+        "tyler"
       ];
     };
    hostKeys = [

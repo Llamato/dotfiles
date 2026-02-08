@@ -13,6 +13,7 @@ services.openssh = {
         "remotebuild"
         "zvit"
         "xlr8"
+        "tyler"
       ];
       UseDns = true;
       X11Forwarding = false;
