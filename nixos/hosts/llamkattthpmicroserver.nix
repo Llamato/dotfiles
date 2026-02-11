@@ -140,13 +140,7 @@ in {
     sl
     rsync git
     monero-cli xmrig
-    nixd
-
-    #Reverse eng
-    #readelf
-    python3
-    nmap
-    dtc
+    cifs-utils
     
     #custom
     inputs.nixpkgs-llamato.legacyPackages.${pkgs.system}.bun-baseline
