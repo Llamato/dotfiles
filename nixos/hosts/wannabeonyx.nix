@@ -14,10 +14,15 @@
   #nix.package = pkgs.lixPackageSets.stable.lix;
 
   # Bootloader.
-  nixos-boot.enable = true;
+  /*nixos-boot = {
+    enable = true;
+    duration = 5.0;
+  };*/
+
   boot = {
-    plymouth = {
+    /*plymouth = {
       enable = true;
+      #theme = "rings";
       themePackages = with pkgs; [
         # By default we would install all themes
         (adi1090x-plymouth-themes.override {
@@ -33,7 +38,7 @@
       "quiet"
       "udev.log_level=3"
       "systemd.show_status=auto"
-    ];
+    ];*/
 
     loader = {
       efi.canTouchEfiVariables = true;
@@ -248,13 +253,6 @@
     sg3_utils
     vnstat iperf3 iotop mission-center ethtool inetutils net-tools mtr
     cifs-utils
-    ghidra
-    
-    #Formerly user packages
-    inputs.gcalc.packages.${pkgs.system}.default
-    inputs.gcrypt.packages.${pkgs.system}.default
-    inputs.gbounce.packages.${pkgs.system}.default
-    inputs.stenc.packages.${pkgs.system}.stenc
     archivemount
     git
     kdePackages.kate
@@ -305,6 +303,12 @@
     mtpfs
     exiftool
     cinny
+
+    #Tina's packages
+    inputs.gcalc.packages.${pkgs.system}.default
+    inputs.gcrypt.packages.${pkgs.system}.default
+    inputs.gbounce.packages.${pkgs.system}.default
+    inputs.stenc.packages.${pkgs.system}.stenc
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
@@ -408,7 +412,7 @@
         useDHCP = false;
         ipv4.addresses = [
           {
-            address = "10.20.30.11";
+            address = "192.168.3.21";
             prefixLength = 24;
           }
         ];
@@ -424,7 +428,7 @@
           }
         ];
       };
-      enp106s0u1 = {
+      /*enp106s0u1 = {
         # 1gbit/s fallback
         useDHCP = false;
         ipv4.addresses = [
@@ -433,22 +437,22 @@
             prefixLength = 24;
           }
         ];
-      };
+      };*/
     };
 
-    wireless = {
+    /*wireless = {
       enable = false;
       networks = {
         "Ponto-3" = {
           psk = "ponto-233603";
         };
       };
-    };
+    };*/
 
     #How do we get on the internet
     defaultGateway = {
       address = "192.168.3.1";
-      interface = "enp106s0u1";
+      interface = "eno1";
     };
     nameservers = [
       "192.168.3.1"

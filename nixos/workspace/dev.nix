@@ -15,7 +15,7 @@
     enableFishIntegration = true;
   };*/
 
-  /*documentation = {
+  documentation = {
     enable = true;
     dev.enable = true;
     man = {
@@ -24,7 +24,7 @@
       generateCaches = true;
       man-db.enable = false;
     };
-  };*/
+  };
 
   #Set up PGP
   programs.gnupg.agent = {
@@ -53,9 +53,8 @@
     lazygit
     github-desktop
     config.boot.kernelPackages.perf
-    linux-manual
-    man-pages
-    man-pages-posix
+    dtc
+    linux-manual   man-pages man-pages-posix
     bat
     cloc
     vscodium
@@ -73,6 +72,9 @@
     jdk8
     renderdoc
     kmod
+    python3
+    nmap
+    ghidra
   ];
 
   # clangd service
