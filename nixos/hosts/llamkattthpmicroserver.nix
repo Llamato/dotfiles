@@ -141,6 +141,7 @@ in {
     rsync git
     monero-cli xmrig
     cifs-utils
+    ncdu sysstat iotop
     
     #custom
     inputs.nixpkgs-llamato.legacyPackages.${pkgs.system}.bun-baseline
