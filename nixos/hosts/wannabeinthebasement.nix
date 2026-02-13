@@ -18,6 +18,7 @@
     "exfat"
     "vfat"
     "zfs"
+    "f2fs"
   ];
 
   boot.zfs.extraPools = ["stripe-pool"];
@@ -104,6 +105,7 @@
     smartmontools
     e2fsprogs
     minicom
+    ncdu sysstat iotop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
