@@ -47,7 +47,13 @@ in
     fsType = "ext4";
   };
 
-  swapDevices = [ ];
+  swapDevices = [];
+
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    priority = 100;
+  };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
