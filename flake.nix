@@ -119,6 +119,7 @@
             inherit inputs outputs;
           };
           modules = [
+            ./common.nix
             ./nixos/hosts/wannabeinthebasement.nix
             ./nixos/hosts/wannabeinthebasement-hw.nix
             ./nixos/modules/dellfancontrol.nix
