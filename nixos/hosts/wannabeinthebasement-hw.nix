@@ -30,7 +30,6 @@ in
 
   boot.kernelPackages = latestZFSkernelPackage;
   boot.loader.grub.enable = true;
-  #boot.loader.grub.device = "/dev/disk/by-id/usb-USB_SanDisk_3.2Gen1_0101b46449c6505a1415e87b396199107099b9cb7c9acb7303efb7d>
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.zfsSupport = true;
   boot.loader.grub.efiSupport = true;
@@ -65,9 +64,10 @@ in
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "zpool/small-pool";
+    device = "small-pool/root";
     fsType = "zfs";
   };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/4498-2E75";
     fsType = "vfat";
