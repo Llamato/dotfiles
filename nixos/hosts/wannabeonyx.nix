@@ -257,7 +257,7 @@
     git
     kdePackages.kate
     thunderbird
-    discord vencord
+    discord vencord vesktop
     ffmpeg
     cool-retro-term
     sl
@@ -300,7 +300,7 @@
     bitcoin
     docker-compose
     android-file-transfer
-    mtpfs
+    mtpfs f2fs-tools
     exiftool
     cinny
 
