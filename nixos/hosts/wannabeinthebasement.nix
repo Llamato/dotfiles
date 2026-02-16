@@ -4,7 +4,7 @@
 
 { pkgs, ... }:
 {
-  
+
   # Extra filesystems
   boot.supportedFilesystems = [
     "xfs"
@@ -119,7 +119,7 @@
   # Enable custom fan controller
   services.dellfancontroller.enable = true;
 
-  networking.hostName = "wannabeinthebasementRusb";
+  networking.hostName = "wannabeinthebasement";
   networking.hostId = "00006301";
   networking.firewall.enable = false;  
   networking.useNetworkd = true;
