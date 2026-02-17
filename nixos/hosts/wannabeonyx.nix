@@ -303,7 +303,7 @@
     mtpfs f2fs-tools
     exiftool
     cinny
-
+    fortune
     #Tina's packages
     inputs.gcalc.packages.${pkgs.system}.default
     inputs.gcrypt.packages.${pkgs.system}.default

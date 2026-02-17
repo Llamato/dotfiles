@@ -12,7 +12,6 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  /*
     boot.kernelPackages =  let
         pinnedNixPkgs = import (pkgs.fetchFromGitHub {
             owner = "nixos";
@@ -22,8 +21,8 @@
         }) {};
         myKernel = pinnedNixPkgs.linux_6_17;
         in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);
-  */
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "nvme"
@@ -42,15 +41,6 @@
   ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  #boot.blacklistedKernelModules = [ ];
-
-  #Swap
-  /*
-    swapDevices = [{
-      device = "/dev/nvme0n1p6";
-      randomEncryption.enable = true;
-    }];
-  */
 
   #LTFS
   boot.kernelPatches = [
