@@ -131,11 +131,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable_2"
       },
       "locked": {
-        "lastModified": 1770594857,
-        "narHash": "sha256-L5v0RebKRU4oTMnE+XJ209mbbIW75AUg9b62aXzhdPc=",
+        "lastModified": 1770973678,
+        "narHash": "sha256-puHlxARXBuaeSSotPNCKUKCIlu2wk+uVZujYzLKqcis=",
         "owner": "llamato",
         "repo": "gcrypt",
-        "rev": "6e2792e48fd87c002065a1057b2814c894dbabd8",
+        "rev": "a75e2ea417bebe5d7229335e4baa361745837921",
         "type": "github"
       },
       "original": {
@@ -300,36 +300,6 @@
       "original": {
         "owner": "hyprwm",
         "repo": "hyprland-guiutils",
-        "type": "github"
-      }
-    },
-    "hyprland-plugins": {
-      "inputs": {
-        "hyprland": [
-          "hyprland"
-        ],
-        "nixpkgs": [
-          "hyprland-plugins",
-          "hyprland",
-          "nixpkgs"
-        ],
-        "systems": [
-          "hyprland-plugins",
-          "hyprland",
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1769285097,
-        "narHash": "sha256-eVD4U3Oqzz0VU9ylJ5wo76xDcYKv2CpiiRXq4Is4QdA=",
-        "owner": "hyprwm",
-        "repo": "hyprland-plugins",
-        "rev": "06c0749a0dac978d89b1a76ae6adc76a3c15dbfa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "hyprland-plugins",
         "type": "github"
       }
     },
@@ -605,11 +575,11 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 1770594190,
-        "narHash": "sha256-kVPJlmzoOAXicY0bM01Ck/YNpEt1ZS51jF2yoKEZ+BM=",
+        "lastModified": 1771352457,
+        "narHash": "sha256-CCItBNMyLmtWqxTVaDAeeaIigbuaiZuN3WO8PZNkGBc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "aa8947aa8877f82c08504b69f72e5834a44e4772",
+        "rev": "f8a68d8ce473ec59300d9fb510a1b545c1290939",
         "type": "github"
       },
       "original": {
@@ -653,11 +623,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1770787577,
-        "narHash": "sha256-ZTH3MVdi+5vMQbAaxpBxB4AEC/eU+ghmUdqtUNll9Oo=",
+        "lastModified": 1771431509,
+        "narHash": "sha256-FwsWWCX0gsSjqso/iCPa+TLJzWjteYMDUUmDH6rQZlw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0dd2c4bf925900b38b9c0055d3560982834a896f",
+        "rev": "2f8a2610f3b23be5b53542229f62526e531a1e74",
         "type": "github"
       },
       "original": {
@@ -700,16 +670,32 @@
     },
     "nixpkgs-unstable_3": {
       "locked": {
-        "lastModified": 1770537093,
-        "narHash": "sha256-pF1quXG5wsgtyuPOHcLfYg/ft/QMr8NnX0i6tW2187s=",
+        "lastModified": 1771177547,
+        "narHash": "sha256-trTtk3WTOHz7hSw89xIIvahkgoFJYQ0G43IlqprFoMA=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "fef9403a3e4d31b0a23f0bacebbec52c248fbb51",
+        "rev": "ac055f38c798b0d87695240c7b761b82fc7e5bc2",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs2205": {
+      "locked": {
+        "lastModified": 1685573264,
+        "narHash": "sha256-Zffu01pONhs/pqH07cjlF10NnMDLok8ix5Uk4rhOnZQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "380be19fbd2d9079f677978361792cb25e8a3635",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -748,11 +734,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1770617025,
-        "narHash": "sha256-1jZvgZoAagZZB6NwGRv2T2ezPy+X6EFDsJm+YSlsvEs=",
+        "lastModified": 1771208521,
+        "narHash": "sha256-X01Q3DgSpjeBpapoGA4rzKOn25qdKxbPnxHeMLNoHTU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "2db38e08fdadcc0ce3232f7279bab59a15b94482",
+        "rev": "fa56d7d6de78f5a7f997b0ea2bc6efd5868ad9e8",
         "type": "github"
       },
       "original": {
@@ -808,7 +794,6 @@
         "gcalc": "gcalc",
         "gcrypt": "gcrypt",
         "hyprland": "hyprland",
-        "hyprland-plugins": "hyprland-plugins",
         "hyprsplit": "hyprsplit",
         "nix-darwin": "nix-darwin",
         "nixos-boot": "nixos-boot",
@@ -818,6 +803,7 @@
         "nixpkgs-llamato": "nixpkgs-llamato",
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable_3",
+        "nixpkgs2205": "nixpkgs2205",
         "split-monitor-workspaces": "split-monitor-workspaces",
         "stenc": "stenc"
       }
