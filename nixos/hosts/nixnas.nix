@@ -10,13 +10,6 @@
     "systemd.unified_cgroup_hierarchy=0"
     "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
   ];
-  
-  /*services.watchdogd = {
-    enable = true;
-    settings = {
-      timeout = 600;
-    };
-  };*/
 
   #boot.initrd.enable = false; # REQUIRED: Must remain true (default) for system.build.toplevel to evaluate, even if we don't use it.
 
