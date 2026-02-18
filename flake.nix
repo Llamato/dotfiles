@@ -175,7 +175,8 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          ./nixos/hosts/nixnas.nix        
+          ./nixos/hosts/nixnas.nix  
+          ./nixos/hosts/nixnas-hw.nix      
         ];
       };
     };

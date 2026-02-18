@@ -3,32 +3,6 @@
   ...
 }:
 {
-  # --- Hardware & Boot ---
-  boot.loader.grub.enable = false;
-  boot.kernel.sysctl."kernel.unprivileged_bpf_disabled" = 1;
-  boot.kernelParams = [
-    "systemd.unified_cgroup_hierarchy=0"
-    "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
-  ];
-
-  #boot.initrd.enable = false; # REQUIRED: Must remain true (default) for system.build.toplevel to evaluate, even if we don't use it.
-
-  # Kernel 4.9 COMPATIBILITY
-  # We use the default kernel for the build (so it's cached and doesn't compile),
-  # but we strip it out in the packaging step below.
-  # boot.kernelPackages = pkgs.linuxPackages_4_9;
-
-  /*swapDevices = [
-    {
-      device = "/swapfile";
-      size = 3 * 1024; # 3 GB
-    }
-  ];*/
-
-  fileSystems."/" = {
-    device = "/dev/md1";
-    fsType = "ext4";
-  };
 
   # --- Networking ---
   networking.hostName = "NixNas";
