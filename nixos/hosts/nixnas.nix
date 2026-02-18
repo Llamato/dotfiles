@@ -5,6 +5,11 @@
 {
   # --- Hardware & Boot ---
   boot.loader.grub.enable = false;
+  boot.kernel.sysctl."kernel.unprivileged_bpf_disabled" = 1;
+  boot.kernelParams = [
+    "systemd.unified_cgroup_hierarchy=0"
+    "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
+  ];
   hardware.watchdog.enable = true;
   systemd.watchdog.runtimeTime = "10s";
 #   boot.initrd.enable = false; # REQUIRED: Must remain true (default) for system.build.toplevel to evaluate, even if we don't use it.
