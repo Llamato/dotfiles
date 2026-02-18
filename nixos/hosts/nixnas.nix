@@ -5,6 +5,8 @@
 {
   # --- Hardware & Boot ---
   boot.loader.grub.enable = false;
+  hardware.watchdog.enable = true;
+  systemd.watchdog.runtimeTime = "10s";
 #   boot.initrd.enable = false; # REQUIRED: Must remain true (default) for system.build.toplevel to evaluate, even if we don't use it.
 
   # Kernel 4.9 COMPATIBILITY
@@ -72,8 +74,8 @@
 
   environment.systemPackages = with pkgs; [
     busybox
+    watchdog
     git
-
     htop
     btop
     iproute2
