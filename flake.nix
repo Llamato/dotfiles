@@ -16,9 +16,9 @@
       url = "github:llamato/gcalc";
     };
 
-    gcrypt = {
+    /*gcrypt = {
       url = "github:llamato/gcrypt";
-    };
+    };*/
 
     gbounce = {
       url = "github:llamato/glossyBallBounce";
@@ -33,10 +33,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    hyprland-plugins = {
+    /*hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
-    };
+    };*/
 
     easymotion = {
       url = "github:zakk4223/hyprland-easymotion";
@@ -60,10 +60,8 @@
       nixpkgs,
       nixpkgs-unstable,
       nixpkgs2205,
-      nix-darwin, easymotion,
-      hyprland,
-      split-monitor-workspaces,
-      hyprsplit,
+      nix-darwin, 
+      hyprland, easymotion, split-monitor-workspaces, hyprsplit,
       nixos-boot,
       ...
     }@inputs:

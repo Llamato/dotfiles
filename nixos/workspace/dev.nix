@@ -15,7 +15,8 @@
     enableFishIntegration = true;
   };*/
 
-  documentation = {
+  #Broken?
+  /*documentation = {
     enable = true;
     dev.enable = true;
     man = {
@@ -24,7 +25,7 @@
       generateCaches = true;
       man-db.enable = false;
     };
-  };
+  };*/
 
   #Set up PGP
   programs.gnupg.agent = {
@@ -54,7 +55,7 @@
     github-desktop
     config.boot.kernelPackages.perf
     dtc
-    linux-manual   man-pages man-pages-posix
+    #linux-manual   man-pages man-pages-posix (Broken?)
     bat
     cloc
     vscodium

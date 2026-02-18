@@ -304,9 +304,10 @@
     exiftool
     cinny
     fortune
+    
     #Tina's packages
     inputs.gcalc.packages.${pkgs.system}.default
-    inputs.gcrypt.packages.${pkgs.system}.default
+    #inputs.gcrypt.packages.${pkgs.system}.default
     inputs.gbounce.packages.${pkgs.system}.default
     inputs.stenc.packages.${pkgs.system}.stenc
   ];
