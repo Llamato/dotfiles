@@ -10,8 +10,13 @@
     "systemd.unified_cgroup_hierarchy=0"
     "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
   ];
-  #hardware.watchdog.enable = true;
-  #systemd.watchdog.runtimeTime = "10s";
+  services.watchdogd = {
+    enable = true;
+    settings = {
+      timeout = 600;
+    };
+  };
+
   #boot.initrd.enable = false; # REQUIRED: Must remain true (default) for system.build.toplevel to evaluate, even if we don't use it.
 
   # Kernel 4.9 COMPATIBILITY
@@ -79,7 +84,6 @@
 
   environment.systemPackages = with pkgs; [
     busybox
-    watchdog
     git
     htop
     btop
