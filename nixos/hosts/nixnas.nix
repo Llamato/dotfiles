@@ -10,9 +10,9 @@
     "systemd.unified_cgroup_hierarchy=0"
     "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
   ];
-  hardware.watchdog.enable = true;
-  systemd.watchdog.runtimeTime = "10s";
-#   boot.initrd.enable = false; # REQUIRED: Must remain true (default) for system.build.toplevel to evaluate, even if we don't use it.
+  #hardware.watchdog.enable = true;
+  #systemd.watchdog.runtimeTime = "10s";
+  #boot.initrd.enable = false; # REQUIRED: Must remain true (default) for system.build.toplevel to evaluate, even if we don't use it.
 
   # Kernel 4.9 COMPATIBILITY
   # We use the default kernel for the build (so it's cached and doesn't compile),
