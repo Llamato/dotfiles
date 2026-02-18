@@ -12,7 +12,7 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-    boot.kernelPackages =  let
+    /*boot.kernelPackages =  let
         pinnedNixPkgs = import (pkgs.fetchFromGitHub {
             owner = "nixos";
             repo = "nixpkgs";
@@ -20,7 +20,7 @@
             hash = "sha256-FKSlfAc9IUQ3BqiETWaVV0ONqeArQihIEnRH3v9rcwg=";
         }) {};
         myKernel = pinnedNixPkgs.linux_6_17;
-        in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);
+        in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);*/
   
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [
