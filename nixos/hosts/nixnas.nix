@@ -72,25 +72,22 @@
 
   environment.systemPackages = with pkgs; [
     busybox
+    git
+
     htop
     btop
     iproute2
     neofetch
     nodejs
-    #     sl
-    #     cowsay
-    #     fortune
+    sl
+    cowsay
+    fortune
 
     # GOD HELP
     (pkgs.writeShellScriptBin "nixos-rebuild" ''
       #!/bin/sh
       # Run the packaged nixos-rebuild from nixpkgs
       ${pkgs.nixos-rebuild}/bin/nixos-rebuild "$@"
-
-      if [ "$1" = "switch" ] || [ "$1" = "boot" ]; then
-          echo "Copying new init to /sbin/init"
-          cp /run/current-system/init /sbin/init
-      fi
     '')
   ];
 
