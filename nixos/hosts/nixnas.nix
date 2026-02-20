@@ -1,5 +1,6 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -50,8 +51,8 @@
     htop
     btop
     iproute2
+    iperf
     neofetch
-    nodejs
     sl
     cowsay
     fortune
