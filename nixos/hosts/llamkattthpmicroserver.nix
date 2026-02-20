@@ -54,7 +54,6 @@ in {
   system.stateVersion = "25.05"; # Did you read the comment?
 
 #Tinas edits
-  #boot.kernelPackages = pkgs.linuxPackages_6_12;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "ext4" ];
 
@@ -133,15 +132,12 @@ in {
   };
   environment.systemPackages = with pkgs; [
     screen
-    iperf iotop vnstat inetutils
+    iperf iotop vnstat inetutils btop ncdu sysstat iotop
     lm_sensors
-    btop
-    fastfetch
-    sl
+    fastfetch sl
     rsync git
     monero-cli xmrig
     cifs-utils
-    ncdu sysstat iotop
     
     #custom
     inputs.nixpkgs-llamato.legacyPackages.${pkgs.system}.bun-baseline

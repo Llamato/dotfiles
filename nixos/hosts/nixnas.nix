@@ -18,12 +18,6 @@
   # --- Entropy Fix (Fixes SSH hang) ---
   services.haveged.enable = true;
 
-  # --- Nix Configuration ---
-  /*nix.settings = {
-    trusted-users = [ "root" "tina" ];
-    build-users-group = ""; # Allow root to build without nixbld users
-  };*/
-
   # --- SSH Access (Headless) ---
   services.openssh = {
     enable = true;
