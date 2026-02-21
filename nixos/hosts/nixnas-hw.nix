@@ -16,6 +16,11 @@
     fsType = "ext4";
   };
 
+  fileSystems."/mnt/raid" = {
+    device = "/dev/md2";
+    fsType = "ext4";
+  };
+
   # Watchdog timer handling demon
   systemd.services.watchdog = {
     description = "Write V to /dev/watchdog0 once at boot to disable the watchdog timer";
