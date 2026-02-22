@@ -135,6 +135,8 @@ in {
     screen
     iperf iotop vnstat inetutils ethtool 
     btop ncdu sysstat iotop
+    pciutils
+    usbutils
     lm_sensors
     fastfetch sl
     rsync git
