@@ -44,6 +44,19 @@
     };
   };
 
+
+  #Transmission web
+  services.transmission = { 
+    enable = true; #
+    openRPCPort = true; 
+    settings = { 
+      rpc-bind-address = "0.0.0.0"; 
+      rpc-whitelist = "127.0.0.1,192.168.3.21, 192.168.3.22";
+      rpc-port = 9091;
+      home = "/mnt/raid/";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     busybox
     git
