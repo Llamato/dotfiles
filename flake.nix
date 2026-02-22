@@ -127,6 +127,7 @@
             ./nixos/modules/dellfancontrol.nix
             
             (import ./nixos/services/smb.nix {shareName = "stripe";})
+            ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
           ];
         };

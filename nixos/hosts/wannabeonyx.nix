@@ -252,7 +252,7 @@
     ryzen-monitor-ng
     sg3_utils
     vnstat iperf3 iotop mission-center ethtool inetutils net-tools mtr
-    cifs-utils
+    cifs-utils nfs-utils
     archivemount
     git
     kdePackages.kate
