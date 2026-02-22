@@ -179,7 +179,7 @@
           ./common.nix
           ./nixos/hosts/nixnas.nix  
           ./nixos/hosts/nixnas-hw.nix
-          (import ./nixos/services/smb.nix {shareName = "raid";})  
+          ./nixos/services/nfs.nix
         ];
       };
     };
