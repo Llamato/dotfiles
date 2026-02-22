@@ -56,7 +56,7 @@ in
     "f2fs"
   ];
 
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   boot.zfs.extraPools = ["stripe-pool"];
 
@@ -223,6 +223,15 @@ in
         Address = [ "10.20.30.3/24" ];
         #Gateway = "10.20.30.1";
       };
+    };
+
+    networks."40-copper-main" = {
+      matchConfig.Name = "enp67s0f1";
+      networkConfig = { 
+        Address = [ "10.20.30.5/24" ];
+        #Gateway = "10.20.30.1";
+      };
+
 
       dhcpV4Config = {
         RouteMetric = 2000; # higher priority than bond
