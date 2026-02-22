@@ -126,7 +126,7 @@
             ./nixos/hosts/wannabeinthebasement-hw.nix
             ./nixos/modules/dellfancontrol.nix
             
-            (import ./nixos/services/smb.nix {shareName = "stripe";})
+            #(import ./nixos/services/smb.nix {shareName = "stripe";})
             ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
           ];
@@ -146,7 +146,8 @@
           #./nixos/services/ssh.nix
           #./nixos/services/qssh.nix
           ./nixos/services/cssh.nix
-          (import ./nixos/services/smb.nix {shareName = "raid";})
+          #(import ./nixos/services/smb.nix {shareName = "raid";})
+          ./nixos/services/nfs.nix
           #./nixos/services/ftp.nix
           #./nixos/services/telent.nix
           ./nixos/services/virtualmaschines.nix
