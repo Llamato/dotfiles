@@ -2,7 +2,7 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /mnt  *
+      /mnt/raid  *
     '';
   };
 }
