@@ -139,7 +139,8 @@ in {
     usbutils
     lm_sensors
     fastfetch sl
-    rsync git
+    rsync sshfs
+    git
     monero-cli xmrig
     cifs-utils
     
