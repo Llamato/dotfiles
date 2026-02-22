@@ -56,6 +56,8 @@ in
     "f2fs"
   ];
 
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
   boot.zfs.extraPools = ["stripe-pool"];
 
   # Set your time zone.
