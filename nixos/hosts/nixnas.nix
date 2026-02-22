@@ -46,8 +46,8 @@
 
 
   #Transmission web
-  services.transmission = { 
-    enable = true; #
+  /*services.transmission = { 
+    enable = true; 
     openRPCPort = true; 
     settings = { 
       rpc-bind-address = "0.0.0.0"; 
@@ -55,7 +55,7 @@
       rpc-port = 9091;
       home = "/mnt/raid/";
     };
-  };
+  };*/
 
   environment.systemPackages = with pkgs; [
     busybox
@@ -69,6 +69,7 @@
     cowsay
     fortune
     nfs-utils
+    qbittorrent-nox
 
     # GOD HELP
     (pkgs.writeShellScriptBin "nixos-rebuild" ''
@@ -108,7 +109,7 @@
       script = ''
         mkdir -p /tmp/www
         echo "<h1>Hello from NixOS MyCloud $PATH</h1>" > /tmp/www/index.html
-        ${pkgs.busybox}/bin/httpd -f -p 8080 -h /tmp/www
+        ${pkgs.busybox}/bin/httpd -f -p 8081 -h /tmp/www
       '';
     };
 
