@@ -55,6 +55,7 @@
     sl
     cowsay
     fortune
+    nfs-utils
 
     # GOD HELP
     (pkgs.writeShellScriptBin "nixos-rebuild" ''

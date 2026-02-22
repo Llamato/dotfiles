@@ -181,7 +181,7 @@
           ./common.nix
           ./nixos/hosts/nixnas.nix  
           ./nixos/hosts/nixnas-hw.nix
-          ./nixos/services/nfs.nix
+          #./nixos/services/nfs.nix
         ];
       };
     };
