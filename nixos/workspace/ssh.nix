@@ -16,6 +16,9 @@
       "ssh-rsa"
       "ssh-ed25519"
     ];
+    extraConfig = ''
+      ForwardAgent yes
+    '';
   };
   environment.systemPackages = with pkgs; [ sshfs ];
 }

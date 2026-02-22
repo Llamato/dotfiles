@@ -284,7 +284,7 @@
     zip
     unzip
     xz
-    rsync
+    rsync sshfs
     stress
     hardinfo2
     qdiskinfo
@@ -325,10 +325,10 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 
@@ -429,16 +429,6 @@
           }
         ];
       };
-      /*enp106s0u1 = {
-        # 1gbit/s fallback
-        useDHCP = false;
-        ipv4.addresses = [
-          {
-            address = "192.168.3.25";
-            prefixLength = 24;
-          }
-        ];
-      };*/
     };
 
     /*wireless = {

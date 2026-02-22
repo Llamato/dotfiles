@@ -35,6 +35,7 @@
       ) keys;
   in {
     isNormalUser = true;
+    password = "6301";
     extraGroups = [ "jamlytics" "users" ];
     home = homeDir;
     createHome = true;

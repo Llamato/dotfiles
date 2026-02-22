@@ -96,6 +96,8 @@
             ./nixos/modules/hyprland.nix
             #./nixos/modules/kate-wakatime.nix
 
+            ./nixos/services/ssh.nix
+
             #./nixos/workspace/qssh.nix
             ./nixos/workspace/ssh.nix
             ./nixos/workspace/dev.nix
@@ -176,19 +178,20 @@
         modules = [
           ./common.nix
           ./nixos/hosts/nixnas.nix  
-          ./nixos/hosts/nixnas-hw.nix      
+          ./nixos/hosts/nixnas-hw.nix
+          (import ./nixos/services/smb.nix {shareName = "raid";})  
         ];
       };
     };
-      darwinConfigurations = {
-        apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = {inherit inputs outputs; };
-          modules = [
-            ./common.nix
-            ./darwin/hosts/apowerbooksgrandchild.nix
-          ];
-        };
+    darwinConfigurations = {
+      apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = {inherit inputs outputs; };
+        modules = [
+          ./common.nix
+          ./darwin/hosts/apowerbooksgrandchild.nix
+        ];
       };
+    };
   };
 }

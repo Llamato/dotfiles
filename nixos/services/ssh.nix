@@ -20,12 +20,12 @@ services.openssh = {
       #PermitRootLogin = "yes"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
     };
     hostKeys = [
-      {
+      /*{
         bits = 4096;
         openSSHFormat = true;
         path = "/etc/ssh/ssh_host_rsa_key";
         type = "rsa";
-      }
+      }*/
       {
          openSSHFormat = true;
          path = "/etc/ssh/ssh_host_ed25519_key";
