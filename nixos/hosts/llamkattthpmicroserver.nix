@@ -133,7 +133,8 @@ in {
   };
   environment.systemPackages = with pkgs; [
     screen
-    iperf iotop vnstat inetutils btop ncdu sysstat iotop
+    iperf iotop vnstat inetutils ethtool 
+    btop ncdu sysstat iotop
     lm_sensors
     fastfetch sl
     rsync git
