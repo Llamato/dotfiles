@@ -217,13 +217,14 @@ in
     };
 
     # 10gbit/s Fibre Main
-    /*networks."30-fibre-main" = {
+    networks."30-fibre-main" = {
+      enable = false;
       matchConfig.Name = "enp67s0f0";
       networkConfig = { 
-        Address = [ "10.20.30.3/24" ];
+        Address = [ "10.20.30.5/24" ];
         #Gateway = "10.20.30.1";
       };
-    };*/
+    };
 
     # 10gbit/s Copper Main
     networks."40-copper-main" = {
