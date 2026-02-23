@@ -12,7 +12,7 @@ let
 
   makeUser = name: {keys ? [], useSystemKeys ? false, useUserKeys ? false}: let
     gtoPath = pstr: /. + pstr;
-    homeDir = "/mnt/raid/home/${name}";
+    homeDir = "/home/${name}";
     userKeyDir = homeDir + "/" + ".ssh";
 
     getKeyFiles = with builtins; dir:  map (file: 
