@@ -1,4 +1,5 @@
 {
+  pkgs,
   ...
 } :
 {
@@ -31,5 +32,24 @@
       echo "V" > /dev/watchdog0
     '';
   };
-  
+
+  systemd.services.nixnasfancontroller = {
+      description = "Western Digital MyCloud Home Duo Fan Controller";
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = {
+        Type = "simple";
+        #Restart = "always";
+        #RestartSec = "15s";
+        User = "root";
+      };
+      script = ''
+        while true; do
+          CPU_IDLE=$(${pkgs.sysstat}/bin/mpstat 15 1 | tail -n 1 | ${pkgs.busybox}/bin/rev | cut -f1 -d" " | ${pkgs.busybox}/bin/rev | cut -f1 -d.)
+          CPU_USAGE=$((100-$CPU_IDLE))
+          echo $CPU_USAGE > /sys/devices/platform/980070d0.pwm/dutyRate3
+          echo $CPU_USAGE
+        done
+      '';
+    };
 }
