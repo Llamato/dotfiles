@@ -30,6 +30,7 @@
     tina = {
       isNormalUser = true;
       description = "Tina";
+      password = "llamato";
       extraGroups = [
         "networkmanager"
         "wheel"
