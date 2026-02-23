@@ -54,7 +54,7 @@ in {
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   system.stateVersion = "25.05"; # Did you read the comment?
 
-#Tinas edits
+  #Tinas edits
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "ext4" ];
 
@@ -72,8 +72,8 @@ in {
     groups = {
       jamlytics = {};
     };
-    users = {
 
+    users = {
       tina = {
         isNormalUser = true;
         home = "/mnt/raid/home/tina";
@@ -135,8 +135,7 @@ in {
     screen
     iperf iotop vnstat inetutils ethtool 
     btop ncdu sysstat iotop
-    pciutils
-    usbutils
+    pciutils usbutils
     lm_sensors
     fastfetch sl
     rsync sshfs

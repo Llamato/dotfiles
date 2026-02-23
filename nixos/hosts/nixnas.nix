@@ -6,6 +6,7 @@
 
   # --- Networking ---
   networking.hostName = "NixNas";
+  
   # Enable DHCP on all interfaces to be safe
   networking.useDHCP = false;
   networking.interfaces.eth0.useDHCP = true;
@@ -43,19 +44,6 @@
       ];
     };
   };
-
-
-  #Transmission web
-  /*services.transmission = { 
-    enable = true; 
-    openRPCPort = true; 
-    settings = { 
-      rpc-bind-address = "0.0.0.0"; 
-      rpc-whitelist = "127.0.0.1,192.168.3.21, 192.168.3.22";
-      rpc-port = 9091;
-      home = "/mnt/raid/";
-    };
-  };*/
 
   environment.systemPackages = with pkgs; [
     busybox

@@ -16,9 +16,9 @@
       url = "github:llamato/gcalc";
     };
 
-    /*gcrypt = {
+    gcrypt = {
       url = "github:llamato/gcrypt";
-    };*/
+    };
 
     gbounce = {
       url = "github:llamato/glossyBallBounce";
@@ -185,6 +185,7 @@
         ];
       };
     };
+
     darwinConfigurations = {
       apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
