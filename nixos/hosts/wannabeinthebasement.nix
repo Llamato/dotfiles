@@ -131,6 +131,7 @@ in
     ledmon
     wget
     p7zip
+    rsync sshfs
     git
     ethtool
     inetutils iperf3 vnstat
