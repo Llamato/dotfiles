@@ -200,6 +200,7 @@
       isNormalUser = true;
       description = "Tina";
       extraGroups = [
+        "jamlytics" "users"
         "networkmanager"
         "wheel"
         "scanner"
