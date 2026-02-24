@@ -47,8 +47,14 @@
         while true; do
           CPU_IDLE=$(${pkgs.sysstat}/bin/mpstat 15 1 | tail -n 1 | ${pkgs.busybox}/bin/rev | cut -f1 -d" " | ${pkgs.busybox}/bin/rev | cut -f1 -d.)
           CPU_USAGE=$((100-$CPU_IDLE))
-          echo $CPU_USAGE > /sys/devices/platform/980070d0.pwm/dutyRate3
-          echo $CPU_USAGE
+          MINIMUM_FAN_SPEED=20
+          if [ $CPU_USAGE -le $MINIMUM_FAN_SPEED ]; then
+            FAN_SPEED=20
+          else
+            FAN_SPEED=$CPU_USAGE
+          fi
+          echo $FAN_SPEED > /sys/devices/platform/980070d0.pwm/dutyRate3
+          echo $CPU_USAGE  $FAN_SPEED
         done
       '';
     };
