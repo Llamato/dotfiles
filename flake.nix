@@ -183,6 +183,7 @@
           ./nixos/hosts/nixnas-hw.nix
 
           ./nixos/services/qbittorrent-nox.nix
+          ./nixos/services/cssh.nix
         ];
       };
     };

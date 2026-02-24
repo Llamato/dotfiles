@@ -7,6 +7,7 @@
     package = pkgs.oqs-openssh;
     enable = true;
     allowSFTP = true;
+    forwardX11 = true;
     ports = [ 22 ];
     extraConfig = ''
           PubkeyAcceptedKeyTypes ssh-falcon512,ssh-falcon1024,ssh-ed25519
@@ -17,7 +18,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       UseDns = true;
-      X11Forwarding = false;
+      X11Forwarding = true;
       PermitRootLogin = "no";
       KexAlgorithms = [
         "mlkem768x25519-sha256"
@@ -26,6 +27,7 @@
         "diffie-hellman-group-exchange-sha256"
         "diffie-hellman-group14-sha256"
       ];
+
       AllowUsers = [
         "tina"
         "romana"
