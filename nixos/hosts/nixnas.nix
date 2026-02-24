@@ -26,9 +26,11 @@
     forwardX11 = true;
   };
 
+  # --- X11 forwarding ---
+  services.xserver.enable = true;
+
   users.users = {
     root.password = "root"; 
-
     tina = {
       isNormalUser = true;
       description = "Tina";
@@ -61,6 +63,7 @@
     fortune
     nfs-utils
     qbittorrent-nox
+    xorg.xauth
 
     # GOD HELP
     (pkgs.writeShellScriptBin "nixos-rebuild" ''
