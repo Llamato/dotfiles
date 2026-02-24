@@ -23,6 +23,7 @@
   services.openssh = {
     enable = true;
     permitRootLogin = "yes";
+    X11Forwarding = true;
   };
   users.users = {
     root.password = "root"; 

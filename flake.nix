@@ -175,7 +175,6 @@
           ./nixos/hosts/nixnas.nix  
           ./nixos/hosts/nixnas-hw.nix
 
-          ./nixos/services/commenssh.nix
           ./nixos/services/qbittorrent-nox.nix
         ];
       };
