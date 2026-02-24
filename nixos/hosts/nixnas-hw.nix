@@ -39,8 +39,8 @@
 
       serviceConfig = {
         Type = "simple";
-        #Restart = "always";
-        #RestartSec = "15s";
+        Restart = "always";
+        RestartSec = "15s";
         User = "root";
       };
       script = ''
