@@ -181,6 +181,8 @@
           ./common.nix
           ./nixos/hosts/nixnas.nix  
           ./nixos/hosts/nixnas-hw.nix
+
+          ./nixos/services/qbittorrent-nox.nix
         ];
       };
     };
