@@ -2,7 +2,9 @@
 services.openssh = {
     enable = true;
     ports = [ 22 ];
+    forwardX11 = true;
     settings = {
+      X11Forwarding = true;
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       AllowUsers = [
@@ -16,7 +18,6 @@ services.openssh = {
         "tyler"
       ];
       UseDns = true;
-      X11Forwarding = false;
       #PermitRootLogin = "yes"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
     };
     hostKeys = [
