@@ -54,8 +54,9 @@
     lazygit
     github-desktop
     config.boot.kernelPackages.perf
-    dtc
-    #linux-manual   man-pages man-pages-posix (Broken?)
+    #linux-manual (Broken on M1)
+    man-pages
+    man-pages-posix
     bat
     cloc
     vscodium

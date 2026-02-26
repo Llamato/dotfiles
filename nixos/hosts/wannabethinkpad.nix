@@ -11,6 +11,11 @@
     "exfat"
     "vfat"
     "apfs"
+  ];  
+  boot.binfmt.emulatedSystems = [
+  "x86_64-linux"
+  "armv7l-linux"
+  "riscv64-linux"
   ];
 
   networking.hostName = "wannabethinkpad"; # Define your hostname.
@@ -69,6 +74,9 @@
   #   ];
   # };
 
+  #Cosmic Desktop
+  services.desktopManager.cosmic.enable = true;
+
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
     environment.systemPackages = with pkgs; [
@@ -79,6 +87,9 @@
       vesktop
       gparted
       telegram-desktop
+      localsend
+      sl
+      qemu
    ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -167,8 +178,5 @@ users.users = {
 #        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAING7VPuszU2P1fYm/h8ZTywzfNhHHPZFFbL2pUdIQfSq flash@bios"
 #      ];
 #    };
-  };
-  services.keyd = {
-    enable = true;
   };
 }

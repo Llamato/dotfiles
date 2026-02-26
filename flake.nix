@@ -8,6 +8,7 @@
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
     nixpkgs-master.url = "github:nixos/nixpkgs";
+    apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-25.11";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
     nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
 
@@ -151,14 +152,12 @@
         ];
       };
       
-      wannabethinkpad = nixpkgs-unstable.lib.nixosSystem {
+      wannabethinkpad = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
-          ./common.nix
-
           ./nixos/modules/apple-silicon-support
-          
+          ./common.nix
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
           ./nixos/modules/hyprland.nix
