@@ -60,11 +60,6 @@
     bat
     cloc
     vscodium
-    #jetbrains.idea-ultimate jetbrains.jdk
-    #jetbrains.rider
-    #jetbrains.webstorm nodejs_24
-    #jetbrains.clion
-    #lmstudio
     nixd
     nixfmt
     bun
@@ -77,6 +72,13 @@
     python3
     nmap
     ghidra
+    meld
+  ] ++ [
+    jetbrains.idea-ultimate jetbrains.jdk
+    jetbrains.rider
+    jetbrains.webstorm nodejs_24
+    jetbrains.clion
+    lmstudio
   ];
 
   # clangd service

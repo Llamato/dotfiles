@@ -28,6 +28,9 @@
 
   # --- X11 forwarding ---
   services.xserver.enable = true;
+  
+  # --- Firefox ---
+
 
   users.users = {
     root.password = "root"; 
@@ -64,6 +67,8 @@
     nfs-utils
     qbittorrent-nox
     xorg.xauth
+    firefox
+    gzdoom
 
     # GOD HELP
     (pkgs.writeShellScriptBin "nixos-rebuild" ''
@@ -120,9 +125,12 @@
     };
 
 
-  # Distributed builds
-  nix.buildMachines = ["192.168.3.11" "192.168.3.14" "192.168.3.241"];
+  # --- Distributed builds ---
+  #nix.buildMachines = ["192.168.3.11" "192.168.3.14" "192.168.3.241"];
   nix.distributedBuilds = true;
+
+  # --- Allow unsupported packages ---
+  nixpkgs.config.allowUnsupportedSystem = true;
 
   # --- State Version ---
   system.stateVersion = "22.05";

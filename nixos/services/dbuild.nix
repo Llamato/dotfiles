@@ -12,6 +12,7 @@
 	};
   nix.settings.trusted-users = [ buildername ];
   services.openssh.enable = lib.mkForce true;*/
+
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" "riscv64-linux" ];
   nix.settings = {
     substitute = true;
@@ -22,7 +23,9 @@
     isSystemUser = true;
     group = "remotebuild";
     useDefaultShell = true;
-    openssh.authorizedKeys.keyFiles = [ /root/.ssh/remotebuild.pub ];
+    openssh.authorizedKeys.keys = [ 
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINmuHyyOtAxG1GSuqIoeeGfV8XfLQGzS6zalYuAumlD+ tina_modern" 
+    ];
   };
   users.groups.remotebuild = {};
 }

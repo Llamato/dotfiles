@@ -18,6 +18,20 @@
   "riscv64-linux"
   ];
 
+  #Nix remote building
+  nix.config.trusted-users = [ "root" "tina" ];
+  nix.distributedBuilds = true;
+  nix.buildMachines = [ {
+	 hostName = "builder";
+	 system = "aarch64-linux";
+   protocol = "ssh-ng";
+	 systems = [ "aarch64-linux" ];
+	 maxJobs = 1;
+	 speedFactor = 2;
+	 supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+	 mandatoryFeatures = [ ];
+  }];
+
   networking.hostName = "wannabethinkpad"; # Define your hostname.
 
   # Configure network connections interactively with nmcli or nmtui.
