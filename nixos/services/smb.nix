@@ -1,4 +1,4 @@
-{ shareName ? "raid", ... }:
+{ ... }:
 {
   services.samba = {
     enable = true;
@@ -16,8 +16,8 @@
         "server max protocol" = "SMB3_11";
       };
 
-      "${shareName}" = {
-        "path" = "/mnt/${shareName}";
+      "raid" = {
+        "path" = "/mnt/raid";
         "browsable" = "yes";
         "read only" = "no";
         "create mask" = "0755";
