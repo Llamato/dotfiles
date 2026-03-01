@@ -89,28 +89,18 @@
             inherit inputs outputs;
           };
           modules = [
-            #({config, lib, ...}: {nixpkgs.overlays = [(import ./nixos/overlays/qns-ssh.nix { inherit config lib;})];})
             ./common.nix
             ./nixos/hosts/wannabeonyx.nix
             ./nixos/hosts/wannabeonyx-hw.nix
 
             ./nixos/modules/hyprland.nix
-            #./nixos/modules/kate-wakatime.nix
 
-            ./nixos/services/compatiblessh.nix
+            ./nixos/services/commenssh.nix
+            ./nixos/services/dbuild.nix
 
-            #./nixos/workspace/qssh.nix
-            ./nixos/workspace/compatiblessh.nix
             ./nixos/workspace/dev.nix
             ./nixos/workspace/eda.nix
             ./nixos/workspace/3d.nix
-            #./nixos/workspace/zvitWg.nix
-            #./nixos/workspace/dbuild.nix
-            #./nixos/workspace/nordvpn.nix
-
-            #Only needed when not using the overlay
-            #./nixos/modules/oqs-openssh.nix
-            #./nixos/workspace/qssh.nix
 
             nixos-boot.nixosModules.default
           ];
@@ -144,6 +134,7 @@
           ./nixos/hosts/llamkattthpmicroserver-hw.nix
 
           ./nixos/services/compatiblessh.nix
+          ./nixos/services/smb.nix
           ./nixos/services/nfs.nix
           ./nixos/services/virtualmaschines.nix
           ./nixos/services/traefik.nix
@@ -160,7 +151,9 @@
           ./common.nix
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
+
           ./nixos/modules/hyprland.nix
+
           ./nixos/workspace/dev.nix          
         ];
       };
