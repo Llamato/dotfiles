@@ -119,6 +119,7 @@
 
             ./nixos/modules/dellfancontrol.nix
 
+            (import ./nixos/services/smb.nix {shares = [ "osraid" "stripe" ];})
             ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
           ];
@@ -134,7 +135,7 @@
           ./nixos/hosts/llamkattthpmicroserver-hw.nix
 
           ./nixos/services/compatiblessh.nix
-          ./nixos/services/smb.nix
+          (import ./nixos/services/smb.nix {shares = [ "raid" ];})
           ./nixos/services/nfs.nix
           ./nixos/services/virtualmaschines.nix
           ./nixos/services/traefik.nix
