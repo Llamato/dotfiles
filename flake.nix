@@ -4,15 +4,21 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     nixpkgs2205.url = "github:NixOS/nixpkgs/nixos-22.05";
+
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
+
     nixpkgs-master.url = "github:nixos/nixpkgs";
+
     apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-25.11";
+
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
     nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
 
     nixos-boot.url = "github:Melkor333/nixos-boot";
+    
     gcalc = {
       url = "github:llamato/gcalc";
     };
@@ -34,10 +40,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    /*hyprland-plugins = {
+    hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
-    };*/
+    };
 
     easymotion = {
       url = "github:zakk4223/hyprland-easymotion";
@@ -59,10 +65,8 @@
     {
       self,
       nixpkgs,
-      nixpkgs-unstable,
       nixpkgs2205,
       nix-darwin, 
-      hyprland, easymotion, split-monitor-workspaces, hyprsplit,
       nixos-boot,
       ...
     }@inputs:
@@ -90,6 +94,7 @@
           };
           modules = [
             ./common.nix
+
             ./nixos/hosts/wannabeonyx.nix
             ./nixos/hosts/wannabeonyx-hw.nix
 
@@ -120,6 +125,7 @@
             ./nixos/modules/dellfancontrol.nix
 
             (import ./nixos/services/smb.nix {shares = [ "osraid" "stripe" ];})
+            
             ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
           ];
@@ -135,12 +141,14 @@
           ./nixos/hosts/llamkattthpmicroserver-hw.nix
 
           ./nixos/services/compatiblessh.nix
+          
           (import ./nixos/services/smb.nix {shares = [ "raid" ];})
+
           ./nixos/services/nfs.nix
           ./nixos/services/virtualmaschines.nix
           ./nixos/services/traefik.nix
           ./nixos/services/bunserver.nix
-          ./nixos/services/dbuild.nix
+          #./nixos/services/dbuild.nix
         ];
       };
       
@@ -150,6 +158,7 @@
         modules = [
           ./nixos/modules/apple-silicon-support
           ./common.nix
+
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
 
@@ -169,6 +178,15 @@
           ./nixos/hosts/nixnas-hw.nix
 
           ./nixos/services/qbittorrent-nox.nix
+        ];
+      };
+
+      bpim1 = nixpkgs.lib.nixosSystem {
+        system = "armv7l-linux";
+        specialArgs = {inherit inputs outputs; };
+        modules = [
+          ./nixos/hosts/bpim1.nix
+          ./nixos/hosts/bpim1-hw.nix
         ];
       };
     };

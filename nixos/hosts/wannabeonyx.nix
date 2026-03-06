@@ -13,6 +13,10 @@
   # Lix (What the hell is lix?)
   #nix.package = pkgs.lixPackageSets.stable.lix;
 
+  nix.extraOptions = ''
+    extra-platforms = armv7l-linux aarch64-linux
+'';
+
   # Bootloader.
   /*nixos-boot = {
     enable = true;
@@ -58,6 +62,7 @@
     "bitlocker"
     "exfat"
     "vfat"
+    "f2fs"
   ];
 
   # Extra Kernel modules
@@ -221,8 +226,11 @@
   # Install steam
   #programs.ßsteam.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  #nixpkgs configuration
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowEmulation = true;
+  };
 
   # Open Bordcast software
   programs.gphoto2.enable = true;
@@ -306,6 +314,9 @@
     cinny
     fortune
     gzdoom
+
+    #Cross building
+    pkgsCross.muslpi.buildPackages.gcc
     
     #Tina's packages
     inputs.gcalc.packages.${pkgs.system}.default

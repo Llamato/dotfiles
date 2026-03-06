@@ -1,7 +1,4 @@
 {
-  config,
-  lib,
-  pkgs,
   ...
 }:
 let
@@ -22,16 +19,20 @@ in
         hostName = "homelab.llamato.dev";
         sshUser = "remotebuild";
         sshKey = sshKeyFile;
-        systems = [
+        systems = [ #Unify with qemu emulated systems?
           "x86_64-linux"
           "aarch64-linux"
+          "armv7l-linux"
         ];
+
         supportedFeatures = [
           "nixos-test"
           "benchmark"
           "big-parallel"
           "kvm"
+          "gccarch-armv7-a"
         ];
+
         speedFactor = 1; # Can orbitarily be set. It is advised you agree on a convention for determining the speedFactor.
       }
     ];

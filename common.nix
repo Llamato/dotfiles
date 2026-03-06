@@ -7,6 +7,7 @@
     #optimise.automatic = true;
     nix-path = config.nix.nixPath;
     experimental-features = "nix-command flakes";
+    #download-buffer-size = 524288000; # 512 MB
   };
 
   /*
