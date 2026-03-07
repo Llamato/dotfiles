@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   boot.loader.grub.enable = false;
   boot.kernel.sysctl."kernel.unprivileged_bpf_disabled" = 1;
   boot.kernelParams = [ # Does this do anything?

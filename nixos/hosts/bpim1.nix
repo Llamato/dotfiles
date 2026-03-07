@@ -1,10 +1,10 @@
-{inputs, lib, pkgs, ...}: let
+{lib, pkgs, ...}: let
     sshKeys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE5gfkj8BLRw6KBWJhlKbr3PDPzEunDrLH70cLI2VQhlVNccUlcYebS8LdVkPyyzGh9xaSmn0zkIZq7kGZAeOy3rlSQz/sFQ0zRicfb6uD2GVndn51drJQPthdxypGhl24JClyN0knhrils4angEMZFkq+UZr8ku7/wJxiXSbiiO5TUU0L26Ijk2kCEcHlRrjMyANMznE3UYffqcwlLOd+udqOrPwC9Hk/DdyDRzLsXcPVE+6prgFg+vx5OEdvdAO6QuO1S1zxKq9hRDJ7mELEmWjmHjuvfEY+ZVRUaP7dFAejyr+I3GFshhZu7OkGtD5Gd0SF5P4jNzGobcEYaJsJ tina" ];
     password = "llamato";
   in {
   system.stateVersion = "25.05";
-  
-  boot.kernelPackages = kernelPackages.linuxPackages_latest
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   nix.settings = {
     eval-system = pkgs.system;

@@ -36,7 +36,7 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.54.0";
+      url = "github:hyprwm/Hyprland?ref=v0.54.1";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -72,14 +72,6 @@
     }@inputs:
     let
       inherit (self) outputs;
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "armv7l-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
       #nixosModules = import ./nixos/modules/default.nix;
@@ -99,6 +91,7 @@
             ./nixos/hosts/wannabeonyx-hw.nix
 
             ./nixos/modules/hyprland.nix
+            ./nixos/modules/kate-wakatime.nix 
 
             ./nixos/services/commenssh.nix
             ./nixos/services/dbuild.nix
@@ -164,7 +157,7 @@
 
           ./nixos/modules/hyprland.nix
 
-          ./nixos/workspace/dev.nix          
+          ./nixos/workspace/dev.nix         
         ];
       };
 
