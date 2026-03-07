@@ -11,7 +11,6 @@
     sandbox = false;
     experimental-features = [ "nix-command" "flakes" ];
     trusted-users = sshKeys;
-    distributedBuilds = true;
   };
 
   nixpkgs = {
@@ -47,13 +46,6 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   users.users = {
-    tina = {
-      isNormalUser = true;
-      description = "llamato";
-      extraGroups = [ "networkmanager" "wheel" "input" ];
-      initialPassword = password;
-      openssh.authorizedKeys.keys = sshKeys; 
-    };
     root = {
       initialPassword = password;
       openssh.authorizedKeys.keys = sshKeys;
@@ -77,10 +69,11 @@
           PasswordAuthentication = lib.mkDefault true;
           PermitRootLogin = "yes"; # Debug / dev !!!
         };
+      };
     };
-  };
 
   networking = {
+    hostName = "nixBpiM1";
     useNetworkd = false;
     useDHCP = false;
   };

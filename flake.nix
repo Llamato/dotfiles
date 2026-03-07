@@ -130,6 +130,8 @@
         modules = [
           ./common.nix
 
+          ./nixos/modules/jamlytics.nix
+
           ./nixos/hosts/llamkattthpmicroserver.nix
           ./nixos/hosts/llamkattthpmicroserver-hw.nix
 
@@ -167,6 +169,8 @@
         modules = [
           ./common.nix
 
+          ./nixos/modules/jamlytics.nix
+
           ./nixos/hosts/nixnas.nix  
           ./nixos/hosts/nixnas-hw.nix
 
@@ -178,6 +182,9 @@
         system = "armv7l-linux";
         specialArgs = {inherit inputs outputs; };
         modules = [
+
+          ./nixos/modules/jamlytics.nix
+
           ./nixos/hosts/bpim1.nix
           ./nixos/hosts/bpim1-hw.nix
         ];

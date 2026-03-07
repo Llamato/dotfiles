@@ -86,42 +86,6 @@ in {
           ];
       };
 
-      quinten = makeUser "quinten" {keys = [
-        "ssh-falcon1024 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 quinten@computerq"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCqf7igKE0dymwQUoBV0Wrxh7GTMb4oU6KDJMNzTQ4+"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINYIsN35+EtXZ78tWF3lDzb0sTQx9TLvtyQMa5tt/Hne root@chaotic" 
-      ];};
-
-      amber = makeUser "amber" {keys = [ 
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP+kNski6X9Vot6gej9aNj0b+CCyjC19gCAQGOGOvsc8"
-      ];};
-
-      romana = makeUser "romana" {keys = [ 
-           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM30of3vRzm2aB5f+b9HVVNKh811emm7ZD4OW9v2tfcx u0_a468@localhost" 
-           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAING7VPuszU2P1fYm/h8ZTywzfNhHHPZFFbL2pUdIQfSq flash@bios"
-      ];};
-
-      zvit = makeUser "zvit" {keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFLTCoAAHoImrR+FdiWmGJDD7ke8MmiTaZukANS/uPvQ"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMEePG3qRnXD2QqpWLM80nBls+9T9kX5U3IKJn3UdTSe"
-      ];};
-
-      xlr8 = makeUser "xlr8" {keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjXDBnCD0BKcmTZWigTv8IKOyaR5ygMbtl0CXg9IgW3"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIv62sAxqnextBcPh7IDV8rcCDt0Bd4m9fm2q4pjFuKJ"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6fxDC8yCvi0q0Hzc4JEirbZiJtZZ6oRfScGYYCRqLo"
-      ];};
-
-      tyler = {
-        isNormalUser = true;
-        home = "/mnt/raid/home/tyler";
-        description = "Guy I know from way back when...";
-        password = "sus";
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIw9ADAxAp4BiARz2gkSWvh0LbORToF1yy7rhlLkw5nQ eddsa-key-20260208"
-        ];
-      };
-
       kattt = {
         isNormalUser = true;
 	      home = "/mnt/raid/home/kattt";
