@@ -4,6 +4,8 @@
   in {
   system.stateVersion = "25.05";
   
+  boot.kernelPackages = kernelPackages.linuxPackages_latest
+
   nix.settings = {
     eval-system = pkgs.system;
     sandbox = false;
@@ -22,6 +24,10 @@
   };
 
   boot = {
+    loader.generic-extlinux-compatible = {
+      enable = true;
+    };
+
     initrd = {
       includeDefaultModules = true;
       availableKernelModules = [ "mmc_block" ];
@@ -58,9 +64,9 @@
       git
       wget
       btop
-      sl fastfetch hyfetch
+      sl fastfetch
       ethtool mtr
-      minicom picocom
+      minicom
     ];
 
   services = {
