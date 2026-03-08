@@ -7,34 +7,6 @@
 {
 
   programs.nix-ld.enable = lib.mkDefault true;
-
-  /*programs.direnv = {
-    enable = true;
-    loadInNixShell = true;
-    enableZshIntegration = true;
-    enableFishIntegration = true;
-  };*/
-
-  #Broken?
-  /*documentation = {
-    enable = true;
-    dev.enable = true;
-    man = {
-      enable = true;
-      mandoc.enable = true;
-      generateCaches = true;
-      man-db.enable = false;
-    };
-  };*/
-
-  #Set up PGP
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
-  programs.seahorse.enable = true; # pgp gui
-
   #Set up git
   programs.git = {
     enable = true;
@@ -44,42 +16,26 @@
   };
 
   environment.systemPackages = with pkgs; [
-    renderdoc
     imhex
     lldb
-    tracy
     bat
     bat-extras.batman
     gh
     lazygit
-    github-desktop
     config.boot.kernelPackages.perf
     #linux-manual (Broken on M1)
     man-pages
     man-pages-posix
-    bat
     cloc
-    vscodium
     nixd
     nixfmt
-    bun
-    godot
     clinfo
-    vice
     jdk8
-    renderdoc
     kmod
     python3
     nmap
-    ghidra
     meld
     file
-  ] ++ [
-    jetbrains.idea-ultimate jetbrains.jdk
-    jetbrains.rider
-    jetbrains.webstorm nodejs_24
-    jetbrains.clion
-    lmstudio
   ];
 
   # clangd service

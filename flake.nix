@@ -37,26 +37,21 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland?ref=v0.54.1";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
     };
 
     easymotion = {
       url = "github:zakk4223/hyprland-easymotion";
-      inputs.hyprland.follows = "hyprland";
     };
 
     hyprsplit = {
       url = "github:shezdy/hyprsplit";
-      inputs.hyprland.follows = "hyprland";
     };
 
     split-monitor-workspaces = {
-      inputs.hyprland.follows = "hyprland";
       url = "github:Duckonaut/split-monitor-workspaces";
     };
   };
@@ -145,6 +140,7 @@
           ./nixos/services/traefik.nix
           ./nixos/services/bunserver.nix
           #./nixos/services/dbuild.nix
+          ./nixos/services/devserver.nix
         ];
       };
       
@@ -164,15 +160,16 @@
         ];
       };
 
-      nixnas = nixpkgs2205.lib.nixosSystem {
+      nixnasduo = nixpkgs2205.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
 
           ./nixos/modules/jamlytics.nix
+          ./nixos/modules/nixnas.nix
 
-          ./nixos/hosts/nixnas.nix  
+          ./nixos/hosts/nixnasduo.nix  
           ./nixos/hosts/nixnas-hw.nix
 
           ./nixos/services/qbittorrent-nox.nix
