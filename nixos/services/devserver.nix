@@ -36,6 +36,8 @@
     nmap
     meld
     file
+    ubootTools
+    toybox
   ];
 
   # clangd service
