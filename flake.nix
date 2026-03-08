@@ -185,6 +185,8 @@
 
           ./nixos/hosts/bpim1.nix
           ./nixos/hosts/bpim1-hw.nix
+
+          #./nixos/services/devserver.nix
         ];
       };
     };

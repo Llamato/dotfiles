@@ -9,6 +9,7 @@
   nix.settings = {
     eval-system = pkgs.system;
     sandbox = false;
+    #sandbox-fallback = true;
     experimental-features = [ "nix-command" "flakes" ];
     trusted-users = sshKeys;
   };
@@ -60,6 +61,7 @@
       ethtool mtr
       minicom
       ncdu_1 #(ncu mainline is broken on armv7l-linux)
+      screen
     ];
 
   services = {

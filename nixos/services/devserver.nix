@@ -38,6 +38,8 @@
     file
     ubootTools
     toybox
+    screen
+    atftp
   ];
 
   # clangd service
