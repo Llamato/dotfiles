@@ -77,15 +77,5 @@ in {
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIv62sAxqnextBcPh7IDV8rcCDt0Bd4m9fm2q4pjFuKJ"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE6fxDC8yCvi0q0Hzc4JEirbZiJtZZ6oRfScGYYCRqLo"
     ];};
-
-    tyler = {
-      isNormalUser = true;
-      home = "/mnt/raid/home/tyler";
-      description = "Guy I know from way back when...";
-      password = "sus";
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIw9ADAxAp4BiARz2gkSWvh0LbORToF1yy7rhlLkw5nQ eddsa-key-20260208"
-      ];
-    };
   };
 }

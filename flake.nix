@@ -66,6 +66,7 @@
       self,
       nixpkgs,
       nixpkgs2205,
+      nixpkgs-unstable,
       nix-darwin, 
       nixos-boot,
       ...

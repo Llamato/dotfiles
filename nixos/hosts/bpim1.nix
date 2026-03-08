@@ -4,7 +4,7 @@
   in {
   system.stateVersion = "25.05";
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
 
   nix.settings = {
     eval-system = pkgs.system;
@@ -59,6 +59,7 @@
       sl fastfetch
       ethtool mtr
       minicom
+      ncdu_1 #(ncu mainline is broken on armv7l-linux)
     ];
 
   services = {

@@ -28,9 +28,6 @@
 
   # --- X11 forwarding ---
   services.xserver.enable = true;
-  
-  # --- Firefox ---
-
 
   users.users = {
     root.password = "root"; 
@@ -54,19 +51,12 @@
   };
 
   environment.systemPackages = with pkgs; [
-    busybox
-    git
-    htop
-    btop
-    iproute2
-    iperf
+    htop btop
+    iproute2 iperf
     neofetch
-    sl
-    cowsay
-    fortune
+    sl cowsay fortune
     nfs-utils
     qbittorrent-nox
-    xorg.xauth
     firefox
     gzdoom
 
