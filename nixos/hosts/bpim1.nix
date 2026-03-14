@@ -4,8 +4,6 @@
   in {
   system.stateVersion = "25.05";
 
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-
   nix.settings = {
     eval-system = pkgs.system;
     sandbox = false;
@@ -21,20 +19,6 @@
     };
     buildPlatform.system = "x86_64-linux";
     hostPlatform.system = "armv7l-linux";
-  };
-
-  boot = {
-    loader.generic-extlinux-compatible = {
-      enable = true;
-    };
-
-    initrd = {
-      includeDefaultModules = true;
-      availableKernelModules = [ "mmc_block" ];
-    };
-    supportedFilesystems = lib.mkForce [ "btrfs" "cifs" "f2fs" "jfs" "ntfs" "reiserfs" "vfat" "xfs" ];
-    kernelModules = [ "i2c-dev" "sunxi-ephy" ];
-    kernelParams = [ "sunxi_emac.phy_interface=1" "sunxi_emac.rx_delay=3" "sunxi_emac.tx_delay=3" ];
   };
 
   hardware = {

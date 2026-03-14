@@ -37,22 +37,27 @@
 
     hyprland = {
       url = "github:hyprwm/Hyprland?ref=v0.54.1";
+       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
     };
 
     easymotion = {
       url = "github:zakk4223/hyprland-easymotion";
+      inputs.hyprland.follows = "hyprland";
     };
 
     hyprsplit = {
       url = "github:shezdy/hyprsplit";
+      inputs.hyprland.follows = "hyprland";
     };
 
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland";
     };
   };
 
@@ -61,7 +66,6 @@
       self,
       nixpkgs,
       nixpkgs2205,
-      nixpkgs-unstable,
       nix-darwin, 
       nixos-boot,
       ...

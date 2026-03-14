@@ -43,6 +43,17 @@
     lfs.enablePureSSHTransfer = true;
   };
 
+  #Set up vscode
+  /*programs.vscode.enable = true;
+  programs.vscode.extensions = with pkgs.vscode-extensions; [
+    bbenoist.nix
+    golang.go
+    twxs.cmake
+    zhwu95.riscv
+    enkia.tokyo-night
+    carrie999.cyberpunk-2020
+  ];*/
+
   environment.systemPackages = with pkgs; [
     renderdoc
     imhex
@@ -74,12 +85,7 @@
     ghidra
     meld
     file
-  ] ++ [
-    jetbrains.idea-ultimate jetbrains.jdk
-    jetbrains.rider
-    jetbrains.webstorm nodejs_24
-    jetbrains.clion
-    lmstudio
+    vscode-fhs
   ];
 
   # clangd service
