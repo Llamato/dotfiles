@@ -31,7 +31,7 @@
     nixfmt
     clinfo
     jdk8
-    kmod
+    kmod dtc
     python3
     nmap
     meld
