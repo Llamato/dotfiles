@@ -12,14 +12,15 @@
     "vfat"
     "apfs"
   ];  
-  boot.binfmt.emulatedSystems = [
+  /*boot.binfmt.emulatedSystems = [
   "x86_64-linux"
   "armv7l-linux"
   "riscv64-linux"
-  ];
+  ];*/
 
-  #Nix remote building
-  nix.config.trusted-users = [ "root" "tina" ];
+  #Nix
+  #nix.config.trusted-users = [ "root" "tina" ];
+  nixpkgs.config.allowUnfree = true;
   nix.distributedBuilds = true;
   nix.buildMachines = [ {
 	 hostName = "builder";
@@ -156,8 +157,7 @@
 
 
   #Tinas edits
-  hardware.asahi.peripheralFirmwareDirectory = /etc/nixos/firmware;
-  
+
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;

@@ -13,6 +13,7 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  hardware.asahi.peripheralFirmwareDirectory = /etc/nixos/firmware;
   hardware.bluetooth.enable = true;
 
   fileSystems."/" =
