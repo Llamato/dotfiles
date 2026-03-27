@@ -12,11 +12,6 @@
     "vfat"
     "apfs"
   ];  
-  /*boot.binfmt.emulatedSystems = [
-  "x86_64-linux"
-  "armv7l-linux"
-  "riscv64-linux"
-  ];*/
 
   #Nix
   #nix.config.trusted-users = [ "root" "tina" ];
@@ -32,18 +27,6 @@
 	 supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
 	 mandatoryFeatures = [ ];
   }];
-
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=no
-    AllowHibernation=no
-    AllowHybridSleep=no
-  '';
-
-  services.logind.settings.Login = {
-    HandleLidSwitch = "ignore";
-    HandleLidSwitchExternalPower = "ignore";
-    HandleLidSwitchDocked = "ignore";
-  };
 
   networking = {
     hostName = "wannabethinkpad";
