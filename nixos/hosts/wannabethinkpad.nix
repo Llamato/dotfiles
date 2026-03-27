@@ -33,11 +33,23 @@
 	 mandatoryFeatures = [ ];
   }];
 
-  networking.hostName = "wannabethinkpad"; # Define your hostname.
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+    AllowHybridSleep=no
+  '';
 
-  # Configure network connections interactively with nmcli or nmtui.
-  networking.networkmanager.enable = true;
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+  };
 
+  networking = {
+    hostName = "wannabethinkpad";
+    networkmanager.enable = true;
+  };
+  
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
