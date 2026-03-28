@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
 
 {
   imports =
@@ -6,7 +6,6 @@
     ];
 
   boot.loader.grub.enable = true;
-  boot.loader.systemd-boot.enable = false;
   boot.loader.grub.efiSupport = false;
   boot.loader.grub.device = "/dev/sda";
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
@@ -35,5 +34,4 @@
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

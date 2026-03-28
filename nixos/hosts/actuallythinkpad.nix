@@ -17,7 +17,7 @@
   }];
 
   networking = {
-    hostName = "wannabethinkpad";
+    hostName = "actuallythinkpad";
     networkmanager.enable = true;
   };
   
