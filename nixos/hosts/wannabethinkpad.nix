@@ -39,6 +39,11 @@
     AllowHybridSleep=no
   '';
 
+  services.udev = {
+    enable = true;
+    extraRules = ''ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Apple SMC power/lid events", ATTR{inhibited}="1"'';
+  };
+
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
     HandleLidSwitchExternalPower = "ignore";
