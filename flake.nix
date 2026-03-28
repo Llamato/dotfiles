@@ -185,7 +185,7 @@
         modules = [
           ./common.nix
 
-          ./nixos/hosts/wannabethinkpad.nix
+          ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/actuallythinkpad-hw.nix
 
           ./nixos/modules/hyprland.nix

@@ -1,17 +1,5 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
-  boot.supportedFilesystems = [
-    "bcachefs"
-    "xfs"
-    "ntfs"
-    "bitlocker"
-    "exfat"
-    "vfat"
-    "apfs"
-  ];  
 
   #Nix
   #nix.config.trusted-users = [ "root" "tina" ];
