@@ -1,3 +1,7 @@
 flake.lock
 smb-secrets.txt
 token.txt
+remotebuilder
+remotebuilder.pub
+result
+t

@@ -29,11 +29,9 @@
     "thunderbolt"
     "mptsas"
     "mpt3sas"
-    "sg"
     "ahci"
     "usbhid"
     "usb_storage"
-    "sd_mod"
   ];
   boot.initrd.kernelModules = [
     "amdgpu"

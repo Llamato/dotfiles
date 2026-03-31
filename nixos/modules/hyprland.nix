@@ -83,5 +83,6 @@ in
     file-roller
     gnome-keyring
     pwvucontrol
+    nwg-displays
   ];
 }

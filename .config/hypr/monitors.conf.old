@@ -1,0 +1,7 @@
+$primaryMonitor = DP-1
+exec = xrandr --output $primaryMonitor --primary
+
+monitor=desc:Dell Inc. S2719DGF 7QKN7P2,2560x1440@119,4480x0,1.0
+monitor=desc:Dell Inc. DELL S2721DGF 3HC20P3,2560x1440@165.08,1920x0,1.0, cm, edid
+monitor=desc:Hewlett Packard HP E242 CN46241PHS,1920x1200@59.95,0x0,1.0
+monitor=desc:HAT Kamvas Pro 16 0x01010101,1920x1080@60.0,0x1200,1.0
