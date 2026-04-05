@@ -126,6 +126,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+  services.flatpak.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -320,7 +321,7 @@
     
     #Tina's packages
     inputs.gcalc.packages.${pkgs.system}.default
-    inputs.gcrypt.packages.${pkgs.system}.default
+    #inputs.gcrypt.packages.${pkgs.system}.default
     inputs.gbounce.packages.${pkgs.system}.default
     inputs.stenc.packages.${pkgs.system}.stenc
   ];

@@ -60,6 +60,7 @@
     meld
     file
     vscode-fhs
+    uutils-coreutils-noprefix
   ];
 
   # clangd service

@@ -44,6 +44,7 @@
       sl fastfetch
       ethtool mtr
       minicom
+      lrzsz
       ncdu_1 #(ncu mainline is broken on armv7l-linux)
       screen
     ];

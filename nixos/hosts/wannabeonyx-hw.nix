@@ -22,7 +22,7 @@
       myKernel = pinnedNixPkgs.linux_6_17;
       in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);*/
   
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "nvme"
