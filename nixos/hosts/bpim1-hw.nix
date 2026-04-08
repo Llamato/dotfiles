@@ -14,7 +14,7 @@
       "SYSTEMD_CGROUP_ENABLE_LEGACY_FORCE=1"
     ];
     supportedFilesystems = lib.mkForce [ "btrfs" "cifs" "f2fs" "jfs" "ntfs" "reiserfs" "vfat" "xfs" ];
-    kernelModules = [ "i2c-dev" "sunxi-ephy" "gpio-sunxi" ];
+    kernelModules = [ "i2c-dev" "sunxi-ephy" "gpio-sunxi" "spi-sun4i" "spidev" ];
   };
 
   # Filesystems

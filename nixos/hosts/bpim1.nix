@@ -47,6 +47,8 @@
       lrzsz
       ncdu_1 #(ncu mainline is broken on armv7l-linux)
       screen
+      flashprog
+      dtc
     ];
 
   services = {
