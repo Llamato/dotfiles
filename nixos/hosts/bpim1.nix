@@ -48,7 +48,7 @@
       ncdu_1 #(ncu mainline is broken on armv7l-linux)
       screen
       flashprog
-      dtc
+      atftp
     ];
 
   services = {
@@ -66,6 +66,7 @@
     hostName = "nixBpiM1";
     useNetworkd = false;
     useDHCP = false;
+    firewall.enable = false;
   };
 
   systemd.network = {

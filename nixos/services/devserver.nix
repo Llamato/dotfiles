@@ -17,21 +17,18 @@
 
   environment.systemPackages = with pkgs; [
     imhex
-    lldb
+    #lldb
     bat
     bat-extras.batman
     gh
     lazygit
     config.boot.kernelPackages.perf
-    #linux-manual (Broken on M1)
     man-pages
     man-pages-posix
     cloc
-    nixd
-    nixfmt
     clinfo
-    jdk8
-    kmod dtc
+    kmod 
+    dtc
     python3
     nmap
     meld
@@ -41,6 +38,10 @@
     screen
     atftp
   ];
+  #linux-manual (Broken on M1)
+  #nixd
+  #nixfmt
+  #jdk8
 
   # clangd service
   systemd.user.services.clangd.enable = true;

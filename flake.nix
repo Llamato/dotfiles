@@ -193,6 +193,20 @@
           ./nixos/workspace/dev.nix
         ];
       };
+      idonotevenknowwhatiwantthistobe = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs outputs; };
+        modules = [
+          ./common.nix
+
+          ./nixos/hosts/actuallythinkpad.nix
+          ./nixos/hosts/idonotevenknowwhatiwantthistobe-hw.nix
+
+          ./nixos/modules/hyprland.nix
+
+          ./nixos/workspace/dev.nix
+        ];
+      };
 
       nixnasduo = nixpkgs2205.lib.nixosSystem {
         system = "aarch64-linux";
