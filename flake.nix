@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs-2511-small.url = "github:nixos/nixpkgs/nixos-25.11-small";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixpkgs2205.url = "github:NixOS/nixpkgs/nixos-22.05";
@@ -94,7 +95,6 @@
             ./nixos/modules/kate-wakatime.nix 
 
             ./nixos/services/commenssh.nix
-            ./nixos/services/dbuild.nix
 
             ./nixos/workspace/dev.nix
             ./nixos/workspace/eda.nix
@@ -143,7 +143,6 @@
           ./nixos/services/virtualmaschines.nix
           ./nixos/services/traefik.nix
           ./nixos/services/bunserver.nix
-          #./nixos/services/dbuild.nix
           ./nixos/services/devserver.nix
         ];
       };
@@ -152,8 +151,8 @@
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
-          ./nixos/modules/apple-silicon-support
           ./common.nix
+          ./nixos/modules/apple-silicon-support
 
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
@@ -193,6 +192,7 @@
           ./nixos/workspace/dev.nix
         ];
       };
+
       idonotevenknowwhatiwantthistobe = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs outputs; };
@@ -228,7 +228,8 @@
         system = "armv7l-linux";
         specialArgs = {inherit inputs outputs; };
         modules = [
-
+          ./common.nix
+          
           ./nixos/modules/jamlytics.nix
 
           ./nixos/hosts/bpim1.nix
