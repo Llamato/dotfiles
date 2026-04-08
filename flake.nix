@@ -134,8 +134,6 @@
 
           ./nixos/hosts/llamkattthpmicroserver.nix
           ./nixos/hosts/llamkattthpmicroserver-hw.nix
-
-          ./nixos/services/compatiblessh.nix
           
           (import ./nixos/services/smb.nix {shares = [ "raid" ];})
 
@@ -229,7 +227,7 @@
         specialArgs = {inherit inputs outputs; };
         modules = [
           ./common.nix
-          
+
           ./nixos/modules/jamlytics.nix
 
           ./nixos/hosts/bpim1.nix

@@ -166,4 +166,7 @@ in {
   networking.firewall.enable = false;  
   networking.useNetworkd = true;
   networking.useDHCP = false;
+
+  #Services
+  services.openssh.enable = true;
 }
