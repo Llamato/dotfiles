@@ -8,11 +8,11 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = false;
   boot.loader.grub.device = "/dev/sda";
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" "sd_mod" "sdhci_acpi" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ "mem.devmem=1" ];
   boot.supportedFilesystems = [
     "bcachefs"
     "xfs"
