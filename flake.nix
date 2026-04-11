@@ -226,7 +226,7 @@
         system = "armv7l-linux";
         specialArgs = {inherit inputs outputs; };
         modules = [
-          ./common.nix
+          #./common.nix
 
           ./nixos/modules/jamlytics.nix
 

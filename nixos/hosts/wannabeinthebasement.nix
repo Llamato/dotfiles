@@ -124,6 +124,19 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+    # --- Entropy Fix (Fixes SSH hang) ---
+  services.haveged.enable = true;
+
+  # --- SSH Access (Headless) ---
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "yes";
+    forwardX11 = true;
+  };
+
+  # --- X11 forwarding ---
+  services.xserver.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -157,9 +170,6 @@ in
   # };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
 
   # Enable custom fan controller
   services.dellfancontroller.enable = true;
