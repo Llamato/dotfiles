@@ -2,6 +2,7 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -109,7 +110,7 @@
   #hardware.cpu.amd.ryzen-smu.enable = true;
 
   #Hardware specific packages
-  programs.coolercontrol.enable = true;
+  #programs.coolercontrol.enable = true;
   programs.corectrl.enable = true;
   environment.systemPackages = with pkgs; [
     lm_sensors
@@ -122,7 +123,7 @@
     vulkan-tools
     (btop.override { rocmSupport = true; })
     rocmPackages.rocm-smi
-    #openrgb-with-all-plugins
+    openrgb-with-all-plugins
     #(pkgs.callPackage inputs.nixpkgs-hyprgirl { }).ryzen-monitor-ng
   ];
 
