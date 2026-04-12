@@ -185,7 +185,7 @@
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/actuallythinkpad-hw.nix
 
-          ./nixos/modules/hyprland.nix
+          #./nixos/modules/hyprland.nix
 
           ./nixos/workspace/dev.nix
         ];
