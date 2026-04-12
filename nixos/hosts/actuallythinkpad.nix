@@ -88,6 +88,8 @@
       localsend
       sl
       qemu
+      flashprog
+      toolbox
    ];
 
   # Some programs need SUID wrappers, can be configured further or are
