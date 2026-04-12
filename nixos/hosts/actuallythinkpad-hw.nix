@@ -12,7 +12,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "mem.devmem=1" ];
+  boot.kernelParams = [ "mem.devmem=1" "iomem=relaxed" ];
   boot.supportedFilesystems = [
     "bcachefs"
     "xfs"
