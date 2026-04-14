@@ -8,6 +8,8 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = false;
   boot.initrd.availableKernelModules = [ "usb_storage" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];

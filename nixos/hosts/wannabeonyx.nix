@@ -291,6 +291,7 @@
     obsidian
     virt-manager
     gparted
+    gptfdisk
     zip
     unzip
     xz
@@ -315,6 +316,8 @@
     cinny
     fortune
     gzdoom
+    
+    jetbrains.clion
 
     #Cross building
     pkgsCross.muslpi.buildPackages.gcc
