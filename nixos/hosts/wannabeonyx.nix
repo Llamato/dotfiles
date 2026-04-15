@@ -2,20 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{
-  config,
-  pkgs,
-  inputs,
-  ...
-}:
-{
-
-  # Lix (What the hell is lix?)
-  #nix.package = pkgs.lixPackageSets.stable.lix;
-
-  nix.extraOptions = ''
-    extra-platforms = armv7l-linux aarch64-linux
-'';
+{ config, pkgs, inputs, ... }: {
 
   # Bootloader.
   /*nixos-boot = {
@@ -326,7 +313,6 @@
     inputs.gcalc.packages.${pkgs.system}.default
     #inputs.gcrypt.packages.${pkgs.system}.default
     inputs.gbounce.packages.${pkgs.system}.default
-    inputs.stenc.packages.${pkgs.system}.stenc
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

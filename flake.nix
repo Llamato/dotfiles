@@ -93,6 +93,7 @@
 
             ./nixos/modules/hyprland.nix
             ./nixos/modules/kate-wakatime.nix 
+            ./nixos/modules/lto.nix
 
             ./nixos/services/commenssh.nix
 
