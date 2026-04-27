@@ -9,10 +9,11 @@
       experimental-features = "nix-command flakes";
       #download-buffer-size = 524288000; # 512 MB
     };
-    /*gc = {
-      dates = "daily";
-      automatic = true;
-      options = "--delete-older-than 7d";
+      /*gc = {
+        dates = "daily";
+        automatic = true;
+        options = "--delete-older-than 7d";
+      };
+    };*/
     };
-  };*/
 }
