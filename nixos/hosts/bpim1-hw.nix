@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ lib, ... }: {
   boot = {
     loader = {
       grub.enable = false;
@@ -27,8 +27,4 @@
     device = "/dev/mmcblk0p1";
     fsType = "vfat";
   };
-
-  environment.systemPackages = with pkgs; [
-    libgpiod
-  ];
 }

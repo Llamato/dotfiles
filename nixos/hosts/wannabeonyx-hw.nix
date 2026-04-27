@@ -110,7 +110,7 @@
   #hardware.cpu.amd.ryzen-smu.enable = true;
 
   #Hardware specific packages
-  #programs.coolercontrol.enable = true;
+  programs.coolercontrol.enable = true;
   programs.corectrl.enable = true;
   environment.systemPackages = with pkgs; [
     lm_sensors

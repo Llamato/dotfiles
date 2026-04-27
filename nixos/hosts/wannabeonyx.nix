@@ -305,6 +305,7 @@
     gzdoom
     
     jetbrains.clion
+    jetbrains.pycharm
 
     #Cross building
     pkgsCross.muslpi.buildPackages.gcc

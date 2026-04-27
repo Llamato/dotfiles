@@ -6,7 +6,6 @@ let
   xdg-desktop-portal-hyprland = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   split-monitor-workspaces = inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces;
   hyprtrails = inputs.hyprland-plugins.packages.${pkgs.system}.hyprtrails; # As of yet unused
-  easymotion = pkgs.callPackage ./easymotion.nix { inherit inputs; };
 in
 {
   imports = [
@@ -18,8 +17,7 @@ in
     package = hyprland;
     xwayland.enable = true;
     portalPackage = xdg-desktop-portal-hyprland;
-    #plugins = [split-monitor-workspaces hyprsplit easymotion];
-    plugins = [hyprsplit easymotion];
+    plugins = [split-monitor-workspaces hyprsplit];
   };
 
   #Nautilus File Manager config
