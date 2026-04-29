@@ -2,47 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ lib, pkgs, inputs, ... }: let
-  startsWith = with builtins; pattern: str: (length (match "^(${pattern}).*" str)) > 0;
-
-  endsWith = with builtins; pattern: str: (length (match "*.^(${pattern})" str)) > 0;
-
-  isSshKey = key: startsWith "ssh-" key;
-
-  makeUser = name: {keys ? [], useSystemKeys ? false, useUserKeys ? false}: let
-    gtoPath = pstr: /. + pstr;
-    homeDir = "/mnt/raid/home/${name}";
-    userKeyDir = homeDir + "/" + ".ssh";
-
-    getKeyFiles = with builtins; dir:  map (file: 
-    readFile file) (lib.fileset.fileFilter (file: endsWith ".pub" file.name) dir);
-
-    systemKeyFiles = username: let keyDir = "/mnt/raid/home/tina/dotfiles/keys"; 
-    in lib.fileset.fileFilter (file: startsWith username file.name) keyDir;
-
-    userKeyFiles = let keyDir = homeDir + "/" + ".ssh"; 
-    in getKeyFiles userKeyDir;
-
-    userKeys = with builtins; filter (key: isSshKey key) (userKeyFiles name);
-    systemKeys = with builtins; filter (key isSshKey key) systemKeyFiles;
-    keyStrings = with builtins; map (key: 
-      if pathExists (gtoPath key) then 
-        readFile (gtoPath key) 
-      else if isSshKey key then 
-        key
-      else
-        throw "keyfile does not exist or key format is invalid"
-      ) keys;
-  in {
-    isNormalUser = true;
-    password = "6301";
-    extraGroups = [ "jamlytics" "users" ];
-    home = homeDir;
-    createHome = true;
-    openssh.authorizedKeys.keys = with lib; 
-      keyStrings ++ optionals useSystemKeys systemKeys ++ optionals useUserKeys userKeys;
-  };
-in {
+{ pkgs, inputs, ... }: {
   
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;

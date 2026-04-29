@@ -21,8 +21,7 @@ let
     systemKeyFiles = username: let keyDir = "/mnt/raid/home/tina/dotfiles/keys"; 
     in lib.fileset.fileFilter (file: startsWith username file.name) keyDir;
 
-    userKeyFiles = let keyDir = homeDir + "/" + ".ssh"; 
-    in getKeyFiles userKeyDir;
+    userKeyFiles = getKeyFiles userKeyDir;
 
     userKeys = with builtins; filter (key: isSshKey key) (userKeyFiles name);
     systemKeys = with builtins; filter (key isSshKey key) systemKeyFiles;

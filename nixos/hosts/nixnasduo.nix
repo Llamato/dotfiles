@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{ pkgs, ... }: {
 
   # --- Networking ---
   networking.hostName = "NixNas";

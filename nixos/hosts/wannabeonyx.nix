@@ -3,41 +3,11 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, ... }: {
-
-  # Bootloader.
-  /*nixos-boot = {
-    enable = true;
-    duration = 5.0;
-  };*/
-
   boot = {
-    /*plymouth = {
-      enable = true;
-      #theme = "rings";
-      themePackages = with pkgs; [
-        # By default we would install all themes
-        (adi1090x-plymouth-themes.override {
-          selected_themes = [ "rings" ];
-        })
-      ];
-    };
-
-    # Enable "Silent boot"
-    consoleLogLevel = 3;
-    initrd.verbose = false;
-    kernelParams = [
-      "quiet"
-      "udev.log_level=3"
-      "systemd.show_status=auto"
-    ];*/
-
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
-    # Hide the OS choice for bootloaders.
-    # It's still possible to open the bootloader list by pressing any key
-    # It will just not appear on screen unless a key is pressed
-    timeout = 0;
+      timeout = 0;
     };
   };
 
@@ -66,9 +36,6 @@
   boot.tmp.cleanOnBoot = true;
   boot.tmp.useTmpfs = false;
 
-  #Enable memtest86 option in bootloader
-  #boot.loader.systemd-boot.memtest86.enable = true;
-
   #Enable Architecture emulation in QEMU
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
@@ -78,15 +45,7 @@
 
   security.polkit.enable = true;
 
-  networking.hostName = "wannabeonyx"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable network manager
-  #networking.networkmanager.enable = true;
+  networking.hostName = "wannabeonyx";
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -105,10 +64,6 @@
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
   };
-
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  #services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
@@ -172,9 +127,6 @@
 
   security.rtkit.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Enable Kwallet for GPG
   security.pam.services.kwallet.enable = true;
 
@@ -210,9 +162,6 @@
 
   # Install firefox.
   programs.firefox.enable = true;
-
-  # Install steam
-  #programs.ßsteam.enable = true;
 
   #nixpkgs configuration
   nixpkgs.config = {
@@ -337,12 +286,7 @@
     enableSSHSupport = true;
   };
 
-  # List services that you want to enable:
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
+  #Disable firewall
   networking.firewall.enable = false;
 
   #fonts
