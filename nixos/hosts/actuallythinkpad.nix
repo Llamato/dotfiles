@@ -100,7 +100,6 @@ users.users = {
         "wheel"
         "scanner"
         "lp"
-        "docker"
         "podman"
       ];
       

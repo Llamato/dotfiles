@@ -87,10 +87,10 @@
           };
           modules = [
             ./common.nix
-
+  
             ./nixos/hosts/wannabeonyx.nix
             ./nixos/hosts/wannabeonyx-hw.nix
-
+            ./nixos/modules/river.nix
             ./nixos/modules/hyprland.nix
             ./nixos/modules/kate-wakatime.nix 
             ./nixos/modules/lto.nix
@@ -151,8 +151,10 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          ./nixos/modules/apple-silicon-support
 
+          ./nixos/modules/apple-silicon-support
+          ./nixos/modules/river.nix
+          
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
 

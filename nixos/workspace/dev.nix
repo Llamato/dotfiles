@@ -48,7 +48,7 @@
     nixd
     nixfmt
     bun
-    godot
+    #godot
     clinfo
     vice
     jdk8
@@ -61,8 +61,15 @@
     file
     vscode-fhs
     uutils-coreutils-noprefix
+    distrobox 
   ];
 
   # clangd service
   systemd.user.services.clangd.enable = true;
+
+  # distrobox
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 }

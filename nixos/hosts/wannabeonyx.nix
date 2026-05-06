@@ -130,15 +130,6 @@
   # Enable Kwallet for GPG
   security.pam.services.kwallet.enable = true;
 
-  # Enable Docker
-  virtualisation.docker.enable = true;
-
-  users.extraGroups.docker.members = [ "tina" ]; # Bad because this is effectively equivalent to being root according to https://nixos.wiki/wiki/Docker (dla: 12.10.2025)
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = {
     tina = {

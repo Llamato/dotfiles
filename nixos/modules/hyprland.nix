@@ -59,7 +59,6 @@ in
     imv
     gtk-engine-murrine
     gnome-themes-extra
-    nwg-look
     killall
     xorg.xrandr
     libnotify
@@ -80,5 +79,6 @@ in
     gnome-keyring
     pwvucontrol
     nwg-displays
-  ];
+    nwg-look 
+  ] ++ comixcursors.all;
 }
