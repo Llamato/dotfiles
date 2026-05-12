@@ -15,7 +15,7 @@ in
     package = hyprland;
     xwayland.enable = true;
     portalPackage = xdg-desktop-portal-hyprland;
-    plugins = [split-monitor-workspaces hyprsplit];
+    plugins = [ hyprsplit ];
   };
 
   #Nautilus File Manager config
