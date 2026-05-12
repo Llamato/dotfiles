@@ -14,6 +14,7 @@
   # Extra filesystems
   boot.supportedFilesystems = [
     "bcachefs"
+    "btrfs"
     "xfs"
     "ntfs"
     "bitlocker"
