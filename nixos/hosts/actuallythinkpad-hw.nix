@@ -14,6 +14,8 @@
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ "mem.devmem=1" "iomem=relaxed" ];
   boot.supportedFilesystems = [
+    "f2fs"
+    "btrfs"
     "bcachefs"
     "xfs"
     "ntfs"

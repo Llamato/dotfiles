@@ -52,7 +52,7 @@
     localsend
     sl
     qemu
-    flashprog
+    flashprog tlp
     toolbox
   ];
 
