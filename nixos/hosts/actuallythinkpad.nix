@@ -41,6 +41,7 @@
   #Cosmic Desktop
   services.desktopManager.cosmic.enable = true;
   
+  programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
     wget
     screen

@@ -11,7 +11,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" "sd_mod" "sdhci_acpi" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boboot.extraModulePackages = [ ];
   boot.kernelParams = [ "mem.devmem=1" "iomem=relaxed" ];
   boot.supportedFilesystems = [
     "f2fs"
