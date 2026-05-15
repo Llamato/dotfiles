@@ -222,6 +222,20 @@
         ];
       };
 
+      wannaberiscv = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs outputs; };
+        modules = [
+          ./common.nix
+
+          ./nixos/hosts/wannaberiscv.nix
+          ./nixos/hosts/wannaberiscv-hw.nix
+
+          ./nixos/workspace/dev.nix
+          ./nixos/workspace/3d.nix
+        ];
+      };
+
       nixnasduo = nixpkgs2205.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };

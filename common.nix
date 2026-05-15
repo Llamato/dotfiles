@@ -10,4 +10,5 @@
       #download-buffer-size = 524288000; # 512 MB
     };
   };
+  nixpkgs.config.allowUnfree = true;
 }
