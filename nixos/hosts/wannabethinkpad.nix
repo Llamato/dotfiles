@@ -1,5 +1,8 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = false;
   boot.supportedFilesystems = [
     "bcachefs"
     "xfs"
@@ -35,11 +38,6 @@
     AllowHibernation=no
     AllowHybridSleep=no
   '';
-
-  services.udev = {
-    enable = true;
-    extraRules = ''ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Apple SMC power/lid events", ATTR{inhibited}="1"'';
-  };
 
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
@@ -119,6 +117,8 @@
       localsend
       sl
       qemu
+      powertop
+      ncdu
    ];
 
   # Some programs need SUID wrappers, can be configured further or are
