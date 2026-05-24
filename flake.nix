@@ -52,7 +52,7 @@
     };
 
     hyprsplit = {
-      url = "github:shezdy/hyprsplit";
+      url = "github:shezdy/hyprsplit?ref=v0.54.3";
       inputs.hyprland.follows = "hyprland";
     };
 
@@ -100,7 +100,8 @@
             ./nixos/workspace/dev.nix
             ./nixos/workspace/eda.nix
             ./nixos/workspace/3d.nix
-
+            ./nixos/workspace/benchmark.nix
+            
             nixos-boot.nixosModules.default
           ];
         };
