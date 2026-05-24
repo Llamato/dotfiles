@@ -224,7 +224,6 @@
     unzip
     xz
     rsync sshfs
-    stress
     hardinfo2
     qdiskinfo
     tree
