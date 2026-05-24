@@ -61,7 +61,9 @@
     file
     vscode-fhs
     uutils-coreutils-noprefix
-    distrobox 
+    distrobox
+    gcc gdb 
+    dosfstools
   ];
 
   # clangd service
