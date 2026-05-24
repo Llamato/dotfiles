@@ -11,5 +11,7 @@
     blender
     freecad
     audacity
+    spacenavd
+    spacenav-cube-example
   ];
 }
