@@ -4,16 +4,6 @@
 
 { pkgs, inputs, ... }: {
   
-  # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = false;
-  boot.loader.grub.efiInstallAsRemovable = false;
-  boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.loader.efi.canTouchEfiVariables = false;
-  boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
-  system.stateVersion = "25.05"; # Did you read the comment?
-
   #Tinas edits
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.supportedFilesystems = [ "ext4" ];

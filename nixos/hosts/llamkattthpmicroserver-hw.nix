@@ -4,10 +4,15 @@
 { config, lib, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
+  # Use the GRUB 2 boot loader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = false;
+  boot.loader.grub.efiInstallAsRemovable = false;
+  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.grub.device = "/dev/disk/by-id/ata-Hitachi_HTS545025B9SA02_100823PBL200CSJSLARN"; # or "nodev" for efi only
   boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "uhci_hcd" "xhci_pci_renesas" "hpsa" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "sg" "hpvsa" ];
@@ -37,4 +42,6 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  system.stateVersion = "25.05"; # Did you read the comment?
 }
