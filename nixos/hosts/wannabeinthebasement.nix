@@ -133,9 +133,6 @@ in
     forwardX11 = true;
   };
 
-  # --- X11 forwarding ---
-  services.xserver.enable = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
