@@ -17,6 +17,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" "sg" "hpvsa" ];
   boot.extraModulePackages = [ ];
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/ac59cbf2-1334-44be-8911-cc77fffa9ec1";
