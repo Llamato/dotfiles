@@ -174,7 +174,6 @@ in
     screen
     ledmon
     wget
-    p7zip
     rsync
     sshfs
     git

@@ -230,7 +230,6 @@
     nix-tree
     element-desktop # cinny-desktop
     texlive.combined.scheme-full
-    p7zip
     hexedit
     kdePackages.ark
     wlvncc

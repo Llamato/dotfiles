@@ -4,7 +4,7 @@
     bash
     mt-st
     sg3_utils
-    p7zip
+    _7zz
     ripgrep
   ];
 }
