@@ -67,6 +67,7 @@
     dosfstools
     (pkgs.callPackage inputs.nixpkgs-unstable { }).android-studio-full
     devenv
+    gnucobol
   ];
 
   # clangd service
