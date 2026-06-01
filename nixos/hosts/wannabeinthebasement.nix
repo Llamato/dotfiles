@@ -120,6 +120,7 @@ in
       tina = {
         isNormalUser = true;
         description = "tina";
+        initialPassword = "llamato";
         extraGroups = [
           "networkmanager"
           "wheel"
