@@ -276,14 +276,9 @@
         ];
       };
     };
-    hydraJobs = {
-      # Build all your NixOS configurations
-      wannabeonyx = self.nixosConfigurations.wannabeonyx.config.system.build.toplevel;
-      llamkatttserver = self.nixosConfigurations.llamkatttserver.config.system.build.toplevel;
-      wannaberiscv = self.nixosConfigurations.wannaberiscv.config.system.build.toplevel;
-      
-      # Build your darwin config too if you want
-      apowerbooksgrandchild = self.darwinConfigurations.apowerbooksgrandchild.config.system.build.toplevel;
-    };
+    hydraJobs = let
+      nixosBuilds = builtins.mapAttrs (name: config: config.config.system.build.toplevel) self.nixosConfigurations;
+      darwinBuilds = builtins.mapAttrs (_: sysconfig: sysconfig.config.system.build.toplevel) self.darwinConfigurations;
+    in nixosBuilds // darwinBuilds;
   };
 }
