@@ -8,6 +8,9 @@
     notificationSender = "hydra@localhost";
     buildMachinesFiles = [ ]; # Set empty unless connecting remote builders
     useSubstitutes = true; # Use binary caches instead of building from scratch
+    extraConfig = ''
+      allow_import_from_derivation = true
+    '';
   };
   # Make sure the Hydra user and group are present
   users.users.hydra = {
@@ -15,7 +18,6 @@
     group = "hydra";
   };
   users.groups.hydra = { };
-
   nix.settings.allowed-uris = [
   "github:"
   "git+https://github.com/"
