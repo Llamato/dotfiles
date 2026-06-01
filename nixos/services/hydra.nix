@@ -1,10 +1,9 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
   # Enable the Hydra service and its dependencies
   services.hydra = {
     enable = true;
-    package = pkgs.hydra;
     hydraURL = "http://192.168.3.14:3000";
     notificationSender = "hydra@localhost";
     buildMachinesFiles = [ ]; # Set empty unless connecting remote builders
@@ -16,7 +15,7 @@
     group = "hydra";
   };
   users.groups.hydra = { };
-  
+
   nix.settings.allowed-uris = [
   "github:"
   "git+https://github.com/"

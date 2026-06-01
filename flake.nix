@@ -63,6 +63,7 @@
       self,
       nixpkgs,
       nixpkgs2205,
+      nixpkgs-llamato,
       nix-darwin, 
       nixos-boot,
       ...
@@ -73,7 +74,6 @@
     {
       #nixosModules = import ./nixos/modules/default.nix;
       #overlays = import ./nixos/overlays/overlays.nix {inherit inputs outputs;};
-      #packages = forAllSystems (system: import ./nixos/packages nixpkgs.legacyPackages.${system});
 
       nixosConfigurations = {
         wannabeonyx = nixpkgs.lib.nixosSystem {
@@ -277,9 +277,21 @@
       };
     };
     hydraJobs = {
-      packages.x86_64-linux = self.packages.x86_64-linux;
-      packages.riscv64-linux = self.packages.riscv64-linux;
-      packages.armv7l-linux = self.packages.riscv64-linux;
+      # Build all your NixOS configurations
+      wannabeonyx = self.nixosConfigurations.wannabeonyx.config.system.build.toplevel;
+      wannabeinthebasement = self.nixosConfigurations.wannabeinthebasement.config.system.build.toplevel;
+      llamkatttserver = self.nixosConfigurations.llamkatttserver.config.system.build.toplevel;
+      wannabethinkpad = self.nixosConfigurations.wannabethinkpad.config.system.build.toplevel;
+      
+      # Optional: Group them
+      allNixos = {
+        wannabeonyx = self.hydraJobs.wannabeonyx;
+        wannabeinthebasement = self.hydraJobs.wannabeinthebasement;
+        llamkatttserver = self.hydraJobs.llamkatttserver;
+      };
+      
+      # Build your darwin config too if you want
+      apowerbooksgrandchild = self.darwinConfigurations.apowerbooksgrandchild.config.system.build.toplevel;
     };
   };
 }
