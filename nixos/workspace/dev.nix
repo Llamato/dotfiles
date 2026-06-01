@@ -65,7 +65,6 @@
     distrobox
     gcc gdb 
     dosfstools
-    (pkgs.callPackage inputs.nixpkgs-unstable { }).android-studio-full
     devenv
     gnucobol
     fuse-emulator

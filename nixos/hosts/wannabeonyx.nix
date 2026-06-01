@@ -245,6 +245,7 @@
     
     jetbrains.clion
     jetbrains.pycharm
+     (pkgs.callPackage inputs.nixpkgs-unstable { }).android-studio-full
 
     #Cross building
     pkgsCross.muslpi.buildPackages.gcc
