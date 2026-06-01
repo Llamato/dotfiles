@@ -2,21 +2,17 @@
   description = "Tina's NixOS configurations and dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-2511-small.url = "github:nixos/nixpkgs/nixos-25.11-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    nixpkgs2205.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs-master.url = "github:nixos/nixpkgs";
+    nixpkgs2205.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
+    nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
 
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
 
-    nixpkgs-master.url = "github:nixos/nixpkgs";
-
     apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-25.11";
-
-    nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
-    nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
 
     nixos-boot.url = "github:Melkor333/nixos-boot";
     
