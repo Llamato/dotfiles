@@ -68,6 +68,7 @@
     (pkgs.callPackage inputs.nixpkgs-unstable { }).android-studio-full
     devenv
     gnucobol
+    fuse-emulator
   ];
 
   # clangd service
