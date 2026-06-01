@@ -168,6 +168,7 @@ in
     permitRootLogin = "yes";
     forwardX11 = true;
   };*/
+  services.openssh.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
