@@ -4,7 +4,7 @@
   # Enable the Hydra service and its dependencies
   services.hydra = {
     enable = true;
-    package = pkgs.hydra_unstable;
+    package = pkgs.hydra;
     hydraURL = "http://192.168.3.14:3000";
     notificationSender = "hydra@localhost";
     buildMachinesFiles = [ ]; # Set empty unless connecting remote builders
