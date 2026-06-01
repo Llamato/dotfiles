@@ -279,16 +279,8 @@
     hydraJobs = {
       # Build all your NixOS configurations
       wannabeonyx = self.nixosConfigurations.wannabeonyx.config.system.build.toplevel;
-      wannabeinthebasement = self.nixosConfigurations.wannabeinthebasement.config.system.build.toplevel;
       llamkatttserver = self.nixosConfigurations.llamkatttserver.config.system.build.toplevel;
-      wannabethinkpad = self.nixosConfigurations.wannabethinkpad.config.system.build.toplevel;
-      
-      # Optional: Group them
-      allNixos = {
-        wannabeonyx = self.hydraJobs.wannabeonyx;
-        wannabeinthebasement = self.hydraJobs.wannabeinthebasement;
-        llamkatttserver = self.hydraJobs.llamkatttserver;
-      };
+      wannaberiscv = self.nixosConfigurations.wannaberiscv.config.system.build.toplevel;
       
       # Build your darwin config too if you want
       apowerbooksgrandchild = self.darwinConfigurations.apowerbooksgrandchild.config.system.build.toplevel;
