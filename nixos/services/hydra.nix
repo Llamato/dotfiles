@@ -1,6 +1,4 @@
-{ inputs, config, pkgs, ... }:
-
-{
+{ inputs, config, pkgs, ... }: {
   # Enable the Hydra service and its dependencies
   services.hydra = {
     enable = true;
@@ -19,8 +17,21 @@
   };
   users.groups.hydra = { };
   nix.settings.allowed-uris = [
-  "github:"
-  "git+https://github.com/"
-  "git+ssh://github.com/"
-];
+    "github:"
+    "git+https://github.com/"
+    "git+ssh://github.com/"
+  ];
+  nix.buildMachines = [
+    {
+      hostName = "localhost";
+      systems = [
+        "x86_64-linux"    # Your native architecture
+        "aarch64-linux"   # For wannabethinkpad
+        "armv7l-linux"    # For bpim1
+      ];
+      supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
+      maxJobs = 40;  # Adjust based on your CPU
+    }
+  ];
+
 }
