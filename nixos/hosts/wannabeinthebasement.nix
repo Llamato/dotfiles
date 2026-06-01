@@ -167,6 +167,7 @@ in
     permitRootLogin = "yes";
     forwardX11 = true;
   };*/
+  services.openssh.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -210,7 +211,7 @@ in
   services.dellfancontroller.enable = true;
 
   networking.hostName = "wannabeinthebasement";
-  networking.hostId = "00006301";
+  hostId = "7eeb63b";
   networking.firewall.enable = false;
   networking.useNetworkd = true;
   networking.useDHCP = false;
