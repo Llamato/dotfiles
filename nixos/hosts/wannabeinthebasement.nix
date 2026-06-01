@@ -115,7 +115,7 @@ in
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
-    mutableUsers = false; 
+    mutableUsers = true; 
     users = {
       tina = {
         isNormalUser = true;
@@ -168,7 +168,6 @@ in
     permitRootLogin = "yes";
     forwardX11 = true;
   };*/
-  services.openssh.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -212,7 +211,7 @@ in
   services.dellfancontroller.enable = true;
 
   networking.hostName = "wannabeinthebasement";
-  hostId = "7eeb63b";
+  networking.hostId = "00006301";
   networking.firewall.enable = false;
   networking.useNetworkd = true;
   networking.useDHCP = false;
