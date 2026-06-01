@@ -74,10 +74,16 @@ in
     "zfs"
     "f2fs"
   ];
-
-  #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
-
   boot.zfs.extraPools = [ "stripe-pool" ];
+
+  # Emulated systems
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "armv7l-linux"
+    "riscv64-linux"
+  ];
+  
+  #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";

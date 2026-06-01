@@ -276,5 +276,10 @@
         ];
       };
     };
+    hydraJobs = {
+      packages.x86_64-linux = self.packages.x86_64-linux;
+      packages.riscv64-linux = self.packages.riscv64-linux;
+      packages.armv7l-linux = self.packages.riscv64-linux;
+    };
   };
 }
