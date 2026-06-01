@@ -84,9 +84,6 @@
       };
     };
 
-  # --- Allow unsupported packages ---
-  nixpkgs.config.allowUnsupportedSystem = true;
-
   # --- State Version ---
   system.stateVersion = "22.05";
 }

@@ -14,7 +14,6 @@
 
   nixpkgs = {
     config = {
-      allowUnsupportedSystem = true;
       allowEmulation = true;
     };
     buildPlatform.system = "x86_64-linux";

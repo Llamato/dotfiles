@@ -2,7 +2,6 @@
   nix = {
     #package = pkgs.lixPackageSets.stable.lix;
     optimise.automatic = true;
-    allowUnsupportedSystem = true;
     settings = {
       log-lines = "35";
       max-jobs = "auto";

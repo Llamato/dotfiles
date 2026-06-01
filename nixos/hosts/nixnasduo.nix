@@ -116,9 +116,6 @@
   #nix.buildMachines = ["192.168.3.11" "192.168.3.14" "192.168.3.241"];
   nix.distributedBuilds = true;
 
-  # --- Allow unsupported packages ---
-  nixpkgs.config.allowUnsupportedSystem = true;
-
   # --- State Version ---
   system.stateVersion = "22.05";
 }
