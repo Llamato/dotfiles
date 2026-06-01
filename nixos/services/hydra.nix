@@ -16,4 +16,10 @@
     group = "hydra";
   };
   users.groups.hydra = { };
+  
+  nix.settings.allowed-uris = [
+  "github:"
+  "git+https://github.com/"
+  "git+ssh://github.com/"
+];
 }

@@ -1,0 +1,13 @@
+{
+    "main": {
+        "enabled": 1,
+        "hidden": false,
+        "description": "My flake builds",
+        "flake": "git+https://github.com/llamato/dotfiles.git",
+        "checkinterval": 300,
+        "schedulingshares": 100,
+        "enableemail": false,
+        "keepnr": 10,
+        "type": 1
+    }
+}
