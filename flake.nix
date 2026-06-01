@@ -182,12 +182,8 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/actuallythinkpad-hw.nix
-
-          #./nixos/modules/hyprland.nix
-
           ./nixos/workspace/dev.nix
         ];
       };
@@ -201,8 +197,6 @@
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/idonotevenknowwhatiwantthistobe-hw.nix
 
-          #./nixos/modules/hyprland.nix
-
           ./nixos/workspace/dev.nix
         ];
       };
@@ -215,7 +209,7 @@
 
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/wannabethinkpadsmother-hw.nix
-          
+
           ./nixos/workspace/dev.nix
         ];
       };
@@ -260,8 +254,6 @@
 
           ./nixos/hosts/bpim1.nix
           ./nixos/hosts/bpim1-hw.nix
-
-          #./nixos/services/devserver.nix
         ];
       };
     };
@@ -272,6 +264,7 @@
         specialArgs = {inherit inputs outputs; };
         modules = [
           ./common.nix
+          
           ./darwin/hosts/apowerbooksgrandchild.nix
         ];
       };
