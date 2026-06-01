@@ -64,8 +64,6 @@ in {
     fsType = "vfat";
   };
 
-  swapDevices = [];
-
   zramSwap = {
     enable = true;
     memoryPercent = 50;
