@@ -119,6 +119,7 @@
             
             ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
+            ./nixos/services/hydra.nix
           ];
         };
 
