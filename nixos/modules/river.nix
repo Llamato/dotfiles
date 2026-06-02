@@ -26,7 +26,6 @@
     wezterm
     foot
     cool-retro-term
-    discord
     xdg-desktop-portal-wlr
     xdg-desktop-portal-gtk
     xdg-desktop-portal
