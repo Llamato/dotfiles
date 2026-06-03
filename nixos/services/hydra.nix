@@ -11,11 +11,13 @@
     '';
   };
   # Make sure the Hydra user and group are present
-  users.users.hydra = {
-    isSystemUser = true;
-    group = "hydra";
+  users = {
+    groups.hydra = { };
+    users.hydra = {
+      isSystemUser = true;
+      group = "hydra";
+    };
   };
-  users.groups.hydra = { };
   nix = {
     settings.allowed-uris = [
       "github:"
@@ -36,4 +38,9 @@
       }
     ];
   };
+  services.nix-serve = {
+    enable = true;
+    secretKeyFile = "/home/tina/dotfiles/wannabeinthebasement-hydra-signing-key.sec";
+  };
+
 }

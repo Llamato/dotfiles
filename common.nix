@@ -3,6 +3,8 @@
     #package = pkgs.lixPackageSets.stable.lix;
     optimise.automatic = true;
     settings = {
+      useSubstitutes = true;
+      trusted-substituters = [ "http://192.168.3.14:3000" ];
       log-lines = "35";
       max-jobs = "auto";
       nix-path = config.nix.nixPath;
