@@ -1,13 +1,21 @@
-{ inputs, config, pkgs, ... }: {
+{ inputs, config, pkgs, ... }: 
+let 
+  url = "http://192.168.3.14:3000";
+  signingKeyFile = "/home/tina/dotfiles/skey.sec";
+in {
   # Enable the Hydra service and its dependencies
   services.hydra = {
     enable = true;
-    hydraURL = "http://192.168.3.14:3000";
+    hydraURL = url;
     notificationSender = "hydra@localhost";
     buildMachinesFiles = [ ]; # Set empty unless connecting remote builders
     useSubstitutes = true; # Use binary caches instead of building from scratch
     extraConfig = ''
+      binary_cache_dir = /mnt/stripe/hydra
       allow_import_from_derivation = true
+      upload_logs_to_binary_cache = true
+      binary_cache_key_name = my-hydra.local-1
+      binary_cache_private_key_file = ${signingKeyFile}
     '';
   };
   # Make sure the Hydra user and group are present
@@ -38,9 +46,9 @@
       }
     ];
   };
-  services.nix-serve = {
+  /*services.nix-serve = {
     enable = true;
-    secretKeyFile = "/home/tina/dotfiles/wannabeinthebasement-hydra-signing-key.sec";
-  };
+    secretKeyFile = "/home/tina/dotfiles/skey.sec";
+  };*/
 
 }

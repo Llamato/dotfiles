@@ -270,7 +270,7 @@
       };
     };
     hydraJobs = let
-      nixosBuilds = builtins.mapAttrs (_: config: config.config.system.build.toplevel) self.nixosConfigurations;
+      nixosBuilds = builtins.mapAttrs (_: config: config.config.system.build.toplevel) (builtins.filter (config: config.system == "x86_64-linux")) self.nixosConfigurations; 
     in nixosBuilds;
   };
 }
