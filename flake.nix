@@ -270,8 +270,7 @@
       };
     };
     hydraJobs = let
-      nixosBuilds = builtins.mapAttrs (name: config: config.config.system.build.toplevel) self.nixosConfigurations;
-      darwinBuilds = builtins.mapAttrs (_: sysconfig: sysconfig.config.system.build.toplevel) self.darwinConfigurations;
-    in nixosBuilds // darwinBuilds;
+      nixosBuilds = builtins.mapAttrs (_: config: config.config.system.build.toplevel) self.nixosConfigurations;
+    in nixosBuilds;
   };
 }

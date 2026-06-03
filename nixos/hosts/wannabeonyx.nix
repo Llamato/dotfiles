@@ -245,15 +245,14 @@
     
     jetbrains.clion
     jetbrains.pycharm
-     (pkgs.callPackage inputs.nixpkgs-unstable { }).android-studio-full
-
-    #Cross building
-    pkgsCross.muslpi.buildPackages.gcc
     
-    #Tina's packages
+    #Tina's flakes
     inputs.gcalc.packages.${pkgs.system}.default
-    #inputs.gcrypt.packages.${pkgs.system}.default
+    inputs.gcrypt.packages.${pkgs.system}.default
     inputs.gbounce.packages.${pkgs.system}.default
+
+    #Tina's packages
+    (pkgs.callPackage ../packages/llvm-mos/package.nix {})
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

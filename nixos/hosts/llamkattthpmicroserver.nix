@@ -66,7 +66,8 @@
     cifs-utils
     
     #custom
-    inputs.nixpkgs-llamato.legacyPackages.${pkgs.system}.bun-baseline
+    pkgs.callPackage ../packages/bun-baseline/package.nix {}
+    pkgs.callPackage ../packages/ssacli/package.nix {}
   ];
 
   #Networking
