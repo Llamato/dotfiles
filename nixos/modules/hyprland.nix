@@ -2,6 +2,7 @@
 let
   hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
   hyprsplit = inputs.hyprsplit.packages.${pkgs.system}.hyprsplit;
+  split-monitor-workspaces = inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces;
   xdg-desktop-portal-hyprland = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 in
 {
@@ -14,7 +15,7 @@ in
     package = hyprland;
     xwayland.enable = true;
     portalPackage = xdg-desktop-portal-hyprland;
-    plugins = [ hyprsplit ];
+    plugins = [ hyprsplit split-monitor-workspaces ];
   };
 
   #Nautilus File Manager config
@@ -79,5 +80,5 @@ in
     pwvucontrol
     nwg-displays
     nwg-look 
-  ] ++ comixcursors.all;
+  ];
 }

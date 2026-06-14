@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   lib,
   pkgs,
@@ -68,6 +67,7 @@
     devenv
     gnucobol
     fuse-emulator
+    acme
   ];
 
   # clangd service

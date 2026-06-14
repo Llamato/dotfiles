@@ -33,12 +33,12 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.54.3";
+      url = "github:hyprwm/Hyprland?ref=v0.53.0";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
+      url = "github:hyprwm/hyprland-plugins?ref=v0.53.0";
       inputs.hyprland.follows = "hyprland";
     };
 
@@ -53,7 +53,7 @@
     };
 
     split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
+      url = "github:Duckonaut/split-monitor-workspaces?ref=v0.53.0";
       inputs.hyprland.follows = "hyprland";
     };
   };
@@ -86,6 +86,7 @@
   
             ./nixos/hosts/wannabeonyx.nix
             ./nixos/hosts/wannabeonyx-hw.nix
+
             ./nixos/modules/river.nix
             ./nixos/modules/hyprland.nix
             ./nixos/modules/kate-wakatime.nix 
