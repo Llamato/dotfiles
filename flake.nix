@@ -32,13 +32,18 @@
       url = "github:llamato/stenc";
     };
 
+    devnotify = {
+      url = "github:ShyAssassin/devnotify";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.53.0";
+      url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins?ref=v0.53.0";
+      url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
 
@@ -48,12 +53,12 @@
     };
 
     hyprsplit = {
-      url = "github:shezdy/hyprsplit?ref=v0.54.3";
+      url = "github:shezdy/hyprsplit";
       inputs.hyprland.follows = "hyprland";
     };
 
     split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces?ref=v0.53.0";
+      url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
     };
   };
@@ -88,12 +93,12 @@
             ./nixos/hosts/wannabeonyx-hw.nix
 
             ./nixos/modules/river.nix
-            ./nixos/modules/hyprland.nix
             ./nixos/modules/kate-wakatime.nix 
             ./nixos/modules/lto.nix
 
             ./nixos/services/commenssh.nix
 
+            ./nixos/workspace/hyprland.nix
             ./nixos/workspace/dev.nix
             ./nixos/workspace/eda.nix
             ./nixos/workspace/3d.nix
@@ -157,8 +162,7 @@
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
 
-          ./nixos/modules/hyprland.nix
-
+          ./nixos/workspace/hyprland.nix
           ./nixos/workspace/dev.nix         
         ];
       };
@@ -172,8 +176,7 @@
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabewannabethinkpad-hw.nix
 
-          ./nixos/modules/hyprland.nix
-
+          ./nixos/workspace/hyprland.nix
           ./nixos/workspace/dev.nix
         ];
       };
