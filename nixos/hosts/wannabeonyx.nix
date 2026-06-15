@@ -209,11 +209,8 @@
     gpufetch
     python3
     libreoffice-qt6-fresh
-    simple-scan
-    gocr
     unpaper
     netpbm
-    rnote
     wayland
     blueman
     obsidian
@@ -229,7 +226,6 @@
     tree
     nix-tree
     element-desktop # cinny-desktop
-    texlive.combined.scheme-full
     hexedit
     kdePackages.ark
     wlvncc

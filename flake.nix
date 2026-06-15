@@ -103,6 +103,7 @@
             ./nixos/workspace/eda.nix
             ./nixos/workspace/3d.nix
             ./nixos/workspace/benchmark.nix
+            ./nixos/workspace/office.nix
             
             nixos-boot.nixosModules.default
           ];
