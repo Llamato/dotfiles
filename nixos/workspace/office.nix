@@ -9,5 +9,6 @@
     rnote
     simple-scan
     gocr
+    thunderbird
   ];
 }

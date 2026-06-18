@@ -68,6 +68,7 @@
     gnucobol
     fuse-emulator
     acme
+    (pkgs.callPackage ../packages/llvm-mos/package.nix {})
   ];
 
   # clangd service

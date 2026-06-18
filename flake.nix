@@ -230,6 +230,7 @@
 
           ./nixos/workspace/dev.nix
           ./nixos/workspace/3d.nix
+          ./nixos/workspace/office.nix
         ];
       };
 

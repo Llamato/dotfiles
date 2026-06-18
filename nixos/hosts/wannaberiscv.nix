@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }: {
   networking = {
     hostName = "wannaberiscv";
     networkmanager.enable = true;
@@ -34,6 +34,11 @@
     sl
     qemu
     toolbox
+
+    #Tina's flakes
+    inputs.gcalc.packages.${pkgs.system}.default
+    inputs.gcrypt.packages.${pkgs.system}.default
+    inputs.gbounce.packages.${pkgs.system}.default
   ];
 
   programs.firefox.enable = true;
