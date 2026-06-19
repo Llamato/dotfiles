@@ -4,16 +4,6 @@
   #nix.config.trusted-users = [ "root" "tina" ];
   nixpkgs.config.allowUnfree = true;
   nix.distributedBuilds = true;
-  nix.buildMachines = [ {
-	 hostName = "builder";
-	 system = "aarch64-linux";
-   protocol = "ssh-ng";
-	 systems = [ "aarch64-linux" ];
-	 maxJobs = 1;
-	 speedFactor = 2;
-	 supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-	 mandatoryFeatures = [ ];
-  }];
 
   networking = {
     hostName = "actuallythinkpad";
@@ -37,9 +27,6 @@
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
   };
-
-  #Cosmic Desktop
-  services.desktopManager.cosmic.enable = true;
   
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
@@ -78,7 +65,6 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  system.stateVersion = "25.11"; # Did you read the comment?
 
 
   #Tinas edits
@@ -86,6 +72,7 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+  services.desktopManager.cosmic.enable = true;
 
   #networking.wireless.iwd = {
   #  enable = true;
@@ -110,13 +97,6 @@ users.users = {
         #"ssh-falcon512 AAAADXNzaC1mYWxjb241MTIAAAOBCYselVfYAiMNMr/352O5W05OFNCDgR/VQOKtihMduSTDbZFYUxXU+b8Kh3IBg9A3aw0FcMp6PayAiu5oV5WL0zdoivJP1pGakIKUdFhdFCH9xtfIiJGQP9b>
       ];
     };
-#  romana = {
-#      isNormalUser = true;
-#      password = "6301";
-#      openssh.authorizedKeys.keys = [
-#        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM30of3vRzm2aB5f+b9HVVNKh811emm7ZD4OW9v2tfcx u0_a468@localhost"
-#        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAING7VPuszU2P1fYm/h8ZTywzfNhHHPZFFbL2pUdIQfSq flash@bios"
-#      ];
-#    };
   };
+  system.stateVersion = "25.11"; # Did you read the comment?
 }

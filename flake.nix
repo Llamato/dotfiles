@@ -158,13 +158,12 @@
           ./common.nix
 
           ./nixos/modules/apple-silicon-support
-          ./nixos/modules/river.nix
+          ./nixos/modules/jamlytics.nix
           
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
 
-          ./nixos/workspace/hyprland.nix
-          ./nixos/workspace/dev.nix         
+          ./nixos/services/devserver.nix   
         ];
       };
 
@@ -187,8 +186,10 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
+          
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/actuallythinkpad-hw.nix
+
           ./nixos/workspace/dev.nix
         ];
       };
