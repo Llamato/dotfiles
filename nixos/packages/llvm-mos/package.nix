@@ -3,8 +3,7 @@
     url = "https://github.com/NixOS/nixpkgs/archive/4fe8d07066f6ea82cda2b0c9ae7aee59b2d241b3.tar.gz";
     sha256 = "sha256:06jzngg5jm1f81sc4xfskvvgjy5bblz51xpl788mnps1wrkykfhp";
   }) {}
-}: 
-pkgs.stdenv.mkDerivation {
+}: pkgs.stdenv.mkDerivation {
   pname = "llvm-mos";
   version = "23.0.1";
   src = fetchTarball {
@@ -16,4 +15,12 @@ pkgs.stdenv.mkDerivation {
     mkdir -p $out/
     cp -R * $out/
   '';
+  
+  meta = with pkgs.lib; {
+    description = "LLVM-MOS SDK for 6502-based systems";
+    homepage = "https://llvm-mos.org";
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+    maintainers = [ maintainers.llamato ];
+  };
 }

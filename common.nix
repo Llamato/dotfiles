@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, ... }: {
   nix = {
     #package = pkgs.lixPackageSets.stable.lix;
     optimise.automatic = true;
@@ -27,4 +27,8 @@
       android_sdk.accept_license = true;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    git
+  ];
 }

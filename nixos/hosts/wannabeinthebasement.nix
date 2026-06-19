@@ -184,7 +184,6 @@ in
     wget
     rsync
     sshfs
-    git
     ethtool
     inetutils
     iperf3

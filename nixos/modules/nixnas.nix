@@ -27,7 +27,6 @@
 
   environment.systemPackages = with pkgs; [
     busybox
-    git
     xorg.xauth
 
     # GOD HELP

@@ -192,7 +192,6 @@
     vnstat iperf3 iotop mission-center ethtool inetutils net-tools mtr
     cifs-utils nfs-utils
     archivemount
-    git
     kdePackages.kate
     thunderbird
     discord vencord vesktop
@@ -360,14 +359,14 @@
       };
     };
 
-    /*wireless = {
-      enable = false;
+    wireless = {
+      enable = true;
       networks = {
         "Ponto-3" = {
           psk = "ponto-233603";
         };
       };
-    };*/
+    };
 
     #How do we get on the internet
     defaultGateway = {

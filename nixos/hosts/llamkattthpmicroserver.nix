@@ -61,7 +61,6 @@
     lm_sensors
     fastfetch sl
     rsync sshfs
-    git
     monero-cli xmrig
     cifs-utils
     
