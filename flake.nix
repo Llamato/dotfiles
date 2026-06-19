@@ -12,7 +12,7 @@
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
 
-    apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-25.11";
+    apple-silicon.url = "github:nix-community/nixos-apple-silicon";
 
     nixos-boot.url = "github:Melkor333/nixos-boot";
     
@@ -70,16 +70,14 @@
       nixpkgs2205,
       nixpkgs-llamato,
       nix-darwin, 
-      nixos-boot,
+      nixos-boot, 
+      apple-silicon,
       ...
     }@inputs:
     let
       inherit (self) outputs;
     in
     {
-      #nixosModules = import ./nixos/modules/default.nix;
-      #overlays = import ./nixos/overlays/overlays.nix {inherit inputs outputs;};
-
       nixosConfigurations = {
         wannabeonyx = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -157,7 +155,7 @@
         modules = [
           ./common.nix
 
-          ./nixos/modules/apple-silicon-support
+          apple-silicon.nixosModules.apple-silicon-support
           ./nixos/modules/jamlytics.nix
           
           ./nixos/hosts/wannabethinkpad.nix
@@ -186,7 +184,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          
+
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/actuallythinkpad-hw.nix
 
