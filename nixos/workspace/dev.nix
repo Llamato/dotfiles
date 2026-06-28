@@ -62,13 +62,9 @@
     vscode-fhs
     uutils-coreutils-noprefix
     distrobox
-    gcc gdb 
     dosfstools
     devenv
-    gnucobol
     fuse-emulator
-    acme
-    (pkgs.callPackage ../packages/llvm-mos/package.nix {})
   ];
 
   # clangd service
