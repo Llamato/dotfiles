@@ -34,6 +34,7 @@
     sl
     qemu
     toolbox
+    acme
 
     #Tina's flakes
     inputs.gcalc.packages.${pkgs.system}.default
