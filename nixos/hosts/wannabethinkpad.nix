@@ -10,27 +10,17 @@
     "exfat"
     "vfat"
     "apfs"
-  ];  
-  /*boot.binfmt.emulatedSystems = [
-  "x86_64-linux"
-  "armv7l-linux"
-  "riscv64-linux"
-  ];*/
+  ];
+  boot.binfmt.emulatedSystems = [
+    "x86_64-linux"
+    "armv7l-linux"
+    "riscv64-linux"
+  ];
 
   #Nix
   #nix.config.trusted-users = [ "root" "tina" ];
   nixpkgs.config.allowUnfree = true;
   nix.distributedBuilds = true;
-  nix.buildMachines = [ {
-	 hostName = "builder";
-	 system = "aarch64-linux";
-   protocol = "ssh-ng";
-	 systems = [ "aarch64-linux" ];
-	 maxJobs = 1;
-	 speedFactor = 2;
-	 supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-	 mandatoryFeatures = [ ];
-  }];
 
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
@@ -42,7 +32,7 @@
     hostName = "wannabethinkpad";
     networkmanager.enable = true;
   };
-  
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -65,9 +55,9 @@
   # services.xserver.enable = true;
 
   # Configure keymap in X11
-    #services.xserver.xkb = {
-    #layout = "de";
-    #variant = "";
+  #services.xserver.xkb = {
+  #layout = "de";
+  #variant = "";
   #};
   #services.xserver.xkb.options = "eurosign:e,caps:escape";
 
@@ -94,25 +84,29 @@
   #   ];
   # };
 
-  #Cosmic Desktop
-  services.desktopManager.cosmic.enable = true;
-
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
-    environment.systemPackages = with pkgs; [
-      wget
-      screen
-      fastfetch
-      btop htop
-      vesktop
-      gparted
-      telegram-desktop
-      localsend
-      sl
-      qemu
-      powertop
-      ncdu
-   ];
+  environment.systemPackages = with pkgs; [
+    wget
+    screen
+    fastfetch
+    btop
+    htop
+    vesktop
+    gparted
+    localsend
+    sl
+    qemu
+    powertop
+    ncdu
+    x11vnc
+    unityhub
+    alvr
+    steamcmd
+    steam-run
+  ];
+
+  programs.steam.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -162,20 +156,28 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.11"; # Did you read the comment?
 
-
   #Tinas edits
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  services.displayManager.defaultSession = "plasmax11";
+  services.xserver = {
+    enable = true;
+    xkb.layout = "de";
+  };
+
+  # Enable VNC remote desktop
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.x11vnc}/bin/x11vnc -rfbauth /home/yourusername/.vnc/passwd -forever -loop -display :0 &
+  '';
 
   #networking.wireless.iwd = {
   #  enable = true;
   #  settings.General.EnableNetworkConfiguration = true;
   #};
 
-users.users = {
-  tina = {
+  users.users = {
+    tina = {
       isNormalUser = true;
       description = "Tina";
       extraGroups = [
@@ -191,13 +193,17 @@ users.users = {
         #"ssh-falcon512 AAAADXNzaC1mYWxjb241MTIAAAOBCYselVfYAiMNMr/352O5W05OFNCDgR/VQOKtihMduSTDbZFYUxXU+b8Kh3IBg9A3aw0FcMp6PayAiu5oV5WL0zdoivJP1pGakIKUdFhdFCH9xtfIiJGQP9b>
       ];
     };
-#  romana = {
-#      isNormalUser = true;
-#      password = "6301";
-#      openssh.authorizedKeys.keys = [
-#        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM30of3vRzm2aB5f+b9HVVNKh811emm7ZD4OW9v2tfcx u0_a468@localhost"
-#        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAING7VPuszU2P1fYm/h8ZTywzfNhHHPZFFbL2pUdIQfSq flash@bios"
-#      ];
-#    };
+    katie = {
+      isNormalUser = true;
+      description = "Katie";
+      initialPassword = "FroggyFurits";
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "scanner"
+        "lp"
+        "docker"
+      ];
+    };
   };
 }
