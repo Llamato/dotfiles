@@ -65,6 +65,7 @@
     dosfstools
     devenv
     fuse-emulator
+    gdb
   ];
 
   # clangd service
