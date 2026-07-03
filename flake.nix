@@ -12,7 +12,7 @@
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
 
-    apple-silicon.url = "github:nix-community/nixos-apple-silicon";
+    apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-2025-11-18";
 
     nixos-boot.url = "github:Melkor333/nixos-boot";
     
@@ -156,12 +156,9 @@
           ./common.nix
 
           apple-silicon.nixosModules.apple-silicon-support
-          ./nixos/modules/jamlytics.nix
           
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
-
-          ./nixos/services/devserver.nix   
         ];
       };
 

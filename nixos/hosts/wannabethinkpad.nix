@@ -100,13 +100,12 @@
     powertop
     ncdu
     x11vnc
-    unityhub
     alvr
-    steamcmd
-    steam-run
+    #steamcmd
+    #steam-run
   ];
 
-  programs.steam.enable = true;
+  #programs.steam.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -159,8 +158,8 @@
   #Tinas edits
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.displayManager.defaultSession = "plasmax11";
+  services.displayManager.plasma-login-manager.enable = true;
+  services.desktopManager.plasma6.enable = true;
   services.xserver = {
     enable = true;
     xkb.layout = "de";
