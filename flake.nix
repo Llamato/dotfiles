@@ -13,7 +13,7 @@
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
 
-    apple-silicon.url = "github:nix-community/nixos-apple-silicon?ref=release-2025-11-18";
+    apple-silicon.url = "github:nix-community/nixos-apple-silicon";
 
     nixos-boot.url = "github:Melkor333/nixos-boot";
     
