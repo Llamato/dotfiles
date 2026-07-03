@@ -11,6 +11,10 @@
     sha256 = "05bhyj1ilyh52v4lcxd9brxdmj7g91n19vyajadjc8rr2y1qb6q1";
   };
 
+  nativeBuildInputs = with pkgs; [
+    libc
+  ];
+
   installPhase = ''
     mkdir -p $out/
     cp -R * $out/
