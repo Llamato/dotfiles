@@ -158,11 +158,14 @@
   #Tinas edits
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.plasma-login-manager.enable = true;
-  services.desktopManager.plasma6.enable = true;
-  services.xserver = {
-    enable = true;
-    xkb.layout = "de";
+  services = {
+    xserver = {
+      enable = true;
+      displayManager.sddm.enable = true;
+      displayManager.sddm.wayland.enable = false;
+      displayManager.sddm.enableHidpi = true;
+      desktopManager.plasma6.enable = true;
+    };
   };
 
   # Enable VNC remote desktop

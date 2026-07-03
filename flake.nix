@@ -6,6 +6,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs2205.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs2511.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
     nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
 
@@ -68,6 +69,7 @@
       self,
       nixpkgs,
       nixpkgs2205,
+      nixpkgs2511,
       nixpkgs-llamato,
       nix-darwin, 
       nixos-boot, 
@@ -149,7 +151,7 @@
         ];
       };
       
-      wannabethinkpad = nixpkgs.lib.nixosSystem {
+      wannabethinkpad = nixpkgs2511.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
