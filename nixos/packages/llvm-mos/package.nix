@@ -12,7 +12,15 @@
   };
 
   nativeBuildInputs = with pkgs; [
-    libc
+    autoPatchelfHook
+    
+  ];
+
+  buildInputs = with pkgs; [
+    glibc
+    stdenv.cc.cc.lib
+    zlib
+    libxml2
   ];
 
   installPhase = ''
