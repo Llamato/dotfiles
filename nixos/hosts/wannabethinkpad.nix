@@ -69,7 +69,6 @@
     #steam-run
     muvm
     file
-    unityhub
   ];
   
   #Vr Things

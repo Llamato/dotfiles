@@ -162,6 +162,8 @@
           
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
+
+          ./nixos/workspace/unitydev-arm64-linux.nix
         ];
       };
 
