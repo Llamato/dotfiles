@@ -9,10 +9,10 @@
     "exfat"
     "vfat"
   ];
-  boot.binfmt.emulatedSystems = [
+  /*boot.binfmt.emulatedSystems = [
     "x86_64-linux"
     "i686-linux"
-  ];
+  ];*/
 
   #Nix
   #nix.config.trusted-users = [ "root" "tina" ];
