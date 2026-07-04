@@ -67,10 +67,6 @@
     kdePackages.krfb
     muvm
     file
-    #steam
-    steamcmd
-    steam-run
-    #unityhub
   ];
   
   #Vr Things
@@ -81,6 +77,9 @@
 
   #Enable firefox bowser
   programs.firefox.enable = true;
+
+  #Enable stream
+  #programs.steam.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
