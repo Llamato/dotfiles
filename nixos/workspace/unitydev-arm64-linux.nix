@@ -9,7 +9,7 @@ let
 in
 {
   # 1. Force the kernel to allow unprivileged user namespaces (Fixes bwrap)
-  boot.kernel.sysctl = {
+  /*boot.kernel.sysctl = {
     "kernel.unprivileged_userns_clone" = 1;
     "user.max_user_namespaces" = 10000; # Ensure enough namespace slots are open
   };
@@ -35,7 +35,7 @@ in
       xorg.libXcomposite xorg.libXdamage xorg.libXfixes xorg.libXrender
       xorg.libXtst xorg.libXScrnSaver
     ];
-  };
+  };*/
 
   environment.systemPackages = [
     pkgs-x86_64.unityhub
