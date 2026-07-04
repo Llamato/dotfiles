@@ -37,7 +37,8 @@ in
     ];
   };*/
 
-  environment.systemPackages = [
-    pkgs-x86_64.unityhub
+  environment.systemPackages = with pkgs-x86_64; [
+    unityhub
+    mesa-demos
   ];
 }
