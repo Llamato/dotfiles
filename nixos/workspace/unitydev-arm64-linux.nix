@@ -37,9 +37,12 @@ in
     ];
   };*/
 
-  environment.systemPackages = with pkgs-x86_64; [
-    unityhub
-    mesa-demos
-    sl
+  environment.systemPackages = [
+    pkgs.fex
+    pkgs-x86_64.unityhub
+    pkgs-x86_64.mesa-demos
+    pkgs-x86_64.sl
+    pkgs-x86_64.hello
+    pkgs-x86_64.htop
   ];
 }
