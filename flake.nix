@@ -14,6 +14,7 @@
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
 
     apple-silicon.url = "github:nix-community/nixos-apple-silicon";
+    nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
 
     nixos-boot.url = "github:Melkor333/nixos-boot";
     
