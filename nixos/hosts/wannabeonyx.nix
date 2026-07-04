@@ -204,8 +204,7 @@
     gimp3
     telegram-desktop
     fastfetch
-    cpufetch
-    gpufetch
+    cpufetch gpufetch
     python3
     libreoffice-qt6-fresh
     unpaper
@@ -216,9 +215,7 @@
     virt-manager
     gparted
     gptfdisk
-    zip
-    unzip
-    xz
+    zip unzip xz
     rsync sshfs
     hardinfo2
     qdiskinfo
@@ -237,6 +234,7 @@
     cinny
     fortune
     gzdoom
+    remmina
     
     jetbrains.clion
     jetbrains.pycharm
@@ -391,5 +389,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-
 }

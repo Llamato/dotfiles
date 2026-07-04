@@ -66,6 +66,7 @@
     kdePackages.krfb
     #steamcmd
     #steam-run
+    fex
   ];
   
   #Vr Things
