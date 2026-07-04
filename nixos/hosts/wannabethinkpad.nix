@@ -18,6 +18,7 @@
   #nix.config.trusted-users = [ "root" "tina" ];
   nixpkgs.config.allowUnfree = true;
   nix.distributedBuilds = true;
+  nixpkgs.config.allowUnsupportedSystem = true;
 
   services.logind.settings.Login = {
     HandleLidSwitch = "ignore";
@@ -68,6 +69,7 @@
     #steam-run
     muvm
     file
+    unityhub
   ];
   
   #Vr Things
