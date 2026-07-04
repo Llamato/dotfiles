@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
   nix = {
-    #package = pkgs.lixPackageSets.stable.lix;
+    package = pkgs.lixPackageSets.stable.lix;
     optimise.automatic = true;
     settings = {
       extra-trusted-substituters = [

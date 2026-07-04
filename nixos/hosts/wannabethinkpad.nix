@@ -3,13 +3,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
   boot.supportedFilesystems = [
-    "bcachefs"
     "xfs"
     "ntfs"
     "bitlocker"
     "exfat"
     "vfat"
-    "apfs"
   ];
   boot.binfmt.emulatedSystems = [
     "x86_64-linux"
@@ -105,7 +103,7 @@
     #steam-run
   ];
 
-  #programs.steam.enable = true;
+  programs.steam.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
