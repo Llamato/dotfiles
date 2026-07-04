@@ -28,6 +28,5 @@
     };
 
   swapDevices = [ ];
-  hardware.graphics.enable32Bit = lib.mkForce false;
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }
