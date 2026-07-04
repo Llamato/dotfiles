@@ -151,7 +151,7 @@
         ];
       };
       
-      wannabethinkpad = nixpkgs2511.lib.nixosSystem {
+      wannabethinkpad = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
