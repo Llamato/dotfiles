@@ -11,8 +11,7 @@
   ];
   boot.binfmt.emulatedSystems = [
     "x86_64-linux"
-    "armv7l-linux"
-    "riscv64-linux"
+    "i686-linux"
   ];
 
   #Nix
