@@ -67,6 +67,7 @@
     #steamcmd
     #steam-run
     muvm
+    file
   ];
   
   #Vr Things
