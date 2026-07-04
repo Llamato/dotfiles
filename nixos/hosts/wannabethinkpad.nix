@@ -48,39 +48,6 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Configure keymap in X11
-  #services.xserver.xkb = {
-  #layout = "de";
-  #variant = "";
-  #};
-  #services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  # services.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  # users.users.alice = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  #   packages = with pkgs; [
-  #     tree
-  #   ];
-  # };
-
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
@@ -96,13 +63,21 @@
     qemu
     powertop
     ncdu
-    x11vnc
-    alvr
+    kdePackages.krfb
     #steamcmd
     #steam-run
-    rustdesk
   ];
+  
+  #Vr Things
+  programs.alvr.enable = true;
 
+  #VNC for wayland
+  programs.wayvnc.enable = true;
+
+  #Enable firefox bowser
+  programs.firefox.enable = true;
+
+  #Enable stream
   #programs.steam.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -158,11 +133,6 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-
-  # Enable VNC remote desktop
-  services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.x11vnc}/bin/x11vnc -rfbauth /home/yourusername/.vnc/passwd -forever -loop -display :0 &
-  '';
 
   #networking.wireless.iwd = {
   #  enable = true;

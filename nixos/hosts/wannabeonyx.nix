@@ -237,7 +237,6 @@
     cinny
     fortune
     gzdoom
-    rustdesk
     
     jetbrains.clion
     jetbrains.pycharm
