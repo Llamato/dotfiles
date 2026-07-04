@@ -60,7 +60,6 @@
     vesktop
     gparted
     localsend
-    sl
     qemu
     powertop
     ncdu

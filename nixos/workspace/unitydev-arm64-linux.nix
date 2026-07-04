@@ -40,5 +40,6 @@ in
   environment.systemPackages = with pkgs-x86_64; [
     unityhub
     mesa-demos
+    sl
   ];
 }
