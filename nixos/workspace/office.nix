@@ -10,5 +10,6 @@
     simple-scan
     gocr
     thunderbird
+    ghostscript
   ];
 }
