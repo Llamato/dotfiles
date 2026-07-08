@@ -10,8 +10,8 @@
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
     nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
 
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.11-darwin";
-    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-26.05";
 
     apple-silicon.url = "github:nix-community/nixos-apple-silicon";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";

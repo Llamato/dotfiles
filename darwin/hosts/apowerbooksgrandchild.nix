@@ -7,7 +7,7 @@
           hyfetch
           gnupg
           git
-          (pkgs.callPackage ../packages/bun-baseline/package.nix {})
+          (pkgs.callPackage ../../nixos/packages/bun-baseline/package.nix {})
         ];
 
       # Auto upgrade nix package
@@ -25,7 +25,7 @@
       system.stateVersion = 4;
 
       # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+      nixpkgs.hostPlatform = "x86_64-darwin";
 
       # Sudo with touch ID
       security.pam.services.sudo_local.touchIdAuth = true;
