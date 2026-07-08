@@ -89,6 +89,7 @@
           };
           modules = [
             ./common.nix
+            ./nixos/common.nix
   
             ./nixos/hosts/wannabeonyx.nix
             ./nixos/hosts/wannabeonyx-hw.nix
@@ -117,6 +118,7 @@
           };
           modules = [
             ./common.nix
+            ./nixos/common.nix
 
             ./nixos/hosts/wannabeinthebasement.nix
             ./nixos/hosts/wannabeinthebasement-hw.nix
@@ -136,6 +138,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
+          ./nixos/common.nix
 
           ./nixos/modules/jamlytics.nix
 
@@ -157,6 +160,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
+          ./nixos/common.nix
 
           apple-silicon.nixosModules.apple-silicon-support
           
@@ -172,6 +176,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
+          ./nixos/common.nix
 
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabewannabethinkpad-hw.nix
@@ -186,6 +191,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
+          ./nixos/common.nix
 
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/actuallythinkpad-hw.nix
@@ -199,6 +205,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
+          ./nixos/common.nix
 
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/idonotevenknowwhatiwantthistobe-hw.nix
@@ -212,6 +219,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [ 
           ./common.nix
+          ./nixos/common.nix
 
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/wannabethinkpadsmother-hw.nix
@@ -225,6 +233,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
+          ./nixos/common.nix
 
           ./nixos/hosts/wannaberiscv.nix
           ./nixos/hosts/wannaberiscv-hw.nix
@@ -240,6 +249,7 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
+          ./nixos/common.nix
 
           ./nixos/modules/jamlytics.nix
           ./nixos/modules/nixnas.nix
@@ -255,8 +265,6 @@
         system = "armv7l-linux";
         specialArgs = {inherit inputs outputs; };
         modules = [
-          #./common.nix
-
           ./nixos/modules/jamlytics.nix
 
           ./nixos/hosts/bpim1.nix
