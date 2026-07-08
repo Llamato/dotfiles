@@ -85,17 +85,18 @@ stdenvNoCC.mkDerivation rec {
 
   passthru = {
     sources = {
-      "aarch64-darwin" = fetchurl {
+      #Darwin currently not supported due to lack of testing devices on my side. Yours Llamato / Tina
+      /*"aarch64-darwin" = fetchurl {
         url = "https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-darwin-aarch64-baseline.zip";
         hash = "sha256-ronylWETMwdRWqPdpdXv3R6dJod+yFtPGAABNDGqmO0=";
-      };
-      "aarch64-linux" = fetchurl {
-        url = "https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-linux-aarch64-baseline.zip";
-        hash = "sha256-ZWZqGEOeiR5XUbZmED/lkahRnxG2bsS9hlTFUV1P/4o=";
       };
       "x86_64-darwin" = fetchurl {
         url = "https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-darwin-x64-baseline.zip";
         hash = "sha256-pILjoY8BpW13NvpuQXjbNdoeVr3cgjJa10jhXKAdigs=";
+      };*/
+      "aarch64-linux" = fetchurl {
+        url = "https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-linux-aarch64-baseline.zip";
+        hash = "sha256-ZWZqGEOeiR5XUbZmED/lkahRnxG2bsS9hlTFUV1P/4o=";
       };
       "x86_64-linux" = fetchurl {
         url = "https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-linux-x64-baseline.zip";
