@@ -17,7 +17,7 @@
 }:
 
 stdenvNoCC.mkDerivation rec {
-  version = "1.3.1";
+  version = "1.3.14";
   pname = "bun-baseline";
 
   src =

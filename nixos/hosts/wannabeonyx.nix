@@ -246,6 +246,7 @@
 
     #Tina's packages
     (pkgs.callPackage ../packages/llvm-mos/package.nix {})
+    (pkgs.callPackage ../packages/bun-baseline/package.nix {})
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
