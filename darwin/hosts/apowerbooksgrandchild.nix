@@ -7,8 +7,7 @@
           hyfetch
           gnupg
           git
-          ves
-          (pkgs.callPackage ../../nixos/packages/bun-baseline/package.nix {})
+          firefox
         ];
 
       # Auto upgrade nix package
