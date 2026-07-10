@@ -122,7 +122,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "LLVM-MOS SDK for 6502-based systems";
+    description = "LLVM-MOS C compiler for 6502-based systems";
     homepage = "https://llvm-mos.org";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
