@@ -1,38 +1,129 @@
 {
-  pkgs ? import (fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/4fe8d07066f6ea82cda2b0c9ae7aee59b2d241b3.tar.gz";
-    sha256 = "sha256:06jzngg5jm1f81sc4xfskvvgjy5bblz51xpl788mnps1wrkykfhp";
-  }) {}
-}: pkgs.stdenv.mkDerivation {
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  python3,
+  libffi,
+  libxml2,
+  autoPatchelfHook,
+  pkg-config,
+  zlib,
+  SDL2,
+  zmusic,
+  libvpx,
+  libbacktrace,
+  ncurses,
+}: stdenv.mkDerivation {
   pname = "llvm-mos";
-  version = "23.0.1";
-  src = fetchTarball {
-    url = "https://github.com/llvm-mos/llvm-mos-sdk/releases/download/v23.0.1/llvm-mos-linux.tar.xz";
-    sha256 = "05bhyj1ilyh52v4lcxd9brxdmj7g91n19vyajadjc8rr2y1qb6q1";
+  version = "1.0.0";
+  
+  src = fetchFromGitHub {
+    owner = "llvm-mos";
+    repo = "llvm-mos";
+    rev = "9142aebae87d0bf6fc7c55b05a415f2c188b19f3";
+    fetchSubmodules = true;
+    hash = "sha256-nfd1m7FAIzTX+0Fgjv2bhN+YBv0a/6yo2Gm9m9g51qU=";
   };
 
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
+    cmake
+    ninja
+    pkg-config
+    python3
     autoPatchelfHook
-    
   ];
 
-  buildInputs = with pkgs; [
-    glibc
+  buildInputs = [
     stdenv.cc.cc.lib
     zlib
     libxml2
+    libffi
+    SDL2
+    zmusic
+    libvpx
+    libbacktrace
+    ncurses
   ];
 
-  installPhase = ''
-    mkdir -p $out/
-    cp -R * $out/
-  '';
-  
-  meta = with pkgs.lib; {
+ configurePhase = ''
+              runHook preConfigure
+
+              cmake \
+                -G Ninja \
+                -S llvm \
+                -B build \
+                -C clang/cmake/caches/MOS.cmake \
+                -DCMAKE_BUILD_TYPE=Release \
+                -DLLVM_ENABLE_PROJECTS="clang;lld" \
+                -DLLVM_ENABLE_RUNTIMES="" \
+                -DLLVM_BUILD_RUNTIME=OFF \
+                -DLLVM_INCLUDE_TESTS=OFF \
+                -DLLVM_INCLUDE_BENCHMARKS=OFF \
+                -DLLVM_INCLUDE_EXAMPLES=OFF \
+                -DLLVM_INCLUDE_DOCS=OFF \
+                -DLLVM_ENABLE_ASSERTIONS=OFF \
+                -DLLVM_ENABLE_DISTRIBUTION=OFF \
+                -DLLVM_DISTRIBUTION_COMPONENTS="" \
+                -DLLVM_INSTALL_TOOLCHAIN_ONLY=ON
+
+              runHook postConfigure
+            '';
+
+            buildPhase = ''
+              runHook preBuild
+
+              cmake --build build \
+                --target \
+                  clang \
+                  lld \
+                  llvm-ar \
+                  llvm-ranlib \
+                  llvm-objcopy \
+                  llvm-objdump \
+                  llvm-strip \
+                --parallel $NIX_BUILD_CORES
+
+              runHook postBuild
+            '';
+
+            installPhase = ''
+              runHook preInstall
+
+              mkdir -p $out/bin
+
+              install -Dm755 build/bin/clang \
+                $out/bin/mos-clang
+
+              install -Dm755 build/bin/clang++ \
+                $out/bin/mos-clang++
+
+              install -Dm755 build/bin/ld.lld \
+                $out/bin/mos-ld.lld
+
+              install -Dm755 build/bin/llvm-ar \
+                $out/bin/mos-ar
+
+              install -Dm755 build/bin/llvm-ranlib \
+                $out/bin/mos-ranlib
+
+              install -Dm755 build/bin/llvm-objcopy \
+                $out/bin/mos-objcopy
+
+              install -Dm755 build/bin/llvm-objdump \
+                $out/bin/mos-objdump
+
+              install -Dm755 build/bin/llvm-strip \
+                $out/bin/mos-strip
+
+              runHook postInstall
+            '';
+
+  meta = {
     description = "LLVM-MOS SDK for 6502-based systems";
     homepage = "https://llvm-mos.org";
-    license = licenses.gpl3;
-    platforms = platforms.linux;
-    maintainers = [ maintainers.llamato ];
+    license = lib.licenses.gpl3;
+    platforms = lib.platforms.linux;
   };
 }
