@@ -126,5 +126,9 @@
   networking.useDHCP = false;
 
   #Services
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    permitRootLogin = false;
+    passwordAuthentication = false;
+  };
 }
