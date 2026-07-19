@@ -181,7 +181,6 @@
   environment.systemPackages = with pkgs; [
     wget
     dig
-    spacenavd
     libspnav
     dislocker
     qemu
@@ -190,23 +189,16 @@
     ryzen-monitor-ng
     sg3_utils
     vnstat iperf3 iotop mission-center ethtool inetutils net-tools mtr
-    cifs-utils nfs-utils
     archivemount
     kdePackages.kate
-    thunderbird
     discord vencord vesktop
-    ffmpeg
     cool-retro-term
     sl
     kdePackages.kdenlive
-    rawtherapee
-    vlc
-    gimp3
     telegram-desktop
     fastfetch
     cpufetch gpufetch
     python3
-    libreoffice-qt6-fresh
     unpaper
     netpbm
     wayland
@@ -221,31 +213,29 @@
     qdiskinfo
     tree
     nix-tree
-    element-desktop # cinny-desktop
+    element-desktop cinny-desktop
     hexedit
     kdePackages.ark
-    wlvncc
     monero-gui
     bitcoin
-    docker-compose
     android-file-transfer
     mtpfs f2fs-tools
-    exiftool
     cinny
     fortune
     gzdoom
-    remmina
     
     jetbrains.clion
     jetbrains.pycharm
-    
+    android-studio
+    android-tools
+
     #Tina's flakes
     inputs.gcalc.packages.${pkgs.system}.default
     inputs.gcrypt.packages.${pkgs.system}.default
     inputs.gbounce.packages.${pkgs.system}.default
 
     #Tina's packages
-    (pkgs.callPackage ../packages/llvm-mos/package.nix {})
+    inputs.nixpkgs-llamato.legacyPackages.${pkgs.system}.llvm-mos
     (pkgs.callPackage ../packages/bun-baseline/package.nix {})
   ];
 
@@ -378,7 +368,7 @@
   };
 
   #VPN things
-  #  services.tailscale.enable = true;
+  services.tailscale.enable = true;
 
   # Dynamic linking (impure)
   #programs.nix-ld.enable = true;

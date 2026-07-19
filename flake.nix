@@ -106,6 +106,7 @@
             ./nixos/workspace/3d.nix
             ./nixos/workspace/benchmark.nix
             ./nixos/workspace/office.nix
+            ./nixos/workspace/media.nix
             
             nixos-boot.nixosModules.default
           ];
@@ -241,6 +242,7 @@
           ./nixos/workspace/dev.nix
           ./nixos/workspace/3d.nix
           ./nixos/workspace/office.nix
+          ./nixos/workspace/media.nix
         ];
       };
 

@@ -11,5 +11,6 @@
     gocr
     thunderbird
     ghostscript
+    libreoffice-qt6-fresh
   ];
 }
