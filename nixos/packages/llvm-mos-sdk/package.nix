@@ -39,6 +39,7 @@ in stdenv.mkDerivation {
     pkg-config
     python3
     autoPatchelfHook
+    llvm-mos
   ];
 
   buildInputs = [
@@ -59,7 +60,11 @@ in stdenv.mkDerivation {
     mkdir -p $out
     mkdir build
     cd build
-    cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$out $out
+    cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$out $src
+    mkdir -p $out/bin
+    cp ${llvm-mos}/bin/* $out/bin/
+    ninja install
+    ls $src
     runHook postInstall
   '';
 
