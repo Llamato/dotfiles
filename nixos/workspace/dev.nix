@@ -47,6 +47,8 @@
     vscodium
     nixd
     nixfmt
+    nixpkgs-review
+    gh
     bun
     #godot
     clinfo
