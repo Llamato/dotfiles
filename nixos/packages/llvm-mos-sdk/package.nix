@@ -64,7 +64,6 @@ in stdenv.mkDerivation {
     mkdir -p $out/bin
     cp ${llvm-mos}/bin/* $out/bin/
     ninja install
-    ls $src
     runHook postInstall
   '';
 
