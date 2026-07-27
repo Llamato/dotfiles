@@ -62,7 +62,7 @@ in stdenv.mkDerivation {
     cd build
     cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$out $src
     mkdir -p $out/bin
-    cp ${llvm-mos}/bin/* $out/bin/
+    ln -s ${llvm-mos}/bin/* $out/bin/
     ninja install
     runHook postInstall
   '';
