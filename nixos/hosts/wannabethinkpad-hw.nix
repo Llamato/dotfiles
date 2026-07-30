@@ -29,4 +29,9 @@
 
   swapDevices = [ ];
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+
+  services.udev = {
+    enable = true;
+    extraRules = ''ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Apple SMC power/lid events", ATTR{inhibited}="1"'';
+  };
 }

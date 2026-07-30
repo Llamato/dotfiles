@@ -168,7 +168,11 @@
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
 
-          ./nixos/workspace/unitydev-arm64-linux.nix
+          ./nixos/workspace/dev.nix
+          ./nixos/workspace/3d.nix
+          ./nixos/workspace/office.nix
+          ./nixos/workspace/communications.nix
+          ./nixos/modules/kate-wakatime.nix
         ];
       };
 
