@@ -1,0 +1,21 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  environment.systemPackages = with pkgs; [
+    vnstat 
+    iperf3 
+    mission-center 
+    ethtool 
+    inetutils 
+    net-tools 
+    mtr
+    htop
+    btop
+    iotop
+    fastfetch
+  ];
+}

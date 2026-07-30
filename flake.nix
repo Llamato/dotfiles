@@ -107,7 +107,7 @@
             ./nixos/workspace/benchmark.nix
             ./nixos/workspace/office.nix
             ./nixos/workspace/media.nix
-            
+            ./nixos/workspace/monitoring.nix
             nixos-boot.nixosModules.default
           ];
         };
@@ -164,7 +164,6 @@
           ./nixos/common.nix
 
           apple-silicon.nixosModules.apple-silicon-support
-          
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabethinkpad-hw.nix
 
@@ -172,7 +171,7 @@
           ./nixos/workspace/3d.nix
           ./nixos/workspace/office.nix
           ./nixos/workspace/communications.nix
-          ./nixos/modules/kate-wakatime.nix
+          ./nixos/workspace/monitoring.nix
         ];
       };
 
@@ -247,6 +246,7 @@
           ./nixos/workspace/3d.nix
           ./nixos/workspace/office.nix
           ./nixos/workspace/media.nix
+          ./nixos/workspace/monitoring.nix
         ];
       };
 

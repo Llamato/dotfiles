@@ -13,9 +13,9 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  hardware.asahi.peripheralFirmwareDirectory = /etc/nixos/firmware;
   hardware.bluetooth.enable = true;
-
+  hardware.asahi.enable = true;
+  
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/a6f3e7b1-6c8c-475e-abae-1a983d0e6821";
       fsType = "ext4";

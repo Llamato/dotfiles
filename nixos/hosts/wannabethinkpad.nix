@@ -54,9 +54,6 @@
   environment.systemPackages = with pkgs; [
     wget
     screen
-    fastfetch
-    btop
-    htop
     vesktop
     gparted
     localsend

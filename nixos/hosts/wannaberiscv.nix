@@ -26,7 +26,6 @@
     wget
     screen
     fastfetch
-    btop htop
     vesktop
     gparted
     telegram-desktop
