@@ -71,6 +71,18 @@ in stdenv.mkDerivation {
     mkdir -p $out/bin
     ln -s ${llvm-mos}/bin/* $out/bin/
     ninja install
+    cd $out/bin
+    ln -sf clang mos-clang
+    ln -sf clang mos-clang++
+    ln -sf clang mos-clang-cpp
+    for cfg in *.cfg; do
+      if [ -f "$cfg" ]; then
+        base=$(basename "$cfg" .cfg)
+        ln -sf mos-clang "$base-clang"
+        ln -sf mos-clang "$base-clang++"
+        ln -sf mos-clang "$base-clang-cpp"
+      fi
+    done
     runHook postInstall
   ''; 
 
