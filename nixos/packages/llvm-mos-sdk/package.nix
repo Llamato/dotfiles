@@ -71,6 +71,7 @@ in stdenv.mkDerivation {
     mkdir -p $out/bin
     cp -R ${llvm-mos}/bin/* $out/bin/
     ninja install
+    cp -R ${llvm-mos}/lib/clang $out/lib
     cd $out/bin
     ln -sf clang mos-clang
     ln -sf clang mos-clang++
