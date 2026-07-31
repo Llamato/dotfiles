@@ -18,7 +18,7 @@
   callPackage
 }: let
   llvm-mos = (callPackage ../llvm-mos/package.nix {}); #Temporary
-in stdenv.mkDerivation {
+in stdenv.mkDerivation rec {
   pname = "llvm-mos-sdk";
   version = "23.0.1";
 
@@ -55,15 +55,36 @@ in stdenv.mkDerivation {
     llvm-mos
   ];
 
+  # Set environment for the build
+  preConfigure = ''
+    export LLVM_MOS_TOOLCHAIN_DIR=${llvm-mos}
+    export LLVM_MOS_TOOLCHAIN_ROOT=${llvm-mos}
+    export PATH=${llvm-mos}/bin:$PATH
+  '';
+
   installPhase = ''
     runHook preInstall
     mkdir -p $out
     mkdir build
     cd build
-    cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$out $src
-    mkdir -p $out/bin
-    ln -s ${llvm-mos}/bin/* $out/bin/
+    cmake -G "Ninja" -DCMAKE_INSTALL_PREFIX=$out -DLLVM_MOS_TOOLCHAIN_DIR=${llvm-mos} -DLLVM_MOS_TOOLCHAIN_ROOT=${llvm-mos} $src
     ninja install
+    # Fix broken symlinks by creating the targets
+  cd $out/bin
+  for link in mos-*-clang mos-*-clang++ mos-*-clang-cpp; do
+    if [ -L "$link" ]; then
+      target=$(readlink "$link")
+      if [ ! -e "$target" ]; then
+        # Create a wrapper script instead of a symlink
+        rm "$link"
+        cat > "$link" << EOF
+#!/bin/sh
+exec ${llvm-mos}/bin/$target --sysroot="$out" "\$@"
+EOF
+        chmod +x "$link"
+      fi
+    fi
+  done
     runHook postInstall
   '';
 
