@@ -201,6 +201,9 @@
           ./nixos/hosts/actuallythinkpad-hw.nix
 
           ./nixos/workspace/dev.nix
+          ./nixos/workspace/communications.nix
+          ./nixos/workspace/office.nix
+          ./nixos/workspace/monitoring.nix
         ];
       };
 
