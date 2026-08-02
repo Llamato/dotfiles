@@ -235,7 +235,6 @@
 
     #Tina's packages
     inputs.nixpkgs-llamato.legacyPackages.${pkgs.system}.llvm-mos
-    (pkgs.callPackage ../packages/bun-baseline/package.nix {})
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
