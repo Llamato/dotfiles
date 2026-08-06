@@ -65,7 +65,6 @@
     cifs-utils
     
     #custom
-    (pkgs.callPackage ../packages/bun-baseline/package.nix {})
     (pkgs.callPackage ../packages/ssacli/package.nix {})
   ];
 

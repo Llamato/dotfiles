@@ -147,11 +147,11 @@
           ./nixos/hosts/llamkattthpmicroserver-hw.nix
           
           (import ./nixos/services/smb.nix {shares = [ "raid" ];})
-
+          (import ./nixos/services/bunserver.nix {servingDirectory = "/mnt/raid/www/public";})
+          
           ./nixos/services/nfs.nix
           ./nixos/services/virtualmaschines.nix
           ./nixos/services/traefik.nix
-          ./nixos/services/bunserver.nix
           ./nixos/services/devserver.nix
         ];
       };
