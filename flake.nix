@@ -112,7 +112,7 @@
           ];
         };
 
-        wannabeinthebasement = nixpkgs.lib.nixosSystem {
+        wannabeinthebasement = nixpkgs.lib.nixosSystem{
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs outputs;
@@ -126,7 +126,7 @@
 
             ./nixos/modules/dellfancontrol.nix
 
-            (import ./nixos/services/smb.nix {shares = [ "osraid" "stripe" ];})
+            (import ./nixos/services/smb.nix { shares = [ "osraid" "stripe" ];})
             
             ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
@@ -134,7 +134,7 @@
           ];
         };
 
-        llamkatttserver = nixpkgs.lib.nixosSystem {
+        llamkatttserver = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
@@ -147,8 +147,8 @@
           ./nixos/hosts/llamkattthpmicroserver-hw.nix
           
           (import ./nixos/services/smb.nix {shares = [ "raid" ];})
-          (import ./nixos/services/bunserver.nix {servingDirectory = "/mnt/raid/www/public";})
-          
+          (import ./nixos/services/bunserver.nix {pkgs = nixpkgs.legacyPackages.${system}; servingDirectory = "/mnt/raid/www/public";})
+
           ./nixos/services/nfs.nix
           ./nixos/services/virtualmaschines.nix
           ./nixos/services/traefik.nix
