@@ -32,6 +32,7 @@
     "ahci"
     "usbhid"
     "usb_storage"
+    "mmc_block"
   ];
   boot.initrd.kernelModules = [
     "amdgpu"
@@ -44,7 +45,7 @@
   boot.kernelPatches = [
     {
       name = "enable-scsi-proc-fs";
-      patch = null; # No actual patch file is needed, just the config
+      patch = null;
       extraConfig = ''
         SCSI_PROC_FS y
       '';
@@ -123,7 +124,6 @@
     (btop.override { rocmSupport = true; })
     rocmPackages.rocm-smi
     openrgb-with-all-plugins
-    #(pkgs.callPackage inputs.nixpkgs-hyprgirl { }).ryzen-monitor-ng
   ];
 
   #Hardware specific services
