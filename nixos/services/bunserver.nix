@@ -1,4 +1,4 @@
-{ inputs, pkgs, servingDirectory ? "/var/www/public", ... }: {
+{pkgs, servingDirectory ? "/var/www/public", ... }: {
   systemd.services.bunwebserver = {
     description = "Bun webserver";
     after = [ "network.target" ];
