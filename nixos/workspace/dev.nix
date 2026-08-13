@@ -68,6 +68,7 @@
     devenv
     fuse-emulator
     gdb
+    ripgrep
   ];
 
   # clangd service

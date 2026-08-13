@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   ...
 }:
@@ -12,5 +13,8 @@
     thunderbird
     ghostscript
     libreoffice-qt6-fresh
+
+    #Tina's flakes
+    inputs.gcalc.packages.${pkgs.system}.default
   ];
 }
