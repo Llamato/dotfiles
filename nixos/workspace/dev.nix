@@ -50,7 +50,6 @@
     nixpkgs-review
     gh
     bun
-    #godot
     clinfo
     vice
     jdk8
