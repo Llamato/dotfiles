@@ -108,6 +108,7 @@
             ./nixos/workspace/office.nix
             ./nixos/workspace/media.nix
             ./nixos/workspace/monitoring.nix
+            ./nixos/workspace/sauce.nix
             nixos-boot.nixosModules.default
           ];
         };
@@ -172,6 +173,7 @@
           ./nixos/workspace/office.nix
           ./nixos/workspace/communications.nix
           ./nixos/workspace/monitoring.nix
+          ./nixos/workspace/sauce.nix
         ];
       };
 
@@ -250,6 +252,7 @@
           ./nixos/workspace/office.nix
           ./nixos/workspace/media.nix
           ./nixos/workspace/monitoring.nix
+          ./nixos/workspace/sauce.nix
         ];
       };
 
