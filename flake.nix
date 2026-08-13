@@ -30,6 +30,10 @@
       url = "github:llamato/glossyBallBounce";
     };
 
+    cbmtext = {
+      url = "github:llamato/cbmText";
+    };
+
     stenc = {
       url = "github:llamato/stenc";
     };
