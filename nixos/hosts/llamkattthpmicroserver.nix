@@ -108,7 +108,7 @@
 
     # Usb 2.5gbit/s Main
     networks."30-usb-main" = {
-      matchConfig.Name = "enp4s0u1c2";
+      matchConfig.Name = "enp4s0u1";
       networkConfig = { 
         Address = [ "10.20.30.4/24" ];
         #Gateway = "10.20.30.1";
