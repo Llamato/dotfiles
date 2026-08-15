@@ -2,6 +2,7 @@
 let 
   url = "http://192.168.3.14:3000";
   signingKeyFile = "/home/tina/dotfiles/skey.sec";
+  binCacheDir = "/mnt/stripe/hydra";
 in {
   # Enable the Hydra service and its dependencies
   services.hydra = {
@@ -11,7 +12,6 @@ in {
     buildMachinesFiles = [ ]; # Set empty unless connecting remote builders
     useSubstitutes = true; # Use binary caches instead of building from scratch
     extraConfig = ''
-      binary_cache_dir = /mnt/stripe/hydra
       allow_import_from_derivation = true
       upload_logs_to_binary_cache = true
       binary_cache_key_name = my-hydra.local-1
