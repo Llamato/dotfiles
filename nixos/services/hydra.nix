@@ -42,13 +42,12 @@ in {
           "riscv64-linux"
         ];
         supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
-        maxJobs = 40;
+        maxJobs = 64;
       }
     ];
   };
-  /*services.nix-serve = {
+  services.nix-serve = {
     enable = true;
     secretKeyFile = "/home/tina/dotfiles/skey.sec";
-  };*/
-
+  };
 }
