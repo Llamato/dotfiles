@@ -9,6 +9,7 @@
     ffmpeg
     gimp3
     rawtherapee
+    darktable
     exiftool
   ];
 }
