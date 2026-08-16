@@ -271,7 +271,7 @@ in
 
     # 10gbit/s Fibre Main
     networks."30-fibre-main" = {
-      enable = true;
+      enable = false;
       matchConfig.Name = "enp67s0f0";
       networkConfig = {
         Address = [ "10.20.30.5/24" ];
