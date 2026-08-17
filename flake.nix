@@ -132,10 +132,10 @@
             ./nixos/modules/dellfancontrol.nix
 
             (import ./nixos/services/smb.nix { shares = [ "osraid" "stripe" ];})
-            
             ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
             ./nixos/services/hydra.nix
+            ./nixos/services/storageserver.nix
           ];
         };
 
@@ -158,6 +158,7 @@
           ./nixos/services/virtualmaschines.nix
           ./nixos/services/traefik.nix
           ./nixos/services/devserver.nix
+          ./nixos/services/storageserver.nix
         ];
       };
       

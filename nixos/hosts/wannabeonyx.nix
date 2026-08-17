@@ -100,6 +100,18 @@
     audio.enable = true;
     pulse.enable = true;
     alsa.enable = true;
+    alsa.support32Bit = true;
+    jack.enable = true;
+    wireplumber = {
+      enable = true;
+      extraConfig = {
+        "11-bluetooth-policy" = {
+          "wireplumber.settings" = {
+            "bluez5.profile" = "a2dp-sink";
+          };
+        };
+      };
+    };
     extraConfig.pipewire = {
       "99-mic-fix" = {
         "context.modules" = [

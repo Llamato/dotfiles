@@ -135,6 +135,14 @@
   hardware.amdgpu.opencl.enable = true;
 
   #Bluetooth drivers (Asus proarts have that on board)
-  hardware.bluetooth.enable = true;
-
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        # Enables multi-profile negotiation (Audio + Controls)
+        Experimental = true; 
+      };
+  };
+  };
 }

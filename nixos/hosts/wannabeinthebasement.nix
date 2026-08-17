@@ -195,10 +195,8 @@ in
     ipmitool
     pciutils
     lshw
-    smartmontools
     e2fsprogs
     minicom
-    ncdu
     sysstat
     iotop
   ];
