@@ -9,6 +9,7 @@
     ncdu
     iperf 
     vnstat
-    smartmontools
+    smartmontools#
+    ripgrep
   ];
 }
