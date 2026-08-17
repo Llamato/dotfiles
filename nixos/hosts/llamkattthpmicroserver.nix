@@ -55,8 +55,8 @@
   };
   environment.systemPackages = with pkgs; [
     screen
-    iperf iotop vnstat inetutils ethtool 
-    btop ncdu sysstat iotop
+    inetutils ethtool 
+    btop
     pciutils usbutils
     lm_sensors
     fastfetch sl
