@@ -1,7 +1,8 @@
 {
-stdenvNoCC,
+stdenv,
 lib,
-fetchzip
+fetchzip,
+autoPatchelfHook
 }: let
   platformMap = {
     "x86_64-linux" = "linux-x86_64";
@@ -18,7 +19,7 @@ fetchzip
   };
   currentSystem = builtins.currentSystem or "x86_64-linux";
   platformSrc = platformMap.${currentSystem} or (throw "Unsupported system: ${currentSystem}");
-in stdenvNoCC.mkDerivation {
+in stdenv.mkDerivation {
   pname = "tmpx";
   version = "1.1";
   src = fetchzip {
@@ -33,6 +34,10 @@ in stdenvNoCC.mkDerivation {
     chmod +x $out/bin/tmpx
     cp -R ${platformSrc}/readme.txt $out/share/tmpx
   '';
+
+  buildInputs = [ stdenv.cc.cc.lib ];
+
+  nativeBuildInputs = [ autoPatchelfHook ];
   
   meta = with lib; {
     description = "TMPx cross assembler for 6502 - ${platformDir} build";
