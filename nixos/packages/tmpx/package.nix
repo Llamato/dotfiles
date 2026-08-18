@@ -35,10 +35,10 @@ in stdenvNoCC.mkDerivation {
   '';
   
   meta = with lib; {
-    description = "LLVM-MOS SDK for 6502-based systems";
-    homepage = "https://llvm-mos.org";
+    description = "TMPx cross assembler for 6502 - ${platformDir} build";
+    homepage = "https://style64.org";
     license = licenses.gpl3;
-    platforms = platforms.linux;
+    platforms = builtins.attrNames platformMap;
     maintainers = [ maintainers.llamato ];
   };
 }
