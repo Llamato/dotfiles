@@ -37,6 +37,8 @@
     toybox
     screen
     atftp
+    _7zip-zstd
+    zstd
   ];
   #linux-manual (Broken on M1)
   #nixd

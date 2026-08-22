@@ -34,22 +34,19 @@
     "usb_storage"
     "mmc_block"
   ];
+
   boot.initrd.kernelModules = [
     "amdgpu"
-    "nct6775"
   ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
 
-  #LTFS
-  boot.kernelPatches = [
-    {
-      name = "enable-scsi-proc-fs";
-      patch = null;
-      extraConfig = ''
-        SCSI_PROC_FS y
-      '';
-    }
+  boot.kernelModules = [ 
+    "kvm-amd"
+    "nct6775"
+    "ryzen-smu"
+  ];
+
+  boot.extraModulePackages = [ 
+    (pkgs.callPackage ../packages/ryzen_smu/package.nix { kernel = config.boot.kernelPackages.kernel;}) 
   ];
 
   fileSystems."/" = {
@@ -70,7 +67,7 @@
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  #networking.useDHCP = lib.mkDefault true;
+  # networking.useDHCP = lib.mkDefault true;
   networking.interfaces.eno1.useDHCP = lib.mkDefault true;
   # networking.interfaces.eno2.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp11s0.useDHCP = lib.mkDefault true;
@@ -107,7 +104,7 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   #CPU monitoring
-  #hardware.cpu.amd.ryzen-smu.enable = true;
+  hardware.cpu.amd.ryzen-smu.enable = true;
 
   #Hardware specific packages
   programs.coolercontrol.enable = true;
@@ -124,6 +121,7 @@
     (btop.override { rocmSupport = true; })
     rocmPackages.rocm-smi
     openrgb-with-all-plugins
+    ryzen-monitor-ng
   ];
 
   #Hardware specific services
