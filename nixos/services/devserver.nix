@@ -39,6 +39,7 @@
     atftp
     p7zip
     zstd
+    delta
   ];
   #linux-manual (Broken on M1)
   #nixd
