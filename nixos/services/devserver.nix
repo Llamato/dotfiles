@@ -40,6 +40,7 @@
     p7zip
     zstd
     delta
+    binwalk
   ];
   #linux-manual (Broken on M1)
   #nixd
