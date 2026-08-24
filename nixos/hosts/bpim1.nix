@@ -2,10 +2,9 @@
     sshKeys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDE5gfkj8BLRw6KBWJhlKbr3PDPzEunDrLH70cLI2VQhlVNccUlcYebS8LdVkPyyzGh9xaSmn0zkIZq7kGZAeOy3rlSQz/sFQ0zRicfb6uD2GVndn51drJQPthdxypGhl24JClyN0knhrils4angEMZFkq+UZr8ku7/wJxiXSbiiO5TUU0L26Ijk2kCEcHlRrjMyANMznE3UYffqcwlLOd+udqOrPwC9Hk/DdyDRzLsXcPVE+6prgFg+vx5OEdvdAO6QuO1S1zxKq9hRDJ7mELEmWjmHjuvfEY+ZVRUaP7dFAejyr+I3GFshhZu7OkGtD5Gd0SF5P4jNzGobcEYaJsJ tina" ];
     password = "llamato";
   in {
-  system.stateVersion = "25.05";
+  system.stateVersion = "26.05";
 
   nix.settings = {
-    eval-system = pkgs.system;
     sandbox = false;
     #sandbox-fallback = true;
     experimental-features = [ "nix-command" "flakes" ];
@@ -15,9 +14,8 @@
   nixpkgs = {
     config = {
       allowEmulation = true;
+      allowUnsupportedSystem = true;
     };
-    buildPlatform.system = "x86_64-linux";
-    hostPlatform.system = "armv7l-linux";
   };
 
   hardware = {
@@ -37,17 +35,17 @@
   };
 
   environment.systemPackages = with pkgs; [
-      wget
-      btop
-      sl fastfetch
+      sl fastfetch hyfetch
       ethtool mtr
-      minicom
-      lrzsz
-      ncdu_1 #(ncu mainline is broken on armv7l-linux)
-      screen
-      flashprog
-      atftp
-      libgpiod
+      minicom picocom
+      ncdu_1
+      screen tmux socat
+      file
+      delta
+      ripgrep
+      
+      #python313
+      #python313Packages.spidev
     ];
 
   services = {

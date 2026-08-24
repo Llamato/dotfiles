@@ -319,18 +319,6 @@
   #Scanner setup
   hardware.sane.enable = true;
 
-  #Nix OS Manpages
-  documentation = {
-    enable = true;
-    dev.enable = true;
-    man = {
-      enable = true;
-      mandoc.enable = true;
-      generateCaches = true;
-      man-db.enable = false;
-    };
-  };
-
   #Direct server link setup
   networking = {
     interfaces = {

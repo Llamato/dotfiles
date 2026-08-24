@@ -19,7 +19,6 @@
   services.openssh = {
     enable = true;
     permitRootLogin = "yes";
-    forwardX11 = true;
   };
 
   # --- X11 forwarding ---

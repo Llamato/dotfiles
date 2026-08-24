@@ -2,7 +2,6 @@
 services.openssh = {
     enable = true;
     ports = [ 22 ];
-    forwardX11 = true;
     settings = {
       X11Forwarding = true;
       PasswordAuthentication = false;

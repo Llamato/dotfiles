@@ -93,7 +93,6 @@
           };
           modules = [
             ./common.nix
-            ./nixos/common.nix
   
             ./nixos/hosts/wannabeonyx.nix
             ./nixos/hosts/wannabeonyx-hw.nix
@@ -124,7 +123,6 @@
           };
           modules = [
             ./common.nix
-            ./nixos/common.nix
 
             ./nixos/hosts/wannabeinthebasement.nix
             ./nixos/hosts/wannabeinthebasement-hw.nix
@@ -134,7 +132,7 @@
             (import ./nixos/services/smb.nix { shares = [ "osraid" "stripe" ];})
             ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
-            ./nixos/services/hydra.nix
+            #./nixos/services/hydra.nix
             ./nixos/services/storageserver.nix
           ];
         };
@@ -144,7 +142,6 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          ./nixos/common.nix
 
           ./nixos/modules/jamlytics.nix
 
@@ -162,7 +159,7 @@
         ];
       };
       
-      wannabethinkpad = nixpkgs.lib.nixosSystem {
+      /*wannabethinkpad = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
@@ -180,14 +177,13 @@
           ./nixos/workspace/monitoring.nix
           ./nixos/workspace/sauce.nix
         ];
-      };
+      };*/
 
       wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          ./nixos/common.nix
 
           ./nixos/hosts/wannabethinkpad.nix
           ./nixos/hosts/wannabewannabethinkpad-hw.nix
@@ -202,7 +198,6 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          ./nixos/common.nix
 
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/actuallythinkpad-hw.nix
@@ -219,7 +214,6 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          ./nixos/common.nix
 
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/idonotevenknowwhatiwantthistobe-hw.nix
@@ -233,7 +227,6 @@
         specialArgs = { inherit inputs outputs; };
         modules = [ 
           ./common.nix
-          ./nixos/common.nix
 
           ./nixos/hosts/actuallythinkpad.nix
           ./nixos/hosts/wannabethinkpadsmother-hw.nix
@@ -247,7 +240,6 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          ./nixos/common.nix
 
           ./nixos/hosts/wannaberiscv.nix
           ./nixos/hosts/wannaberiscv-hw.nix
@@ -266,7 +258,6 @@
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          ./nixos/common.nix
 
           ./nixos/modules/jamlytics.nix
           ./nixos/modules/nixnas.nix
@@ -282,7 +273,7 @@
         system = "armv7l-linux";
         specialArgs = {inherit inputs outputs; };
         modules = [
-          ./nixos/modules/jamlytics.nix
+          #./nixos/modules/jamlytics.nix
 
           ./nixos/hosts/bpim1.nix
           ./nixos/hosts/bpim1-hw.nix
@@ -301,8 +292,5 @@
         ];
       };
     };
-    hydraJobs = let
-      nixosBuilds = builtins.mapAttrs (_: config: config.config.system.build.toplevel) (builtins.filter (config: config.system == "x86_64-linux")) self.nixosConfigurations; 
-    in nixosBuilds;
   };
 }

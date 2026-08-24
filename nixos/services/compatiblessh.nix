@@ -7,7 +7,6 @@
     package = pkgs.oqs-openssh;
     enable = true;
     allowSFTP = true;
-    forwardX11 = true;
     ports = [ 22 ];
     extraConfig = ''
           PubkeyAcceptedKeyTypes ssh-falcon512,ssh-falcon1024,ssh-ed25519

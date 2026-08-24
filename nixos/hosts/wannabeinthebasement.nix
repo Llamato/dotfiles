@@ -172,7 +172,6 @@ in
   /*services.openssh = {
     enable = true;
     permitRootLogin = "yes";
-    forwardX11 = true;
   };*/
   services.openssh.enable = true;
 

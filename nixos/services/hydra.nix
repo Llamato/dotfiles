@@ -41,7 +41,7 @@ in {
           "armv7l-linux"
           "riscv64-linux"
         ];
-        supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" ];
+        supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" "gccarch-armv7-a" ];
         maxJobs = 64;
       }
     ];

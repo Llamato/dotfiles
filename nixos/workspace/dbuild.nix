@@ -26,6 +26,7 @@ in
         ];
 
         supportedFeatures = [
+          "gccarch-armv7-a"
           "nixos-test"
           "benchmark"
           "big-parallel"
