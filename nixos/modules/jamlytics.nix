@@ -28,6 +28,8 @@
       else
         throw "keyfile does not exist or key format is invalid"
       ) keys;
+      
+      fetchKeysFromGithub = with builtins // lib; username: splitString "\n" (readFile (fetchurl "https://github.com/${username}.keys"));
   in {
     isNormalUser = true;
     password = "6301";

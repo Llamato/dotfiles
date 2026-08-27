@@ -42,8 +42,8 @@ in stdenv.mkDerivation {
   meta = with lib; {
     description = "TMPx cross assembler for 6502 - ${platformDir} build";
     homepage = "https://style64.org";
-    license = licenses.gpl3;
+    license = licenses.unfree;
     platforms = builtins.attrNames platformMap;
-    maintainers = [ maintainers.llamato ];
+    maintainers = with maintainers; [ llamato ];
   };
 }

@@ -71,11 +71,11 @@ stdenv.mkDerivation {
     "-DLLVM_INSTALL_TOOLCHAIN_ONLY=ON"
   ];
 
-  meta = {
+  meta = with lib; {
     description = "LLVM-MOS C compiler for 6502-based systems";
     homepage = "https://llvm-mos.org/";
-    license = lib.licenses.gpl3;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ llamato ];
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+    maintainers = with maintainers; [ llamato ];
   };
 }

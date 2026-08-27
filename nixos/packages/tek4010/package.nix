@@ -41,7 +41,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Tek4010 - Tektronics 4010 emulator";
     license = licenses.gpl3;
-    maintainers = [ maintainers.llamato ];
+    maintainers = with maintainers; [ llamato ];
     platforms = platforms.unix;
   };
 }

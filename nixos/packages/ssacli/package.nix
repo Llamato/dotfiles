@@ -71,6 +71,6 @@ pkgs.stdenv.mkDerivation rec {
     homepage = "https://www.hpe.com/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = [ ];
+    maintainers = with maintainers; [ llamato ];
   };
 }
