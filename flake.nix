@@ -74,8 +74,6 @@
       self,
       nixpkgs,
       nixpkgs2205,
-      nixpkgs2511,
-      nixpkgs-llamato,
       nix-darwin, 
       nixos-boot, 
       apple-silicon,
@@ -99,7 +97,6 @@
 
             ./nixos/modules/river.nix
             ./nixos/modules/kate-wakatime.nix 
-            ./nixos/modules/lto.nix
 
             ./nixos/services/commenssh.nix
 
@@ -273,7 +270,7 @@
         system = "armv7l-linux";
         specialArgs = {inherit inputs outputs; };
         modules = [
-          #./nixos/modules/jamlytics.nix
+          ./nixos/modules/jamlytics.nix
 
           ./nixos/hosts/bpim1.nix
           ./nixos/hosts/bpim1-hw.nix
@@ -292,5 +289,6 @@
         ];
       };
     };
+    hydraJobs = builtins.mapAttrs (_: config: config.config.system.build.toplevel) (builtins.filter (config: config.system == "x86_64-linux") self.nixosConfigurations);
   };
 }

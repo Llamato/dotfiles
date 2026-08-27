@@ -17,7 +17,6 @@
     kernelModules = [ "i2c-dev" "sunxi-ephy" "gpio-sunxi" "spi-sun4i" "spidev" ];
   };
 
-  # Filesystems
   fileSystems."/" = {
     device = "/dev/mmcblk0p2";
     fsType = "ext4";
