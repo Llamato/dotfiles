@@ -1,6 +1,6 @@
 { stdenv, qt6, cmake, fetchFromGitHub, lib }: 
 let
-  version = "1.0.4";
+  version = "1.0.5";
 in
 stdenv.mkDerivation {
   inherit version;
@@ -8,8 +8,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "ricardoquesada";
     repo = "vchar64";
-    tag = ''v${version}'';
-    hash = "sha256-ucv6PdFrOOJjIshXcqDfphg6V27poei0Sh0O5OvjqQ4=";
+    rev = "c99c5320aa3d8a704b67ff1470c571e3ac11009d";
+    hash = "sha256-+1UlMS63+sQj2/JZ/kT9T6V//Hf8neioJDk8f9HhbPs=";
   };
 
     strictDeps = true;
