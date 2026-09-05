@@ -7,7 +7,6 @@
   python3,
   libffi,
   libxml2,
-  autoPatchelfHook,
   pkg-config,
   zlib,
   SDL2,
@@ -38,7 +37,6 @@ in stdenv.mkDerivation {
     ninja
     pkg-config
     python3
-    autoPatchelfHook
     llvm-mos
   ];
 
@@ -54,6 +52,9 @@ in stdenv.mkDerivation {
     ncurses
     llvm-mos
   ];
+
+  dontPatchElf = true;
+  dontStrip = true;
 
   # Set environment for the build
   preConfigure = ''
@@ -86,7 +87,11 @@ in stdenv.mkDerivation {
       fi
     done
     runHook postInstall
-  ''; 
+  '';
+
+  fixupPhase = ''
+
+  '';
 
   meta = {
     description = "LLVM-MOS C compiler for 6502-based systems";
