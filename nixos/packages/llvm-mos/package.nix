@@ -7,7 +7,6 @@
   python3,
   libffi,
   libxml2,
-  autoPatchelfHook,
   pkg-config,
   zlib,
   SDL2,
@@ -37,7 +36,6 @@ stdenv.mkDerivation {
     ninja
     pkg-config
     python3
-    autoPatchelfHook
   ];
 
   buildInputs = [
