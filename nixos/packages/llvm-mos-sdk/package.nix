@@ -55,7 +55,8 @@ in stdenv.mkDerivation {
 
   dontPatchElf = true;
   dontStrip = true;
-
+  dontFixup = true;
+  
   # Set environment for the build
   preConfigure = ''
     export LLVM_MOS_TOOLCHAIN_DIR=${llvm-mos}
@@ -87,10 +88,6 @@ in stdenv.mkDerivation {
       fi
     done
     runHook postInstall
-  '';
-
-  fixupPhase = ''
-
   '';
 
   meta = {
