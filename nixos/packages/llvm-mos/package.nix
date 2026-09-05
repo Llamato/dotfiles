@@ -75,7 +75,7 @@ stdenv.mkDerivation {
     description = "LLVM-MOS C compiler for 6502-based systems";
     homepage = "https://llvm-mos.org/";
     license = licenses.gpl3;
-    platforms = platforms.linux;
+    platforms = platforms.linux ++ platforms.darwin;
     maintainers = with maintainers; [ llamato ];
   };
 }
