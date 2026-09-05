@@ -17,6 +17,9 @@ stdenv.mkDerivation {
     hash = "sha256-M7b+T0mm2QTP1LqqjdKV/NWZ60DrueFEnN1unwCOeH4=";
   };
 
+    strictDeps = true;
+  __structuredAttrs = true;
+
   nativeBuildInputs = [
     autoreconfHook
     pandoc
