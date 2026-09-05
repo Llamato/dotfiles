@@ -1,31 +1,37 @@
 {
-  pkgs ? import (fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/4fe8d07066f6ea82cda2b0c9ae7aee59b2d241b3.tar.gz";
-    sha256 = "sha256:06jzngg5jm1f81sc4xfskvvgjy5bblz51xpl788mnps1wrkykfhp";
-  }) { },
+  lib,
+  stdenv,
+  zlib,
+  ncurses,
+  glibc,
+  rpmextract,
+  autoPatchelfHook
 }:
-pkgs.stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "ssacli";
   version = "6.50-11.0";
-
   src = builtins.fetchurl {
     url = "https://downloads.hpe.com/pub/softlib2/software1/pubsw-linux/p1736097809/v262718/ssacli-6.50-11.0.x86_64.rpm";
     sha256 = "0f61x3iy8wj169zass6sp765rhb9khgifzrhqd9ykv1fx0c1spgm";
   };
 
+    strictDeps = true;
+  __structuredAttrs = true;
+
   nativeBuildInputs = [
-    pkgs.rpmextract
-    pkgs.autoPatchelfHook
+    rpmextract
+    autoPatchelfHook
   ];
 
   buildInputs = [
-    pkgs.stdenv.cc.cc.lib
-    pkgs.zlib
-    pkgs.ncurses
-    pkgs.glibc
+    stdenv.cc.cc.lib
+    zlib
+    ncurses
+    glibc
   ];
 
   unpackPhase = ''
+    ls
     rpmextract $src
   '';
 
@@ -61,12 +67,12 @@ pkgs.stdenv.mkDerivation rec {
     # Ensure binaries can find their libraries
     for bin in $out/bin/*; do
       if [ -f "$bin" ] && [ -x "$bin" ]; then
-        patchelf --set-rpath "$out/lib:${pkgs.lib.makeLibraryPath buildInputs}" "$bin" 2>/dev/null || true
+        patchelf --set-rpath "$out/lib:${lib.makeLibraryPath buildInputs}" "$bin" 2>/dev/null || true
       fi
     done
   '';
 
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "HPE Smart Storage Administrator CLI";
     homepage = "https://www.hpe.com/";
     license = licenses.unfree;
