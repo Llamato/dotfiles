@@ -81,12 +81,18 @@
     }@inputs:
     let
       inherit (self) outputs;
+      
     in
     {
       packages = let
         systems = [
           "x86_64-linux"
+          "aarch64-linux"
+          "aarch64-darwin"
+          "riscv64-linux"
+          "armv7l-linux"
         ];
+        
         forAllSystems = nixpkgs.lib. genAttrs systems;
         pkgsFor = system: import nixpkgs {
           inherit system;
@@ -173,7 +179,7 @@
         ];
       };
       
-      /*wannabethinkpad = nixpkgs.lib.nixosSystem {
+      wannabethinkpad = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
@@ -190,7 +196,7 @@
           ./nixos/workspace/monitoring.nix
           ./nixos/workspace/sauce.nix
         ];
-      };*/
+      };
 
       wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
