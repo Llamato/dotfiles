@@ -14,7 +14,8 @@
   libvpx,
   libbacktrace,
   ncurses,
-  callPackage
+  callPackage,
+  darwin
 }: let
   llvm-mos = (callPackage ../llvm-mos/package.nix {}); #Temporary
 in stdenv.mkDerivation {
@@ -38,6 +39,9 @@ in stdenv.mkDerivation {
     pkg-config
     python3
     llvm-mos
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.cctools
+    darwin.binutils
   ];
 
   buildInputs = [
