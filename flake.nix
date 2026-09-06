@@ -83,6 +83,23 @@
       inherit (self) outputs;
     in
     {
+      packages = let
+        systems = [
+          "x86_64-linux"
+        ];
+        forAllSystems = nixpkgs.lib. genAttrs systems;
+        pkgsFor = system: import nixpkgs {
+          inherit system;
+        };
+        in forAllSystems (system: let 
+          pkgs = pkgsFor system;
+        in {
+          llvm-mos = pkgs.callPackage ./nixos/packages/llvm-mos/package.nix {};
+          llvm-mos-sdk = pkgs.callPackage ./nixos/packages/llvm-mos-sdk/package.nix {};
+          psid = pkgs.callPackage ./nixos/packages/psid/package.nix {};
+          vchar64 = pkgs.callPackage ./nixos/packages/vchar64/package.nix {};
+        });
+
       nixosConfigurations = {
         wannabeonyx = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -156,12 +173,11 @@
         ];
       };
       
-      wannabethinkpad = nixpkgs.lib.nixosSystem {
+      /*wannabethinkpad = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./common.nix
-          ./nixos/common.nix
 
           apple-silicon.nixosModules.apple-silicon-support
           ./nixos/hosts/wannabethinkpad.nix
@@ -174,7 +190,7 @@
           ./nixos/workspace/monitoring.nix
           ./nixos/workspace/sauce.nix
         ];
-      };
+      };*/
 
       wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -289,6 +305,6 @@
         ];
       };
     };
-    hydraJobs = builtins.mapAttrs (_: config: config.config.system.build.toplevel) (builtins.filter (config: config.system == "x86_64-linux") self.nixosConfigurations);
+    #hydraJobs = builtins.mapAttrs (_: config: config.config.system.build.toplevel) (builtins.filter (config: config.system == "x86_64-linux") self.nixosConfigurations);
   };
 }
