@@ -9,6 +9,7 @@
     "exfat"
     "vfat"
   ];
+  
   /*boot.binfmt.emulatedSystems = [
     "x86_64-linux"
     "i686-linux"
@@ -63,6 +64,8 @@
     kdePackages.krfb
     muvm
     file
+
+    inputs.kurogane.packages.${pkgs.system}.default
   ];
   
   #Vr Things

@@ -239,6 +239,8 @@
     jetbrains.pycharm
     android-studio
     android-tools
+    
+    inputs.kurogane.packages.${pkgs.system}.default
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

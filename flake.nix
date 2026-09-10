@@ -18,17 +18,17 @@
     apple-silicon.url = "github:nix-community/nixos-apple-silicon";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
 
+    #datatape things
+    stenc.url = "github:llamato/stenc";
+
     #software made by Tina.
     gcalc.url = "github:llamato/gcalc";
     gcrypt.url = "github:llamato/gcrypt";
     gbounce.url = "github:llamato/glossyBallBounce";
     cbmtext.url = "github:llamato/cbmText";
 
-    #datatape things
-    stenc.url = "github:llamato/stenc";
-
     #software made by friends
-    kurogane.url = "github:llamato/kurogane/master";
+    kurogane.url = "github:0x48piraj/kurogane/master";
     devnotify = {
       url = "github:ShyAssassin/devnotify";
       inputs.nixpkgs.follows = "nixpkgs";
