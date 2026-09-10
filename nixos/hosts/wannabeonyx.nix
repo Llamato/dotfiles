@@ -239,14 +239,6 @@
     jetbrains.pycharm
     android-studio
     android-tools
-
-    #Tina's flakes
-    inputs.gcalc.packages.${pkgs.system}.default
-    inputs.gcrypt.packages.${pkgs.system}.default
-    inputs.gbounce.packages.${pkgs.system}.default
-
-    #Tina's packages
-    inputs.nixpkgs-llamato.legacyPackages.${pkgs.system}.llvm-mos
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

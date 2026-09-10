@@ -2,67 +2,55 @@
   description = "Tina's NixOS configurations and dotfiles";
 
   inputs = {
+    #nixos package repos
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs2205.url = "github:nixos/nixpkgs/nixos-22.05";
     nixpkgs2511.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
-    nixpkgs-hyprgirl.url = "github:hyprgirl/nixpkgs/master";
 
+    #nix darwin package repos
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-26.05";
 
+    #nixos on apple silicon
     apple-silicon.url = "github:nix-community/nixos-apple-silicon";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
-
-    nixos-boot.url = "github:Melkor333/nixos-boot";
     
-    gcalc = {
-      url = "github:llamato/gcalc";
-    };
+    #software made by Tina.
+    gcalc.url = "github:llamato/gcalc";
+    gcrypt.url = "github:llamato/gcrypt";
+    gbounce.url = "github:llamato/glossyBallBounce";
+    cbmtext.url = "github:llamato/cbmText";
 
-    gcrypt = {
-      url = "github:llamato/gcrypt";
-    };
+    #datatape things
+    stenc.url = "github:llamato/stenc";
 
-    gbounce = {
-      url = "github:llamato/glossyBallBounce";
-    };
-
-    cbmtext = {
-      url = "github:llamato/cbmText";
-    };
-
-    stenc = {
-      url = "github:llamato/stenc";
-    };
-
+    #software made by friends
+    kurogane.url = "github:0x48piraj/kurogane";
     devnotify = {
       url = "github:ShyAssassin/devnotify";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    #hyprland and it's addons
     hyprland = {
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-
     easymotion = {
       url = "github:zakk4223/hyprland-easymotion";
       inputs.hyprland.follows = "hyprland";
     };
-
     hyprsplit = {
       url = "github:shezdy/hyprsplit";
       inputs.hyprland.follows = "hyprland";
     };
-
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
@@ -74,8 +62,7 @@
       self,
       nixpkgs,
       nixpkgs2205,
-      nix-darwin, 
-      nixos-boot, 
+      nix-darwin,
       apple-silicon,
       ...
     }@inputs:
@@ -132,7 +119,6 @@
             ./nixos/workspace/media.nix
             ./nixos/workspace/monitoring.nix
             ./nixos/workspace/sauce.nix
-            nixos-boot.nixosModules.default
           ];
         };
 
@@ -225,6 +211,7 @@
           ./nixos/workspace/communications.nix
           ./nixos/workspace/office.nix
           ./nixos/workspace/monitoring.nix
+          ./nixos/workspace/sauce.nix
         ];
       };
 
