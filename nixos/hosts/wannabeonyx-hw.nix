@@ -42,12 +42,12 @@
   boot.kernelModules = [ 
     "kvm-amd"
     "nct6775"
-    "ryzen-smu"
+    #"ryzen-smu"
   ];
 
-  boot.extraModulePackages = [ 
+  /*boot.extraModulePackages = [ 
     (pkgs.callPackage ../packages/ryzen_smu/package.nix { kernel = config.boot.kernelPackages.kernel;}) 
-  ];
+  ];*/
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/68c792be-a306-4116-9c75-d582ecfd32ae";
@@ -104,7 +104,7 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   #CPU monitoring
-  hardware.cpu.amd.ryzen-smu.enable = true;
+  #hardware.cpu.amd.ryzen-smu.enable = true;
 
   #Hardware specific packages
   programs.coolercontrol.enable = true;
