@@ -1,7 +1,6 @@
 {config, lib, pkgs, inputs, ...}: let
   hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
   devnotify = inputs.devnotify.packages.${pkgs.system}.devnotify;
-  xdg-desktop-portal-hyprland = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   unstable = import inputs.nixpkgs-unstable {
     system = pkgs.system;
     config.allowUnfree = true;
@@ -15,7 +14,6 @@ in {
     enable = true;
     package = hyprland;
     xwayland.enable = true;
-    # portalPackage = xdg-desktop-portal-hyprland;
   };
 
   fonts.packages = with pkgs; [
@@ -60,6 +58,7 @@ in {
     killall xorg.xrandr libnotify playerctl pwvucontrol
     hyprpaper hypridle hyprlock hyprpicker hyprpolkitagent
     adwaita-icon-theme phinger-cursors tokyonight-gtk-theme
-    kdePackages.breeze kdePackages.breeze-icons kdePackages.qt6ct
+    kdePackages.breeze kdePackages.breeze-icons kdePackages.qt6ct 
+    #fcitx5 fcitx5-gtk fcitx5-mozc 
   ];
 }
