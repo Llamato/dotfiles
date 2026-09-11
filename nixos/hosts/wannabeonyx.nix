@@ -359,6 +359,9 @@
     ];
   };
 
+  #SSH access
+  services.openssh.enable = true;
+
   #VPN things
   services.tailscale.enable = true;
 
