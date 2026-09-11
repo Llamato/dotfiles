@@ -365,6 +365,7 @@
   #SSH access
   services.openssh = {
   enable = true;
+  settings.AllowUsers = [ "root" "tina" ];
   settings.PasswordAuthentication = false;
   settings.KbdInteractiveAuthentication = false;
   settings.PermitRootLogin = "yes";
