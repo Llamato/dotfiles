@@ -145,6 +145,9 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users = {
+    root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINmuHyyOtAxG1GSuqIoeeGfV8XfLQGzS6zalYuAumlD+ tina_modern"
+  ];
     tina = {
       isNormalUser = true;
       description = "Tina";
@@ -360,7 +363,12 @@
   };
 
   #SSH access
-  services.openssh.enable = true;
+  services.openssh = {
+  enable = true;
+  settings.PasswordAuthentication = false;
+  settings.KbdInteractiveAuthentication = false;
+  settings.PermitRootLogin = "yes";
+};
 
   #VPN things
   services.tailscale.enable = true;

@@ -42,10 +42,6 @@
     delta
     binwalk
   ];
-  #linux-manual (Broken on M1)
-  #nixd
-  #nixfmt
-  #jdk8
 
   # clangd service
   systemd.user.services.clangd.enable = true;

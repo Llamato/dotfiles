@@ -1,7 +1,6 @@
 { pkgs, ... }: {
 
   #Nix
-  #nix.config.trusted-users = [ "root" "tina" ];
   nixpkgs.config.allowUnfree = true;
   nix.distributedBuilds = true;
 

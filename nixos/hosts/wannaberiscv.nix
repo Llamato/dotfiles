@@ -49,7 +49,12 @@
   };
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+  enable = true;
+  settings.PasswordAuthentication = false;
+  settings.KbdInteractiveAuthentication = false;
+  settings.PermitRootLogin = "yes";
+};
 
   # Cosmic Desktop
   services.displayManager.cosmic-greeter.enable = true;
@@ -61,6 +66,9 @@
   #};
 
 users.users = {
+  root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINmuHyyOtAxG1GSuqIoeeGfV8XfLQGzS6zalYuAumlD+ tina_modern"
+  ];
   tina = {
       isNormalUser = true;
       description = "Tina";
