@@ -60,6 +60,7 @@ in
   services.nix-serve = {
     enable = true;
     package = pkgs.nix-serve-ng;
+    port = 5000;
     secretKeyFile = "/etc/nix/secret-key";
   };
 }
