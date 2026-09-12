@@ -302,27 +302,27 @@
         };
       };
 
-      darwinConfigurations = {
-        apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./common.nix
+    darwinConfigurations = {
+      apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = { inherit inputs outputs; };
+        modules = [
+          ./common.nix
 
-            ./darwin/hosts/apowerbooksgrandchild.nix
-          ];
-        };
-      };
-
-      hydraJobs = let
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-        };
-        lib = pkgs.lib;
-        freePackages = lib.foldlAttrs (packages: pname: package: let maybeEval = builtins.tryEval package; in packages // (if maybeEval.success then maybeEval.value else {})) {} self.packages;
-        in {
-          packages = freePackages;
+          ./darwin/hosts/apowerbooksgrandchild.nix
+        ];
       };
     };
+
+    hydraJobs = let
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+      lib = pkgs.lib;
+      freePackages = lib.foldlAttrs (packages: pname: package: let maybeEval = builtins.tryEval package; in packages // (if maybeEval.success then maybeEval.value else {})) {} self.packages;
+      in {
+        packages = freePackages;
+    };
+  };
 }
