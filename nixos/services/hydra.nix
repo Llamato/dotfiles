@@ -59,6 +59,7 @@ in
   };
   services.nix-serve = {
     enable = true;
+    package = pkgs.nix-serve-ng;
     secretKeyFile = "/etc/nix/secret-key";
   };
 }
