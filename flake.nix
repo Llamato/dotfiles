@@ -141,16 +141,16 @@
 
             ./nixos/modules/dellfancontrol.nix
 
+            ./nixos/services/nfs.nix
+            ./nixos/services/virtualmaschines.nix
+            ./nixos/services/hydra.nix
+            ./nixos/services/storageserver.nix
             (import ./nixos/services/smb.nix {
               shares = [
                 "osraid"
                 "stripe"
               ];
             })
-            ./nixos/services/nfs.nix
-            ./nixos/services/virtualmaschines.nix
-            #./nixos/services/hydra.nix
-            ./nixos/services/storageserver.nix
           ];
         };
 
@@ -312,6 +312,9 @@
           ];
         };
       };
-      #hydraJobs = builtins.mapAttrs (_: config: config.config.system.build.toplevel) (builtins.filter (config: config.system == "x86_64-linux") self.nixosConfigurations);
+      
+      hydraJobs = {
+        packages = self.packages;
+      };
     };
 }

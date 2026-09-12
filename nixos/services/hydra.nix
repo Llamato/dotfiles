@@ -1,9 +1,15 @@
-{ inputs, config, pkgs, ... }: 
-let 
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
+let
   url = "http://192.168.3.14:3000";
   signingKeyFile = "/home/tina/dotfiles/skey.sec";
   binCacheDir = "/mnt/stripe/hydra";
-in {
+in
+{
   # Enable the Hydra service and its dependencies
   services.hydra = {
     enable = true;
@@ -32,7 +38,7 @@ in {
       "git+https://github.com/"
       "git+ssh://github.com/"
     ];
-      buildMachines = [
+    buildMachines = [
       {
         hostName = "localhost";
         systems = [
@@ -41,13 +47,18 @@ in {
           "armv7l-linux"
           "riscv64-linux"
         ];
-        supportedFeatures = [ "nixos-test" "big-parallel" "benchmark" "gccarch-armv7-a" ];
+        supportedFeatures = [
+          "nixos-test"
+          "big-parallel"
+          "benchmark"
+          "gccarch-armv7-a"
+        ];
         maxJobs = 64;
       }
     ];
   };
   services.nix-serve = {
     enable = true;
-    secretKeyFile = "/home/tina/dotfiles/skey.sec";
+    secretKeyFile = "/etc/nixos/skey.sec";
   };
 }
