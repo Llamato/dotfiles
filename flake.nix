@@ -320,9 +320,6 @@
         config.allowUnfree = true;
       };
       lib = pkgs.lib;
-      freePackages = lib.foldlAttrs (packages: pname: package: let maybeEval = builtins.tryEval package; in packages // (if maybeEval.success then maybeEval.value else {})) {} self.packages;
-      in {
-        packages = freePackages;
-    };
+    in lib.foldlAttrs (packages: pname: package: let maybeEval = builtins.tryEval package; in packages // (if maybeEval.success then maybeEval.value else {})) {} self.packages;
   };
 }
