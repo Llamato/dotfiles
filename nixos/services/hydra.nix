@@ -6,7 +6,7 @@
 }:
 let
   url = "http://192.168.3.14:3000";
-  signingKeyFile = "/home/tina/dotfiles/skey.sec";
+  signingKeyFile = "/etc/nix/secret-key";
   binCacheDir = "/mnt/stripe/hydra";
 in
 {
@@ -60,9 +60,5 @@ in
   services.nix-serve = {
     enable = true;
     secretKeyFile = "/etc/nix/secreet-key";
-    services.hydra.extraConfig = ''
-      store_uri = file:///var/lib/nix-cache?secret-key=/etc/nix/secret-key
-      binary_cache_public_uri = http://localhost:3000
-    '';
   };
 }
