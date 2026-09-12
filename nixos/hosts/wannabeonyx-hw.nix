@@ -74,14 +74,23 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  # Tina's edits
+  #Keychron keyboard things
+  hardware.keyboard = {
+    qmk = {
+      enable = true;
+      keychronSupport =  true;
+    };
+
+  };
+
+
   # Fixing Model M / No super key
-  environment.etc."libinput/local-overrides.quirks".text = ''
+  /*environment.etc."libinput/local-overrides.quirks".text = ''
     [Serial Keyboards]
     MatchUdevType=keyboard
     MatchName=keyd virtual keyboard
     AttrKeyboardIntegration=internal
-  '';
+  ''; */
   services.keyd = {
     enable = true;
     keyboards = {
@@ -93,9 +102,6 @@
           };
           otherlayer = { };
         };
-        extraConfig = ''
-          # put here any extra-config, e.g. you can copy/paste here directly a configuration, just remove the ids part
-        '';
       };
     };
   };
@@ -122,7 +128,16 @@
     rocmPackages.rocm-smi
     openrgb-with-all-plugins
     ryzen-monitor-ng
+    qmk via vial qmk-udev-rules
   ];
+
+  services.udev = {
+    packages = [
+      pkgs.via
+      pkgs.qmk-udev-rules
+    ];
+    #extraRules = ''KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="1261", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"'';
+  };
 
   #Hardware specific services
   #services.cpupower-gui.enable = true;
@@ -141,6 +156,6 @@
         # Enables multi-profile negotiation (Audio + Controls)
         Experimental = true; 
       };
-  };
+    };
   };
 }
