@@ -3,12 +3,12 @@
     #package = pkgs.lixPackageSets.stable.lix;
     optimise.automatic = true;
     settings = {
-      extra-trusted-substituters = [
+      trusted-substituters = [
         "http://10.20.30.3:3000/"
         "http://192.168.3.14:3000/"
         "https://homelab.lllamato.dev:3000"
       ];
-      extra-trusted-public-keys = [ 
+      trusted-public-keys = [ 
         "wannabeinthebasement:Gwgwnvx67OKz2htvy/p770qeajfVUrVAlI+K3nxcOJM="
         "192.168.3.14:208dtjaunWYQX5P2w3tQVWepqqHsRP8mM6cExexQHBo="
         "homelab.llamato.dev:6znaEdEvZ1P5GQXD1BZ5KUY0uP56/t2iu/dMj0fJJg8="
