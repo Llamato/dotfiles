@@ -79,6 +79,7 @@
             system:
             import nixpkgs {
               inherit system;
+              config.allowUnfree = true;
             };
         in
         forAllSystems (
@@ -179,7 +180,7 @@
           ];
         };
 
-        wannabethinkpad = nixpkgs.lib.nixosSystem {
+        /*wannabethinkpad = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = { inherit inputs outputs; };
           modules = [
@@ -196,7 +197,7 @@
             ./nixos/workspace/monitoring.nix
             ./nixos/workspace/sauce.nix
           ];
-        };
+        };*/
 
         wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -313,8 +314,15 @@
         };
       };
 
-      hydraJobs = {
-        packages = self.packages.x86_64-linux;
+      hydraJobs = let
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        lib = pkgs.lib;
+        freePackages = lib.foldlAttrs (packages: pname: package: let maybeEval = builtins.tryEval package; in packages // (if maybeEval.success then maybeEval.value else {})) {} self.packages;
+        in {
+          packages = freePackages;
       };
     };
 }

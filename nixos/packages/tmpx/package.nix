@@ -40,7 +40,7 @@ in stdenv.mkDerivation {
   nativeBuildInputs = [ autoPatchelfHook ];
   
   meta = with lib; {
-    description = "TMPx cross assembler for 6502 - ${platformDir} build";
+    description = "TMPx cross assembler for 6502";
     homepage = "https://style64.org";
     license = licenses.unfree;
     platforms = builtins.attrNames platformMap;
