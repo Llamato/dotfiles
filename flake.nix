@@ -312,9 +312,9 @@
           ];
         };
       };
-      
+
       hydraJobs = {
-        packages = self.packages;
+        packages = self.packages.x86_64-linux;
       };
     };
 }
