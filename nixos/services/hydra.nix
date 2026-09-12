@@ -57,8 +57,12 @@ in
       }
     ];
   };
-  /*services.nix-serve = {
+  services.nix-serve = {
     enable = true;
-    secretKeyFile = "/etc/nixos/skey.sec";
-  };*/
+    secretKeyFile = "/etc/nix/secreet-key";
+    services.hydra.extraConfig = ''
+      store_uri = file:///var/lib/nix-cache?secret-key=/etc/nix/secret-key
+      binary_cache_public_uri = http://localhost:3000
+    '';
+  };
 }

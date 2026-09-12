@@ -10,6 +10,7 @@
       ];
       extra-trusted-public-keys = [ 
         "wannabeinthebasement:Gwgwnvx67OKz2htvy/p770qeajfVUrVAlI+K3nxcOJM="
+        "192.168.3.14:208dtjaunWYQX5P2w3tQVWepqqHsRP8mM6cExexQHBo="
         "homelab.llamato.dev:6znaEdEvZ1P5GQXD1BZ5KUY0uP56/t2iu/dMj0fJJg8="
       ];
       trusted-users = [ "tina" ];
