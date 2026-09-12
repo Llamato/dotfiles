@@ -57,8 +57,8 @@ in
       }
     ];
   };
-  services.nix-serve = {
+  /*services.nix-serve = {
     enable = true;
     secretKeyFile = "/etc/nix/secreet-key";
-  };
+  };*/
 }
