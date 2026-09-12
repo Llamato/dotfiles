@@ -99,6 +99,6 @@ in stdenv.mkDerivation {
     homepage = "https://llvm-mos.org/";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ llamato ];
+    #maintainers = with lib.maintainers; [ llamato ];
   };
 }

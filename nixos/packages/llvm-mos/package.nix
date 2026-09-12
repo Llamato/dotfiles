@@ -74,6 +74,6 @@ stdenv.mkDerivation {
     homepage = "https://llvm-mos.org/";
     license = licenses.gpl3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ llamato ];
+    #maintainers = with maintainers; [ llamato ];
   };
 }

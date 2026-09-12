@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "PSID file converter and native Commodore 64 music player";
     homepage = "https://www.psid64.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ llamato ];
     platforms = platforms.unix;
+    #maintainers = with maintainers; [ llamato ];
   };
 }

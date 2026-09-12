@@ -44,6 +44,6 @@ in stdenv.mkDerivation {
     homepage = "https://style64.org";
     license = licenses.unfree;
     platforms = builtins.attrNames platformMap;
-    maintainers = with maintainers; [ llamato ];
+    #maintainers = with maintainers; [ llamato ];
   };
 }

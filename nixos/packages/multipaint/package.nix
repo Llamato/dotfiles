@@ -48,6 +48,6 @@ stdenv.mkDerivation {
     homepage = "https://multipaint.kameli.net/";
     license = licenses.unfree;
     platforms = with attrsets; attrNames sources;
-    maintainers = with maintainers; [ llamato ];
+    #+maintainers = with maintainers; [ llamato ];
   };
 }

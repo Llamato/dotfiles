@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     description = "SCSI Tape Encryption Manager";
     homepage = "https://github.com/scsitape/stenc";
     license = licenses.gpl2;
-    platforms = platforms.unix;
-    maintainers = with maintainers; [ llamato ];
+    platforms = platforms.linux;
+    #maintainers = with maintainers; [ llamato ];
   };
 }

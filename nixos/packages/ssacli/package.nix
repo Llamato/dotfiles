@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.hpe.com/";
     license = licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ llamato ];
+    #maintainers = with maintainers; [ llamato ];
   };
 }

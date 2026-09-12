@@ -32,6 +32,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/ricardoquesada/vchar64";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ llamato ];
+    #maintainers = with maintainers; [ llamato ];
   };
 }
