@@ -18,7 +18,7 @@ in
     extraConfig = ''
       allow_import_from_derivation = true
       upload_logs_to_binary_cache = true
-      binary_cache_key_name = my-hydra.local-1
+      binary_cache_key_name = 192.168.3.14-1
       binary_cache_private_key_file = ${signingKeyFile}
     '';
   };
