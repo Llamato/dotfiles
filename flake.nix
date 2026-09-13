@@ -68,12 +68,16 @@
     }@inputs:
     let
       inherit (self) outputs;
-
+      systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "armv7l-linux"
+          "riscv64-linux"
+        ];
     in
     {
       packages =
         let
-          systems = nixpkgs.lib.mapAttrsToList (name: cfg: cfg.pkgs.system) self.nixosConfigurations;
           forAllSystems = nixpkgs.lib.genAttrs systems;
           pkgsFor =
             system:
