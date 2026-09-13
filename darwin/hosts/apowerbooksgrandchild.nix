@@ -7,7 +7,6 @@
           hyfetch
           gnupg
           git
-          firefox
           cool-retro-term
         ];
 
