@@ -15,12 +15,12 @@ in
     notificationSender = "hydra@localhost";
     buildMachinesFiles = [ ]; # Set empty unless connecting remote builders
     useSubstitutes = true; # Use binary caches instead of building from scratch
-    extraConfig = ''
+    /*extraConfig = ''
       allow_import_from_derivation = true
       upload_logs_to_binary_cache = true
       binary_cache_key_name = 192.168.3.14-1
       binary_cache_private_key_file = ${signingKeyFile}
-    '';
+    '';*/
   };
   # Make sure the Hydra user and group are present
   users = {
@@ -57,7 +57,6 @@ in
   };
   services.nix-serve = {
     enable = true;
-    package = pkgs.nix-serve-ng;
     port = 5000;
     secretKeyFile = signingKeyFile;
   };
