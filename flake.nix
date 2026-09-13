@@ -18,8 +18,12 @@
     apple-silicon.url = "github:nix-community/nixos-apple-silicon";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
 
-    #datatape things
+    #specialty hardware support
     stenc.url = "github:llamato/stenc";
+    openlogi = {
+      url = "github:AprilNEA/OpenLogi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #software made by Tina.
     gcalc.url = "github:llamato/gcalc";
@@ -64,6 +68,7 @@
       nixpkgs2205,
       nix-darwin,
       apple-silicon,
+      openlogi,
       ...
     }@inputs:
     let
@@ -115,6 +120,7 @@
 
             ./nixos/hosts/wannabeonyx.nix
             ./nixos/hosts/wannabeonyx-hw.nix
+            openlogi.nixosModules.default
 
             ./nixos/modules/river.nix
             ./nixos/modules/kate-wakatime.nix

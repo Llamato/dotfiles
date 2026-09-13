@@ -7,8 +7,7 @@
         "https://cache.nixos.org"
         "http://192.168.3.14:5000/"
       ];
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      extra-trusted-public-keys = [
         "192.168.3.14-1:WN5/PjgQlzQ+PSDMXjv+B5rXKzkFtRg1+/UkAmnEvkM="
       ];
       trusted-users = [ "root" "tina" ];

@@ -8,6 +8,7 @@
           gnupg
           git
           firefox
+          cool-retro-term
         ];
 
       # Auto upgrade nix package
