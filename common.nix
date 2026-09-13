@@ -4,9 +4,7 @@
     optimise.automatic = true;
     settings = {
       substituters = [
-        "http://10.20.30.3:5000/"
         "http://192.168.3.14:5000/"
-        "https://homelab.lllamato.dev:5000"
       ];
       trusted-public-keys = [ 
         "wannabeinthebasement:Gwgwnvx67OKz2htvy/p770qeajfVUrVAlI+K3nxcOJM="
