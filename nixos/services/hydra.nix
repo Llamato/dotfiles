@@ -1,28 +1,11 @@
-{
-  pkgs,
-  ...
-}:
-let
-  url = "http://192.168.3.14:3000";
-  signingKeyFile = "/etc/nix/secret-key";
-  binCacheDir = "/mnt/stripe/hydra";
-in
-{
-  # Enable the Hydra service and its dependencies
+{ ... }: {
   services.hydra = {
     enable = true;
-    hydraURL = url;
+    hydraURL = "http://homelab.llamato.dev:3000";
     notificationSender = "hydra@localhost";
-    buildMachinesFiles = [ ]; # Set empty unless connecting remote builders
-    useSubstitutes = true; # Use binary caches instead of building from scratch
-    /*extraConfig = ''
-      allow_import_from_derivation = true
-      upload_logs_to_binary_cache = true
-      binary_cache_key_name = 192.168.3.14-1
-      binary_cache_private_key_file = ${signingKeyFile}
-    '';*/
+    buildMachinesFiles = [ ];
+    useSubstitutes = true;
   };
-  # Make sure the Hydra user and group are present
   users = {
     groups.hydra = { };
     users.hydra = {
@@ -58,6 +41,6 @@ in
   services.nix-serve = {
     enable = true;
     port = 5000;
-    secretKeyFile = signingKeyFile;
+    secretKeyFile = "/etc/nix/secret-key";
   };
 }
