@@ -26,7 +26,7 @@
       system.stateVersion = 4;
 
       # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "x86_64-darwin";
+      nixpkgs.hostPlatform = "aarch64-darwin";
 
       # Sudo with touch ID
       security.pam.services.sudo_local.touchIdAuth = true;
