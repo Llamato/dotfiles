@@ -50,7 +50,4 @@
   #programs.adb.enable = true;
   #users.users.tina.extraGroups = [ "adbusers" ];
   #snixpkgs.config.android_sdk.accept_license = true;
-
-  # Waka Time for Kate
-  #services.kate-wakatime.enable = true;
 }

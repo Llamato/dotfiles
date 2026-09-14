@@ -207,7 +207,6 @@
     ryzen-monitor-ng
     sg3_utils
     archivemount
-    kdePackages.kate
     discord vencord vesktop
     cool-retro-term
     sl

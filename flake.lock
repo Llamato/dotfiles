@@ -657,6 +657,22 @@
         "type": "github"
       }
     },
+    "llamato-nixpkgs": {
+      "locked": {
+        "lastModified": 1784234879,
+        "narHash": "sha256-eoWzi4gQXfj+YsQVZwEkjRZuluZ74YbEYawVVqjKEBk=",
+        "owner": "Llamato",
+        "repo": "nixpkgs",
+        "rev": "cf67ef06f4d8e2bbb735d2b9453f8fb470730833",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Llamato",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": "nixpkgs_7"
@@ -705,6 +721,28 @@
         "owner": "yuyuyureka",
         "ref": "minimize-patches",
         "repo": "nixos-apple-silicon",
+        "type": "github"
+      }
+    },
+    "nixos-hardware": {
+      "inputs": {
+        "nixpkgs": [
+          "rom-a-dotfiles",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788942796,
+        "narHash": "sha256-CLoJCCRi9sogsyGXYn8rOCWBLKAntfKUB9Rli/YXgEY=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "83bbc895120516d6e86885a188c04beced6535d9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixos-hardware",
         "type": "github"
       }
     },
@@ -891,6 +929,22 @@
     },
     "nixpkgs_10": {
       "locked": {
+        "lastModified": 1788881743,
+        "narHash": "sha256-2V9GZGvPfrNzxFozhI9dcqV+c3QdA8YZrvAAzqEB+dI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "d6524aaca2ff07876657ae2b323f24be4874944b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_11": {
+      "locked": {
         "lastModified": 1762482733,
         "narHash": "sha256-g/da4FzvckvbiZT075Sb1/YDNDr+tGQgh4N8i5ceYMg=",
         "owner": "NixOS",
@@ -1052,6 +1106,22 @@
         "type": "github"
       }
     },
+    "personal-nixpkgs": {
+      "locked": {
+        "lastModified": 1767089253,
+        "narHash": "sha256-BlfXDrpx47Ba/06P7V2qjoCj6XKkJoF9tRnCZdSdgcA=",
+        "owner": "HyprGirl",
+        "repo": "nixpkgs",
+        "rev": "46124e30da0eca6aac1fead7874aed90d863a1ec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "HyprGirl",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -1071,6 +1141,28 @@
       "original": {
         "owner": "cachix",
         "repo": "git-hooks.nix",
+        "type": "github"
+      }
+    },
+    "rom-a-dotfiles": {
+      "inputs": {
+        "llamato-nixpkgs": "llamato-nixpkgs",
+        "nixos-hardware": "nixos-hardware",
+        "nixpkgs": "nixpkgs_10",
+        "personal-nixpkgs": "personal-nixpkgs",
+        "secrets": "secrets"
+      },
+      "locked": {
+        "lastModified": 1788957051,
+        "narHash": "sha256-TdR98wDHDyE12zf1jg4956rbQ3m8HyhELpLVB1sY5vY=",
+        "owner": "HyprGirl",
+        "repo": "dotfiles",
+        "rev": "e8e39e491ad33244932391aba8fc107c0d026e3d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "HyprGirl",
+        "repo": "dotfiles",
         "type": "github"
       }
     },
@@ -1097,6 +1189,7 @@
         "nixpkgs2205": "nixpkgs2205",
         "nixpkgs2511": "nixpkgs2511",
         "openlogi": "openlogi",
+        "rom-a-dotfiles": "rom-a-dotfiles",
         "split-monitor-workspaces": "split-monitor-workspaces",
         "stenc": "stenc"
       }
@@ -1122,6 +1215,18 @@
         "type": "github"
       }
     },
+    "secrets": {
+      "locked": {
+        "lastModified": 1787061956,
+        "narHash": "sha256-YVeVC1Lhvg3432vYH1uy70rwJlOIUoAsrZxG48XGtDM=",
+        "path": "/etc/nixos/.secrets",
+        "type": "path"
+      },
+      "original": {
+        "path": "/etc/nixos/.secrets",
+        "type": "path"
+      }
+    },
     "split-monitor-workspaces": {
       "inputs": {
         "hyprland": [
@@ -1145,7 +1250,7 @@
     },
     "stenc": {
       "inputs": {
-        "nixpkgs": "nixpkgs_10"
+        "nixpkgs": "nixpkgs_11"
       },
       "locked": {
         "lastModified": 1774499657,

@@ -25,7 +25,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #software made by Tina.
+    #module sources by friends
+    rom-a-dotfiles = {
+      url = "github:HyprGirl/dotfiles";
+      flake = false;
+    };
+
+    #software made by Tina
     gcalc.url = "github:llamato/gcalc";
     gcrypt.url = "github:llamato/gcrypt";
     gbounce.url = "github:llamato/glossyBallBounce";
@@ -59,6 +65,9 @@
       url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
     };
+
+  #External config
+  #semisecrets.url = "/etc/nixos/semisecrets.nix";
   };
 
   outputs =
@@ -89,7 +98,7 @@
         };
     in
     {
-      packages =  forAllSystems (
+      packages = forAllSystems (
         system:
         let
           pkgs = pkgsFor system;
@@ -145,10 +154,9 @@
 
             ./nixos/hosts/wannabeonyx.nix
             ./nixos/hosts/wannabeonyx-hw.nix
+            
             openlogi.nixosModules.default
-
             ./nixos/modules/river.nix
-            ./nixos/modules/kate-wakatime.nix
 
             ./nixos/services/commenssh.nix
 

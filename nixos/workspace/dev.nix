@@ -2,9 +2,11 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
-}:
-{
+}: let
+  kate-wakatime =  pkgs.callPackage (inputs.rom-a-dotfiles + /modules/kate-wakatime.nix) { };
+in {
   programs = {
     nix-ld = {
       enable = lib.mkDefault true;
@@ -30,6 +32,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    kdePackages.kate
     renderdoc
     imhex
     lldb
@@ -68,14 +71,9 @@
     fuse-emulator
     gdb
     ripgrep
+    kate-wakatime
   ];
 
   # clangd service
   systemd.user.services.clangd.enable = true;
-
-  # distrobox
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-  };
 }
