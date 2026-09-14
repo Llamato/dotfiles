@@ -1,4 +1,15 @@
-{ ... }: {
+{ pkgs, ... }:
+let
+  systems = [
+    "x86_64-linux"
+    "riscv64-linux"
+    "aarch64-linux"
+    "armv7l-linux"
+  ];
+in
+{
+  boot.binfmt.emulatedSystems = builtins.filter (system: system != pkgs.stdenv.hostPlatform.system) systems;
+
   services.hydra = {
     enable = true;
     hydraURL = "http://homelab.llamato.dev:3000";
@@ -21,13 +32,8 @@
     ];
     buildMachines = [
       {
+        inherit systems;
         hostName = "localhost";
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-          "armv7l-linux"
-          "riscv64-linux"
-        ];
         supportedFeatures = [
           "nixos-test"
           "big-parallel"

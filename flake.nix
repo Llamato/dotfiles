@@ -89,7 +89,7 @@
         };
     in
     {
-      packages = forAllSystems (
+      packages =  forAllSystems (
         system:
         let
           pkgs = pkgsFor system;
