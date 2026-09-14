@@ -3,9 +3,10 @@
     #package = pkgs.lixPackageSets.stable.lix;
     optimise.automatic = true;
     settings = {
-      substituters = [
-        "https://cache.nixos.org"
+      extra-substituters = [
+        "http://10.20.30.3:5000"
         "http://192.168.3.14:5000/"
+        "http://homelab.llamato.dev:5000"
       ];
       extra-trusted-public-keys = [
         "192.168.3.14-1:WN5/PjgQlzQ+PSDMXjv+B5rXKzkFtRg1+/UkAmnEvkM="

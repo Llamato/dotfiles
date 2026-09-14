@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }: {
+{ config, pkgs, ... }: {
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
@@ -28,7 +28,10 @@
     v4l2loopback
   ];
 
-  boot.kernelModules = [ "v4l2loopback" ];
+  boot.kernelModules = [ 
+    "v4l2loopback" 
+  ];
+
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Cam, Virt Cam" exclusive_caps=1
   '';
@@ -243,7 +246,6 @@
     android-studio
     android-tools
     
-    inputs.kurogane.packages.${pkgs.system}.default
   ];
 
   nixpkgs.config.permittedInsecurePackages = [

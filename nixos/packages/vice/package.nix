@@ -103,6 +103,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://vice-emu.sourceforge.io/";
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.nekowinston ];
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    platforms = lib.platforms.linux;
   };
 })

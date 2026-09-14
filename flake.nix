@@ -74,40 +74,65 @@
     let
       inherit (self) outputs;
       systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-          "armv7l-linux"
-          "riscv64-linux"
-        ];
+        "x86_64-linux"
+        "aarch64-linux"
+        "armv7l-linux"
+        "riscv64-linux"
+        "aarch64-darwin"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      pkgsFor =
+        system:
+        import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
     in
     {
-      packages =
+      packages = forAllSystems (
+        system:
         let
-          forAllSystems = nixpkgs.lib.genAttrs systems;
-          pkgsFor =
-            system:
-            import nixpkgs {
-              inherit system;
-              config.allowUnfree = true;
-            };
+          pkgs = pkgsFor system;
+          lib = pkgs.lib;
+          packagesPath = ./nixos/packages;
         in
-        forAllSystems (
-          system:
-          let
-            pkgs = pkgsFor system;
-            lib = pkgs.lib;
-            packagesPath = ./nixos/packages;
-            packageNames = builtins.attrNames (
-              lib.filterAttrs (name: value: value == "directory") (builtins.readDir packagesPath)
-            );
-          in
+        lib.filterAttrs (pname: pdrv: builtins.elem system pdrv.meta.platforms) (
           builtins.listToAttrs (
-            map (packageName: {
-              name = packageName;
-              value = (pkgs.callPackage "${packagesPath}/${packageName}/package.nix" { });
-            }) packageNames
+            map
+              (packageName: {
+                name = packageName;
+                value = pkgs.callPackage "${packagesPath}/${packageName}/package.nix" { };
+              })
+              (
+                builtins.attrNames (
+                  lib.filterAttrs (name: value: value == "directory") (builtins.readDir packagesPath)
+                )
+              )
           )
-        );
+        )
+      );
+
+      lib = {
+        foldl1 =
+          op: list:
+          if list == [ ] then
+            throw "foldl1: empty list"
+          else
+            builtins.foldl' op (builtins.head list) (builtins.tail list);
+
+        normalizeLicense =
+          license:
+          if builtins.isList license then
+            if builtins.length license > 1 then
+              self.lib.foldl1 (
+                acc: first: second:
+                nixpkgs.lib.licenses.AND first second
+              )
+            else
+              builtins.head license
+          else
+            license;
+      };
 
       nixosConfigurations = {
         wannabeonyx = nixpkgs.lib.nixosSystem {
@@ -190,24 +215,26 @@
           ];
         };
 
-        /*wannabethinkpad = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./common.nix
+        /*
+          wannabethinkpad = nixpkgs.lib.nixosSystem {
+            system = "aarch64-linux";
+            specialArgs = { inherit inputs outputs; };
+            modules = [
+              ./common.nix
 
-            apple-silicon.nixosModules.apple-silicon-support
-            ./nixos/hosts/wannabethinkpad.nix
-            ./nixos/hosts/wannabethinkpad-hw.nix
+              apple-silicon.nixosModules.apple-silicon-support
+              ./nixos/hosts/wannabethinkpad.nix
+              ./nixos/hosts/wannabethinkpad-hw.nix
 
-            ./nixos/workspace/dev.nix
-            ./nixos/workspace/3d.nix
-            ./nixos/workspace/office.nix
-            ./nixos/workspace/communications.nix
-            ./nixos/workspace/monitoring.nix
-            ./nixos/workspace/sauce.nix
-          ];
-        };*/
+              ./nixos/workspace/dev.nix
+              ./nixos/workspace/3d.nix
+              ./nixos/workspace/office.nix
+              ./nixos/workspace/communications.nix
+              ./nixos/workspace/monitoring.nix
+              ./nixos/workspace/sauce.nix
+            ];
+          };
+        */
 
         wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -312,24 +339,32 @@
         };
       };
 
-    darwinConfigurations = {
-      apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = { inherit inputs outputs; };
-        modules = [
-          ./common.nix
+      darwinConfigurations = {
+        apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs outputs; };
+          modules = [
+            ./common.nix
 
-          ./darwin/hosts/apowerbooksgrandchild.nix
-        ];
+            ./darwin/hosts/apowerbooksgrandchild.nix
+          ];
+        };
       };
+
+      hydraJobs = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            # Evaluate unfree packages
+            config.allowUnfree = true;
+          };
+          lib = pkgs.lib;
+        in
+        # Do not include unfree packages in hydra jobs
+        lib.filterAttrs (
+          pname: package: lib.licenses.isFree (self.lib.normalizeLicense package.meta.license)
+        ) self.packages.${system}
+      );
     };
-
-    hydraJobs = let
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        config.allowUnfree = true;
-      };
-      lib = pkgs.lib;
-    in lib.foldlAttrs (packages: pname: package: let maybeEval = builtins.tryEval package; in packages // (if maybeEval.success then maybeEval.value else {})) {} self.packages;
-  };
 }
