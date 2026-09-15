@@ -1,8 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, automake, libtool, pkg-config }:
-
-stdenv.mkDerivation rec {
-  pname = "psid64";
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  automake,
+  libtool,
+  pkg-config,
+}:
+let
   version = "1.3";
+in
+stdenv.mkDerivation {
+  inherit version;
+  pname = "psid64";
 
   src = fetchFromGitHub {
     owner = "hermansr";
@@ -10,6 +21,9 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-cxtKHH25urL3Y5+l2GNCSJZdgRTstaTZfc0W3d8jEqM=";
   };
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   nativeBuildInputs = [
     autoreconfHook

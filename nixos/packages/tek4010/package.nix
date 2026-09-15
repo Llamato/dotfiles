@@ -19,6 +19,9 @@ stdenv.mkDerivation {
     hash = "sha256-5wUEIdiZSbC2yq0pCU2lVdwaa+QEADIZOqEGYa7mH4c=";
   };
 
+strictDeps = true;
+__structuredAttrs = true;
+
   nativeBuildInputs = [ 
     gcc
     gnumake

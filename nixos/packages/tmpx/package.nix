@@ -9,7 +9,6 @@ autoPatchelfHook
     "i686-linux" = "linux-i386";
     "x86_64-darwin" = "maxosx-x86_64";
     "i686-darwin" = "maxosx-i386";
-    "aarch64-darwin" = "maxosx-x86_64";
     "x86_64-freebsd" = "freebsd-x86_64";
     "i686-freebsd" = "freebsd-i386";
     "x86_64-solaris" = "solaris-x64-64";
