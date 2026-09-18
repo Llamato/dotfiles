@@ -66,7 +66,7 @@
     
     #custom
     (pkgs.callPackage ../packages/ssacli/package.nix {})
-    inputs.kurogane.packages.${pkgs.system}.default
+    #inputs.kurogane.packages.${pkgs.system}.default
     self.packages.${pkgs.system}.llvm-mos
   ];
 
