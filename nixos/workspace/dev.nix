@@ -1,11 +1,11 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
-  inputs,
   ...
-}: let
-  kate-wakatime =  pkgs.callPackage (inputs.rom-a-dotfiles + /modules/kate-wakatime.nix) { };
+}: let 
+  kate-wakatime = pkgs.callPackage (inputs.rom-a-dotfiles + "/modules/kate-wakatime.nix") {}; 
 in {
   programs = {
     nix-ld = {
