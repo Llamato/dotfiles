@@ -96,6 +96,9 @@
         };
     in
     {
+      nixConfig = {
+        allow-import-from-derivation = true;
+      };
       packages = forAllSystems (
         system:
         let
@@ -116,7 +119,12 @@
                 )
               )
           )
-        )
+        ) // {
+            #gcalc   = inputs.gcalc.packages.${system}.default;
+            #gcrypt  = inputs.gcrypt.packages.${system}.default;
+            #gbounce = inputs.gbounce.packages.${system}.default;
+            cbmtext = inputs.cbmtext.packages.${system}.demo;
+          }
       );
 
       lib = {
@@ -126,6 +134,9 @@
             throw "foldl1: empty list"
           else
             builtins.foldl' op (builtins.head list) (builtins.tail list);
+      
+        startsWith = with builtins; pattern: str: (length (match "^(${pattern}).*" str)) > 0;
+        endsWith = with builtins; pattern: str: (length (match "*.^(${pattern})" str)) > 0;
 
         normalizeLicense =
           license:
@@ -168,7 +179,6 @@
             ./nixos/workspace/office.nix
             ./nixos/workspace/media.nix
             ./nixos/workspace/monitoring.nix
-            ./nixos/workspace/sauce.nix
           ];
         };
 
@@ -237,7 +247,6 @@
               ./nixos/workspace/office.nix
               ./nixos/workspace/communications.nix
               ./nixos/workspace/monitoring.nix
-              ./nixos/workspace/sauce.nix
             ];
           };
         */
@@ -269,7 +278,6 @@
             ./nixos/workspace/communications.nix
             ./nixos/workspace/office.nix
             ./nixos/workspace/monitoring.nix
-            ./nixos/workspace/sauce.nix
           ];
         };
 
@@ -313,7 +321,6 @@
             ./nixos/workspace/office.nix
             ./nixos/workspace/media.nix
             ./nixos/workspace/monitoring.nix
-            ./nixos/workspace/sauce.nix
           ];
         };
 
@@ -369,7 +376,7 @@
         in
         # Do not include unfree packages in hydra jobs
         lib.filterAttrs (
-          pname: package: lib.licenses.isFree (self.lib.normalizeLicense package.meta.license)
+          pname: package: lib.licenses.isFree (self.lib.normalizeLicense (package.meta.license or lib.licenses.free))
         ) self.packages.${system}
       );
     };
