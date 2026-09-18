@@ -141,12 +141,14 @@
             license;
       };
 
-      nixosConfigurations = {
-        wannabeonyx = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs outputs;
+      nixosConfigurations = let
+        specialArgs = {
+            inherit inputs outputs self;
           };
+      in {
+        wannabeonyx = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          system = "x86_64-linux";
           modules = [
             ./common.nix
 
@@ -171,10 +173,8 @@
         };
 
         wannabeinthebasement = nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
           system = "x86_64-linux";
-          specialArgs = {
-            inherit inputs outputs;
-          };
           modules = [
             ./common.nix
 
@@ -197,8 +197,8 @@
         };
 
         llamkatttserver = nixpkgs.lib.nixosSystem rec {
+          inherit specialArgs;
           system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
           modules = [
             ./common.nix
 

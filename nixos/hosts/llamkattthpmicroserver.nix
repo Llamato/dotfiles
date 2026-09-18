@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ pkgs, inputs, ... }: {
+{ self, pkgs, ... }: {
   
   #Tinas edits
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -66,7 +66,8 @@
     
     #custom
     (pkgs.callPackage ../packages/ssacli/package.nix {})
-    inputs.kurogane.packages.${pkgs.system}.default
+    #inputs.kurogane.packages.${pkgs.system}.default
+    self.packages.${pkgs.system}.llvm-mos
   ];
 
   #Networking
