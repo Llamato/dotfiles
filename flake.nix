@@ -25,25 +25,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #module sources by friends
-    rom-a-dotfiles = {
-      url = "github:HyprGirl/dotfiles";
-      flake = false;
-    };
-
-    #software made by Tina
-    gcalc.url = "github:llamato/gcalc";
-    gcrypt.url = "github:llamato/gcrypt";
-    gbounce.url = "github:llamato/glossyBallBounce";
-    cbmtext.url = "github:llamato/cbmText";
-
-    #software made by friends
-    kurogane.url = "github:0x48piraj/kurogane/master";
-    devnotify = {
-      url = "github:ShyAssassin/devnotify";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     #hyprland and it's addons
     hyprland = {
       url = "github:hyprwm/Hyprland";
@@ -66,8 +47,25 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-  #External config
-  #semisecrets.url = "/etc/nixos/semisecrets.nix";
+    #External config
+    secrets.url = "/etc/nixos/secrets";
+
+    #software made by Tina
+    gcalc.url = "github:llamato/gcalc";
+    gcrypt.url = "github:llamato/gcrypt";
+    gbounce.url = "github:llamato/glossyBallBounce";
+    cbmtext.url = "github:llamato/cbmText";
+
+    #software made by friends
+    kurogane.url = "github:0x48piraj/kurogane/master";
+    devnotify = {
+      url = "github:ShyAssassin/devnotify";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    rom-a-dotfiles = {
+      url = "github:HyprGirl/dotfiles";
+      flake = false;
+    };
   };
 
   outputs =

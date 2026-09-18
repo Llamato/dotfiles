@@ -1,11 +1,15 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: let 
+  isInHomelab = true;
+in {
   nix = {
     #package = pkgs.lixPackageSets.stable.lix;
     optimise.automatic = true;
     settings = {
-      extra-substituters = [
-        "http://10.20.30.3:5000"
-        "http://192.168.3.14:5000/"
+      extra-substituters = if isInHomelab 
+      then [
+        #"http://10.20.30.3:5000"
+      ]
+      else [
         "http://homelab.llamato.dev:5000"
       ];
       extra-trusted-public-keys = [
@@ -20,6 +24,8 @@
       nix-path = config.nix.nixPath;
       experimental-features = "nix-command flakes";
       allow-import-from-derivation = true;
+      connect-timeout = 1;
+
     };
   };
   nixpkgs = {

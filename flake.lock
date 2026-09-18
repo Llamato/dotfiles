@@ -895,6 +895,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable_4": {
+      "locked": {
+        "lastModified": 1789264731,
+        "narHash": "sha256-llGJbC0CcU8DfROr6mZjRJgMLQd/SKwfpzxJH/2lHO4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "02f5696b0e6097e589076d886b317b83ff0437d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs2205": {
       "locked": {
         "lastModified": 1685573264,
@@ -944,6 +960,19 @@
       }
     },
     "nixpkgs_11": {
+      "locked": {
+        "lastModified": 1789264731,
+        "narHash": "sha256-iR1Jj6svMpvLxPWA40qp+WUpg3MStLXJy5TZrP2cPes=",
+        "rev": "02f5696b0e6097e589076d886b317b83ff0437d7",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1072974.02f5696b0e60/nixexprs.tar.xz"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_12": {
       "locked": {
         "lastModified": 1762482733,
         "narHash": "sha256-g/da4FzvckvbiZT075Sb1/YDNDr+tGQgh4N8i5ceYMg=",
@@ -1190,6 +1219,7 @@
         "nixpkgs2511": "nixpkgs2511",
         "openlogi": "openlogi",
         "rom-a-dotfiles": "rom-a-dotfiles",
+        "secrets": "secrets_2",
         "split-monitor-workspaces": "split-monitor-workspaces",
         "stenc": "stenc"
       }
@@ -1227,6 +1257,22 @@
         "type": "path"
       }
     },
+    "secrets_2": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_11",
+        "nixpkgs-unstable": "nixpkgs-unstable_4"
+      },
+      "locked": {
+        "lastModified": 1789420259,
+        "narHash": "sha256-pmbmYwVc2FrGZ1H4ozYLR/tW444J6q5IfaxNdn9RkWc=",
+        "path": "/etc/nixos/secrets",
+        "type": "path"
+      },
+      "original": {
+        "path": "/etc/nixos/secrets",
+        "type": "path"
+      }
+    },
     "split-monitor-workspaces": {
       "inputs": {
         "hyprland": [
@@ -1250,7 +1296,7 @@
     },
     "stenc": {
       "inputs": {
-        "nixpkgs": "nixpkgs_11"
+        "nixpkgs": "nixpkgs_12"
       },
       "locked": {
         "lastModified": 1774499657,
