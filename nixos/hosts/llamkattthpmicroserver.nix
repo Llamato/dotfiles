@@ -66,6 +66,7 @@
     
     #custom
     (pkgs.callPackage ../packages/ssacli/package.nix {})
+    inputs.kurogane.packages.${pkgs.system}.default
   ];
 
   #Networking
