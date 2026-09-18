@@ -63,9 +63,7 @@
     rsync sshfs
     monero-cli xmrig
     cifs-utils
-    
-    #custom
-    (pkgs.callPackage ../packages/ssacli/package.nix {})
+    self.packages.${pkgs.system}.ssacli
   ];
 
   #Networking
