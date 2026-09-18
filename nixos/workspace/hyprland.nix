@@ -1,10 +1,5 @@
-{config, lib, pkgs, inputs, ...}: let
+{pkgs, inputs, ...}: let
   hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  devnotify = inputs.devnotify.packages.${pkgs.system}.devnotify;
-  unstable = import inputs.nixpkgs-unstable {
-    system = pkgs.system;
-    config.allowUnfree = true;
-  };
 in {
   imports = [
     inputs.hyprland.nixosModules.default
@@ -52,9 +47,9 @@ in {
 
   environment.systemPackages = with pkgs; [
     waybar dunst kitty nautilus
-    wl-clipboard unstable.vicinae
+    wl-clipboard inputs.nixpkgs-unstable.vicinae
     gtk-engine-murrine gnome-themes-extra
-    grim slurp devnotify ffmpegthumbnailer
+    grim slurp ffmpegthumbnailer #devnotify 
     killall xorg.xrandr libnotify playerctl pwvucontrol
     hyprpaper hypridle hyprlock hyprpicker hyprpolkitagent
     adwaita-icon-theme phinger-cursors tokyonight-gtk-theme
