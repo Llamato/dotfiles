@@ -1,18 +1,5 @@
-{ pkgs, ... }:
-let
-  systems = [
-    "x86_64-linux"
-    "riscv64-linux"
-    "aarch64-linux"
-    "armv7l-linux"
-  ];
-in
-{
-  boot.binfmt.emulatedSystems = [
-    "riscv64-linux"
-    "aarch64-linux"
-    "armv7l-linux"
-  ];
+{ pkgs, systems ? [] }: {
+  boot.binfmt.emulatedSystems = builtins.filter (system: system != pkgs.stdenv.hostPlatform) systems;
   services.hydra = {
     enable = true;
     hydraURL = "http://homelab.llamato.dev:3000";

@@ -173,8 +173,10 @@
 
             ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
-            ./nixos/services/hydra.nix
             ./nixos/services/storageserver.nix
+            (import ./nixos/services/hydra.nix {
+              inherit systems;
+            })
             (import ./nixos/services/smb.nix {
               shares = [
                 "osraid"
@@ -194,18 +196,19 @@
 
             ./nixos/hosts/llamkattthpmicroserver.nix
             ./nixos/hosts/llamkattthpmicroserver-hw.nix
-
-            (import ./nixos/services/smb.nix { shares = [ "raid" ]; })
+            ./nixos/services/nfs.nix
+            ./nixos/services/virtualmaschines.nix
+            ./nixos/services/devserver.nix
+            ./nixos/services/storageserver.nix
+            (import ./nixos/services/smb.nix { 
+              shares = [ 
+                "raid" 
+              ]; 
+            })
             (import ./nixos/services/bunserver.nix {
               pkgs = nixpkgs.legacyPackages.${system};
               servingDirectory = "/mnt/raid/www/public";
             })
-
-            ./nixos/services/nfs.nix
-            ./nixos/services/virtualmaschines.nix
-            ./nixos/services/traefik.nix
-            ./nixos/services/devserver.nix
-            ./nixos/services/storageserver.nix
           ];
         };
 
