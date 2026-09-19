@@ -64,8 +64,6 @@
     kdePackages.krfb
     muvm
     file
-
-    inputs.kurogane.packages.${pkgs.system}.default
   ];
   
   #Vr Things
