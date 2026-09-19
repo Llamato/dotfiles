@@ -26,25 +26,9 @@
     };
 
     #hyprland and it's addons
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
     easymotion = {
       url = "github:zakk4223/hyprland-easymotion";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hyprsplit = {
-      url = "github:shezdy/hyprsplit";
-      inputs.hyprland.follows = "hyprland";
-    };
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland";
+      inputs.hyprland.follows = "nixpkgs";
     };
 
     #software made by Tina
@@ -93,9 +77,6 @@
         };
     in
     {
-      nixConfig = {
-        allow-import-from-derivation = true;
-      };
       packages = forAllSystems ( #nixpkgs.lib.genAttrs [ "x86_64-linux" ] 
         system:
         let

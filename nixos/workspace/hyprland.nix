@@ -1,13 +1,7 @@
-{pkgs, inputs, ...}: let
-  hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
-in {
-  imports = [
-    inputs.hyprland.nixosModules.default
-  ];
+{pkgs, ...}: {
 
   programs.hyprland = {
     enable = true;
-    package = hyprland;
     xwayland.enable = true;
   };
 
@@ -47,7 +41,7 @@ in {
 
   environment.systemPackages = with pkgs; [
     waybar dunst kitty nautilus
-    wl-clipboard inputs.nixpkgs-unstable.vicinae
+    wl-clipboard vicinae
     gtk-engine-murrine gnome-themes-extra
     grim slurp ffmpegthumbnailer #devnotify 
     killall xorg.xrandr libnotify playerctl pwvucontrol

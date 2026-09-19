@@ -7,7 +7,7 @@ in {
     settings = {
       extra-substituters = if isInHomelab 
       then [
-        #"http://10.20.30.3:5000"
+        "http://192.168.3.14:5000"
       ]
       else [
         "http://homelab.llamato.dev:5000"
