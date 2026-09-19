@@ -48,9 +48,9 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    description = "Multipaint reto bitmap";
+    description = "Multipaint reto bitmap editor";
     homepage = "https://multipaint.kameli.net/";
-    license = licenses.unfree;
+    license = lib.licenses.unfreeRedistributable;
     platforms = with attrsets; attrNames sources;
     #maintainers = with maintainers; [ llamato ];
   };
