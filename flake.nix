@@ -207,6 +207,7 @@
             ./nixos/services/virtualmaschines.nix
             ./nixos/services/devserver.nix
             ./nixos/services/storageserver.nix
+            ./nixos/services/qbittorrent-nox.nix
             (import ./nixos/services/smb.nix { 
               shares = [ 
                 "raid" 

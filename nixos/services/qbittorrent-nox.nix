@@ -4,7 +4,7 @@
   ];*/
 
   systemd.services.qbittorrent-nox = {
-    description = "Western Digital MyCloud Home Duo Fan Controller";
+    description = "qbittorrent-nox client with webui";
     wantedBy = [ "multi-user.target" ];
 
     serviceConfig = {
