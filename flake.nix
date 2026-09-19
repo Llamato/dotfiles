@@ -47,9 +47,6 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    #External config
-    secrets.url = "/etc/nixos/secrets";
-
     #software made by Tina
     gcalc.url = "github:llamato/gcalc";
     gcrypt.url = "github:llamato/gcrypt";
@@ -99,7 +96,7 @@
       nixConfig = {
         allow-import-from-derivation = true;
       };
-      packages = forAllSystems (
+      packages = forAllSystems ( #nixpkgs.lib.genAttrs [ "x86_64-linux" ] 
         system:
         let
           pkgs = pkgsFor system;

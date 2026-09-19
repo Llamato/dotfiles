@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 let
   fetchKeysFromGithub =
     with builtins // lib;

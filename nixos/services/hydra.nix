@@ -32,7 +32,7 @@ in
     ];
     buildMachines = [
       {
-        inherit systems;
+        system = "x86_64-linux";
         hostName = "localhost";
         supportedFeatures = [
           "nixos-test"

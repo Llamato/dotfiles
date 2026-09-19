@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: let 
+{ config, pkgs, ... }: let 
   isInHomelab = true;
 in {
   nix = {
