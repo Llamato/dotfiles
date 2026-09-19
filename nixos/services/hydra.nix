@@ -9,9 +9,9 @@ let
 in
 {
   boot.binfmt.emulatedSystems = [
+    "riscv64-linux"
     "aarch64-linux"
     "armv7l-linux"
-    "riscv64-linux"
   ];
   services.hydra = {
     enable = true;
@@ -36,7 +36,6 @@ in
     buildMachines = [
       {
         inherit systems;
-        system = "x86_64-linux";
         hostName = "localhost";
         supportedFeatures = [
           "nixos-test"

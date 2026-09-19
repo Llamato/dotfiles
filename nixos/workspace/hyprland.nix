@@ -20,7 +20,7 @@
   security.pam.services.sddm.enableGnomeKeyring = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
 
-  # needed for nautilus stuff
+  # Needed for nautilus stuff
   services.gvfs.enable = true;
   programs.dconf.enable = true;
   services.gnome.sushi.enable = true;
