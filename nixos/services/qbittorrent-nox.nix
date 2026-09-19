@@ -1,7 +1,7 @@
 { pkgs, ... }: {
-  /*environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     qbittorrent-nox
-  ];*/
+  ];
 
   systemd.services.qbittorrent-nox = {
     description = "qbittorrent-nox client with webui";
