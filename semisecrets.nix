@@ -26,7 +26,7 @@ in
     makeUserEntry "tina" 9002 { ssh = fetchKeysFromGithub "llamato"; }
     // makeUserEntry "quinten" 2000 { ssh = fetchKeysFromGithub "QuintenMuyllaert"; }
     // makeUserEntry "amber" 2000 { ssh = fetchKeysFromGithub "ShyAssassin"; }
-    // makeUserEntry "romana" 2000 { ssh = fetchKeysFromGithub "HyprGirl"; }
+    // makeUserEntry "romana" 2000 { ssh = fetchKeysFromGithub "R0M-A"; }
     // makeUserEntry "xlr8" 2000 { ssh = fetchKeysFromGithub "0x48piraj"; }
     // makeUserEntry "zvit" 2000 {
       ssh = [
