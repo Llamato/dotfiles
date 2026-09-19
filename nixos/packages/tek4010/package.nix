@@ -25,13 +25,13 @@ __structuredAttrs = true;
   nativeBuildInputs = [ 
     gcc
     gnumake
+    pkg-config
   ];
 
   buildInputs = [
     gtk3
     gtk3-x11
     cairo.dev
-    pkg-config
   ];
 
   installPhase = ''
