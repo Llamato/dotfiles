@@ -8,13 +8,16 @@ let
   ];
 in
 {
-  boot.binfmt.emulatedSystems = builtins.filter (system: system != pkgs.stdenv.hostPlatform.system) systems;
-
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+    "armv7l-linux"
+    "riscv64-linux"
+  ];
   services.hydra = {
     enable = true;
     hydraURL = "http://homelab.llamato.dev:3000";
     notificationSender = "hydra@localhost";
-    buildMachinesFiles = [ ];
+    buildMachinesFiles = [ "/etc/nix/machines" ];
     useSubstitutes = true;
   };
   users = {
@@ -32,6 +35,7 @@ in
     ];
     buildMachines = [
       {
+        inherit systems;
         system = "x86_64-linux";
         hostName = "localhost";
         supportedFeatures = [
@@ -42,6 +46,7 @@ in
           "gccarch-armv7-a"
         ];
         maxJobs = 64;
+        protocol = null;
       }
     ];
   };
