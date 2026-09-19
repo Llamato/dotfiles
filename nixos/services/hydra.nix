@@ -38,6 +38,7 @@ in
           "nixos-test"
           "big-parallel"
           "benchmark"
+          "kvm"
           "gccarch-armv7-a"
         ];
         maxJobs = 64;
