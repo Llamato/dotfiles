@@ -1,4 +1,4 @@
-{ pkgs, lib, homedir ? "/home/", ... } : let
+{ pkgs, lib, homedir ? "/home", ... } : let
   semisecrets = (import ../../semisecrets.nix { inherit lib pkgs; });
   makeUser = username: { ${username} = {
     isNormalUser = true;
