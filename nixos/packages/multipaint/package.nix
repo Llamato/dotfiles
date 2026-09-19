@@ -1,15 +1,15 @@
 {
   lib,
   stdenv,
-  openjdk25,
   unzip,
+  jre,
+  makeWrapper
 }:
 let
   sources = {
     "x86_64-linux" = "linux-amd64";
     "aarch64-darwin" = "macos-aarch64";
   };
-  sysfolder = sources.${stdenv.hostPlatform.system};
 in
 stdenv.mkDerivation {
   pname = "multipaint";
@@ -24,23 +24,27 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     unzip
+    makeWrapper
   ];
 
   buildInputs = [
-    openjdk25
+    jre
   ];
 
   unpackPhase = ''
     unzip $src
-    mkdir -p $out/bin
-    mkdir -p $out/share/multipaint
-    ls multipaint
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    cp -r multipaint $out
-    mv $out/multipaint $out/bin
+    mkdir -p $out/share
+    shopt -s extglob
+    cp -r multipaint/${sources."${stdenv.hostPlatform.system}"}/!(multipaint) $out/share
+    makeWrapper ${jre}/bin/java $out/bin/multipaint \
+    --add-flags "-Djna.nosys=true \
+      -Djava.library.path=$out/share/lib \
+      -cp $out/share/lib/multipaint.jar:$out/share/lib/jogl-all.jar:$out/share/lib/gluegen-rt.jar:$out/share/lib/core.jar \
+      multipaint"
   '';
 
   meta = with lib; {
@@ -48,6 +52,6 @@ stdenv.mkDerivation {
     homepage = "https://multipaint.kameli.net/";
     license = licenses.unfree;
     platforms = with attrsets; attrNames sources;
-    #+maintainers = with maintainers; [ llamato ];
+    #maintainers = with maintainers; [ llamato ];
   };
 }
