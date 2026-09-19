@@ -192,9 +192,14 @@
           modules = [
             ./common.nix
 
-            (import ./nixos/modules/jamlytics.nix {
-              homedir = "/mnt/raid/home"; 
-            })
+            (import ./nixos/modules/jamlytics.nix (
+              let 
+                pkgs = pkgsFor system;
+                lib = pkgs.lib;
+              in {
+                inherit pkgs lib;
+                homedir = "/mnt/raid/home"; 
+            }))
 
             ./nixos/hosts/llamkattthpmicroserver.nix
             ./nixos/hosts/llamkattthpmicroserver-hw.nix
