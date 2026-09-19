@@ -120,7 +120,7 @@
             #gcalc   = inputs.gcalc.packages.${system}.default;
             #gcrypt  = inputs.gcrypt.packages.${system}.default;
             #gbounce = inputs.gbounce.packages.${system}.default;
-            cbmtext = inputs.cbmtext.packages.${system}.demo;
+            cbmtext = inputs.cbmtext.packages.${system}.default;
           }
       );
 
