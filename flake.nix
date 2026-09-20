@@ -98,9 +98,8 @@
           crossSystem = system;
           config.allowUnfree = true;
         };
-      packagesPath = ./nixos/packages;
-      makeLocalPackagesWith =
-        pkgs:
+      makePackagesInPathWith =
+        pkgs: packagesPath:
         let
           lib = pkgs.lib;
           system = pkgs.hostPlatform.system;
@@ -127,7 +126,7 @@
         };
     in
     {
-      packages = forAllSystems (system: makeLocalPackagesWith (pkgsFor system));
+      packages = forAllSystems (system: makePackagesInPathWith (pkgsFor system) ./nixos/packages/pkgsNative);
 
       lib = {
         foldl1 =
@@ -241,6 +240,7 @@
               })
               (import ./nixos/services/bunserver.nix {
                 pkgs = nixpkgs.legacyPackages.${system};
+                bun = self.packages.${system}.bun-baseline;
                 servingDirectory = "/mnt/raid/www/public";
               })
             ];
@@ -393,7 +393,7 @@
         lib.filterAttrs (_: pdrv: lib.meta.availableOn pkgs.stdenv.hostPlatform pdrv) (lib.filterAttrs (
             pname: package:
             lib.licenses.isFree (self.lib.normalizeLicense (package.meta.license or lib.licenses.free))
-          ) (makeLocalPackagesWith pkgs))
+          ) (makePackagesInPathWith pkgs ./nixos/packages/pkgsCross))
       );
     };
 }

@@ -52,6 +52,10 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/68c792be-a306-4116-9c75-d582ecfd32ae";
     fsType = "f2fs";
+    options = [ 
+      "defaults" 
+      "inline_data"
+    ];
   };
 
   fileSystems."/boot" = {
