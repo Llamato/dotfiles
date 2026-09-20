@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   services.qbittorrent = {
-    enable = true;
+    enable = false;
     package = pkgs.qbittorrent-nox;
     profileDir = "/mnt/raid/torrents";
     serverConfig = {
