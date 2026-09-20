@@ -174,9 +174,7 @@
             ./nixos/services/nfs.nix
             ./nixos/services/virtualmaschines.nix
             ./nixos/services/storageserver.nix
-            (import ./nixos/services/hydra.nix {
-              inherit systems;
-            })
+            ./nixos/services/hydra.nix
             (import ./nixos/services/smb.nix {
               shares = [
                 "osraid"

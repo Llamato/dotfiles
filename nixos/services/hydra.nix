@@ -1,5 +1,4 @@
-{ pkgs, systems ? [] }: {
-  boot.binfmt.emulatedSystems = builtins.filter (system: system != pkgs.stdenv.hostPlatform) systems;
+{ self,  ... }: {
   services.hydra = {
     enable = true;
     hydraURL = "http://homelab.llamato.dev:3000";
