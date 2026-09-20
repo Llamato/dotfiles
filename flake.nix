@@ -355,9 +355,8 @@
         system:
         let
           pkgs = import nixpkgs {
-            inherit system;
             buildPlatform = "x86_64-linux";
-            hostPlatform = "aarch64-linux";
+            hostPlatform = system;
             # Evaluate unfree packages
             config.allowUnfree = true;
           };
