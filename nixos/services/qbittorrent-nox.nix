@@ -6,13 +6,10 @@
     serverConfig = {
       LegalNotice.Accepted = true;
       Preferences = {
-        Proxy = {
-          Type = 2;
-          Host = "localhost";
-          Port = 1080;
-          OnlyForTorrents = false;
-          PeerConnections = true;
-        };
+        "Connection\\Proxy\\Type" = "SOCKS5";
+        "Connection\\Proxy\\IP" = "192.168.3.11";
+        "Connection\\Proxy\\Port" = 1087;
+        "Connection\\Proxy\\UseProxyForBT" = true;
         WebUI = {
           Address = "*";
           AuthSubnetWhitelistEnabled=false;
