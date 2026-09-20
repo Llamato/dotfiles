@@ -17,6 +17,11 @@ in {
       ];
       trusted-users = [ "root" "tina" ];
       system-features = [ 
+        "nixos-test" 
+        "benchmark" 
+        "big-parallel" 
+        "kvm" 
+        "gccarch-znver5"
         "gccarch-armv7-a"
       ];
       log-lines = "35";

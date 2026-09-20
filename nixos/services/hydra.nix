@@ -28,9 +28,10 @@
           "big-parallel"
           "benchmark"
           "kvm"
+          "gccarch-znver5"
           "gccarch-armv7-a"
         ];
-        maxJobs = 64;
+        maxJobs = 40;
         protocol = null;
       }
     ];

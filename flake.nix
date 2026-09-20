@@ -354,18 +354,25 @@
       hydraJobs = forAllSystems (
         system:
         let
+          lib = pkgs.lib;
           pkgs = import nixpkgs {
             buildPlatform = "x86_64-linux";
-            hostPlatform = system;
+            hostPlatform = {
+              system = "x86_64-linux";
+              gcc = lib.optionalAttrs (system == "x86_64-linux") {
+                arch = "znver5";
+                tune = "znver5";
+              };
+            };
             # Evaluate unfree packages
             config.allowUnfree = true;
           };
-          lib = pkgs.lib;
-        in
-        # Do not include unfree packages in hydra jobs
-        lib.filterAttrs (
+          # Do not include unfree packages in hydra jobs
+          freePkgs = lib.filterAttrs (
           pname: package: lib.licenses.isFree (self.lib.normalizeLicense (package.meta.license or lib.licenses.free))
-        ) self.packages.${system}
+        ) self.packages.${system};
+        in
+        freePkgs
       );
     };
 }
