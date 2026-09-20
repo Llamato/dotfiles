@@ -357,12 +357,14 @@
           lib = pkgs.lib;
           pkgs = import nixpkgs {
             buildPlatform = "x86_64-linux";
-            hostPlatform = {
+            hostPlatform = if system == "x86_64-linux" then {
               system = "x86_64-linux";
-              gcc = lib.optionalAttrs (system == "x86_64-linux") {
+              gcc = {
                 arch = "znver5";
                 tune = "znver5";
               };
+            } else {
+              inherit system;
             };
             # Evaluate unfree packages
             config.allowUnfree = true;
