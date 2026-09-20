@@ -5,6 +5,13 @@
     serverConfig = {
       LegalNotice.Accepted = true;
       Preferences = {
+        Proxy = {
+          Type = 2;
+          Host = "localhost";
+          Port = 1080;
+          OnlyForTorrents = false;
+          PeerConnections = true;
+        };
         WebUI = {
           Address = "*";
           AuthSubnetWhitelistEnabled=false;
