@@ -2,6 +2,7 @@
   services.qbittorrent = {
     enable = true;
     package = pkgs.qbittorrent-nox;
+    profileDir = "/mnt/raid/torrents";
     serverConfig = {
       LegalNotice.Accepted = true;
       Preferences = {
