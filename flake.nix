@@ -66,23 +66,44 @@
         "aarch64-linux"
         "armv7l-linux"
         "riscv64-linux"
-        "aarch64-darwin"
+        
       ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+      lib = nixpkgs.lib;
+      forAllSystems = lib.genAttrs systems;
       pkgsFor =
         system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         };
-    in
-    {
-      packages = forAllSystems ( #nixpkgs.lib.genAttrs [ "x86_64-linux" ] 
+      pkgsForx86 = import nixpkgs {
+        localSystem = {
+          system = "x86_64-linux";
+          gcc.arch = "x86_64_v3";
+        };
+      };
+      pkgsForZen5 = import nixpkgs {
+        localSystem = {
+          system = "x86_64-linux";
+          gcc.arch = "znver5";
+          gcc.tune = "znver5";
+        };
+        config.allowUnfree = true;
+      };
+      pkgsCrossFor =
         system:
+        import nixpkgs {
+          inherit system;
+          localSystem = "x86_64-linux";
+          crossSystem = system;
+          config.allowUnfree = true;
+        };
+      packagesPath = ./nixos/packages;
+      makeLocalPackagesWith =
+        pkgs:
         let
-          pkgs = pkgsFor system;
           lib = pkgs.lib;
-          packagesPath = ./nixos/packages;
+          system = pkgs.hostPlatform.system;
         in
         lib.filterAttrs (pname: pdrv: builtins.elem system pdrv.meta.platforms) (
           builtins.listToAttrs (
@@ -97,13 +118,16 @@
                 )
               )
           )
-        ) // {
-            #gcalc   = inputs.gcalc.packages.${system}.default;
-            #gcrypt  = inputs.gcrypt.packages.${system}.default;
-            #gbounce = inputs.gbounce.packages.${system}.default;
-            cbmtext = inputs.cbmtext.packages.${system}.default;
-          }
-      );
+        )
+        // {
+          #gcalc   = inputs.gcalc.packages.${system}.default;
+          #gcrypt  = inputs.gcrypt.packages.${system}.default;
+          #gbounce = inputs.gbounce.packages.${system}.default;
+          cbmtext = inputs.cbmtext.packages.${system}.default;
+        };
+    in
+    {
+      packages = forAllSystems (system: makeLocalPackagesWith (pkgsFor system));
 
       lib = {
         foldl1 =
@@ -112,7 +136,7 @@
             throw "foldl1: empty list"
           else
             builtins.foldl' op (builtins.head list) (builtins.tail list);
-      
+
         startsWith = with builtins; pattern: str: (length (match "^(${pattern}).*" str)) > 0;
         endsWith = with builtins; pattern: str: (length (match "*.^(${pattern})" str)) > 0;
 
@@ -130,214 +154,218 @@
             license;
       };
 
-      nixosConfigurations = let
-        specialArgs = {
+      nixosConfigurations =
+        let
+          specialArgs = {
             inherit inputs outputs self;
           };
-      in {
-        wannabeonyx = nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-          modules = [
-            ./common.nix
+        in
+        {
+          wannabeonyx = nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+            modules = [
+              ./common.nix
 
-            ./nixos/hosts/wannabeonyx.nix
-            ./nixos/hosts/wannabeonyx-hw.nix
-            
-            openlogi.nixosModules.default
-            ./nixos/modules/river.nix
+              ./nixos/hosts/wannabeonyx.nix
+              ./nixos/hosts/wannabeonyx-hw.nix
 
-            ./nixos/services/commenssh.nix
+              openlogi.nixosModules.default
+              ./nixos/modules/river.nix
 
-            ./nixos/workspace/hyprland.nix
-            ./nixos/workspace/dev.nix
-            ./nixos/workspace/eda.nix
-            ./nixos/workspace/3d.nix
-            ./nixos/workspace/benchmark.nix
-            ./nixos/workspace/office.nix
-            ./nixos/workspace/media.nix
-            ./nixos/workspace/monitoring.nix
-          ];
-        };
+              ./nixos/services/commenssh.nix
 
-        wannabeinthebasement = nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
-          system = "x86_64-linux";
-          modules = [
-            ./common.nix
+              ./nixos/workspace/hyprland.nix
+              ./nixos/workspace/dev.nix
+              ./nixos/workspace/eda.nix
+              ./nixos/workspace/3d.nix
+              ./nixos/workspace/benchmark.nix
+              ./nixos/workspace/office.nix
+              ./nixos/workspace/media.nix
+              ./nixos/workspace/monitoring.nix
+            ];
+          };
 
-            ./nixos/hosts/wannabeinthebasement.nix
-            ./nixos/hosts/wannabeinthebasement-hw.nix
+          wannabeinthebasement = nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            system = "x86_64-linux";
+            modules = [
+              ./common.nix
 
-            ./nixos/modules/dellfancontrol.nix
+              ./nixos/hosts/wannabeinthebasement.nix
+              ./nixos/hosts/wannabeinthebasement-hw.nix
 
-            ./nixos/services/nfs.nix
-            ./nixos/services/virtualmaschines.nix
-            ./nixos/services/storageserver.nix
-            ./nixos/services/hydra.nix
-            (import ./nixos/services/smb.nix {
-              shares = [
-                "osraid"
-                "stripe"
+              ./nixos/modules/dellfancontrol.nix
+
+              ./nixos/services/nfs.nix
+              ./nixos/services/virtualmaschines.nix
+              ./nixos/services/storageserver.nix
+              ./nixos/services/hydra.nix
+              (import ./nixos/services/smb.nix {
+                shares = [
+                  "osraid"
+                  "stripe"
+                ];
+              })
+            ];
+          };
+
+          llamkatttserver = nixpkgs.lib.nixosSystem rec {
+            inherit specialArgs;
+            system = "x86_64-linux";
+            modules = [
+              ./common.nix
+
+              (import ./nixos/modules/jamlytics.nix (
+                let
+                  pkgs = pkgsFor system;
+                  lib = pkgs.lib;
+                in
+                {
+                  inherit pkgs lib;
+                  homedir = "/mnt/raid/home";
+                }
+              ))
+
+              ./nixos/hosts/llamkattthpmicroserver.nix
+              ./nixos/hosts/llamkattthpmicroserver-hw.nix
+              ./nixos/services/nfs.nix
+              ./nixos/services/virtualmaschines.nix
+              ./nixos/services/devserver.nix
+              ./nixos/services/storageserver.nix
+              ./nixos/services/qbittorrent-nox.nix
+              (import ./nixos/services/smb.nix {
+                shares = [
+                  "raid"
+                ];
+              })
+              (import ./nixos/services/bunserver.nix {
+                pkgs = nixpkgs.legacyPackages.${system};
+                servingDirectory = "/mnt/raid/www/public";
+              })
+            ];
+          };
+
+          /*
+            wannabethinkpad = nixpkgs.lib.nixosSystem {
+              system = "aarch64-linux";
+              specialArgs = { inherit inputs outputs; };
+              modules = [
+                ./common.nix
+
+                apple-silicon.nixosModules.apple-silicon-support
+                ./nixos/hosts/wannabethinkpad.nix
+                ./nixos/hosts/wannabethinkpad-hw.nix
+
+                ./nixos/workspace/dev.nix
+                ./nixos/workspace/3d.nix
+                ./nixos/workspace/office.nix
+                ./nixos/workspace/communications.nix
+                ./nixos/workspace/monitoring.nix
               ];
-            })
-          ];
-        };
+            };
+          */
 
-        llamkatttserver = nixpkgs.lib.nixosSystem rec {
-          inherit specialArgs;
-          system = "x86_64-linux";
-          modules = [
-            ./common.nix
+          wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs outputs; };
+            modules = [
+              ./common.nix
 
-            (import ./nixos/modules/jamlytics.nix (
-              let 
-                pkgs = pkgsFor system;
-                lib = pkgs.lib;
-              in {
-                inherit pkgs lib;
-                homedir = "/mnt/raid/home"; 
-            }))
+              ./nixos/hosts/wannabethinkpad.nix
+              ./nixos/hosts/wannabewannabethinkpad-hw.nix
 
-            ./nixos/hosts/llamkattthpmicroserver.nix
-            ./nixos/hosts/llamkattthpmicroserver-hw.nix
-            ./nixos/services/nfs.nix
-            ./nixos/services/virtualmaschines.nix
-            ./nixos/services/devserver.nix
-            ./nixos/services/storageserver.nix
-            ./nixos/services/qbittorrent-nox.nix
-            (import ./nixos/services/smb.nix { 
-              shares = [ 
-                "raid" 
-              ]; 
-            })
-            (import ./nixos/services/bunserver.nix {
-              pkgs = nixpkgs.legacyPackages.${system};
-              servingDirectory = "/mnt/raid/www/public";
-            })
-          ];
-        };
+              ./nixos/workspace/hyprland.nix
+              ./nixos/workspace/dev.nix
+            ];
+          };
 
-        /*
-          wannabethinkpad = nixpkgs.lib.nixosSystem {
+          actuallythinkpad = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs outputs; };
+            modules = [
+              ./common.nix
+
+              ./nixos/hosts/actuallythinkpad.nix
+              ./nixos/hosts/actuallythinkpad-hw.nix
+
+              ./nixos/workspace/dev.nix
+              ./nixos/workspace/communications.nix
+              ./nixos/workspace/office.nix
+              ./nixos/workspace/monitoring.nix
+            ];
+          };
+
+          idonotevenknowwhatiwantthistobe = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs outputs; };
+            modules = [
+              ./common.nix
+
+              ./nixos/hosts/actuallythinkpad.nix
+              ./nixos/hosts/idonotevenknowwhatiwantthistobe-hw.nix
+
+              ./nixos/workspace/dev.nix
+            ];
+          };
+
+          wannabethinkpadsmother = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs outputs; };
+            modules = [
+              ./common.nix
+
+              ./nixos/hosts/actuallythinkpad.nix
+              ./nixos/hosts/wannabethinkpadsmother-hw.nix
+
+              ./nixos/workspace/dev.nix
+            ];
+          };
+
+          wannaberiscv = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs outputs; };
+            modules = [
+              ./common.nix
+
+              ./nixos/hosts/wannaberiscv.nix
+              ./nixos/hosts/wannaberiscv-hw.nix
+
+              ./nixos/workspace/dev.nix
+              ./nixos/workspace/3d.nix
+              ./nixos/workspace/office.nix
+              ./nixos/workspace/media.nix
+              ./nixos/workspace/monitoring.nix
+            ];
+          };
+
+          nixnasduo = nixpkgs2205.lib.nixosSystem {
             system = "aarch64-linux";
             specialArgs = { inherit inputs outputs; };
             modules = [
               ./common.nix
 
-              apple-silicon.nixosModules.apple-silicon-support
-              ./nixos/hosts/wannabethinkpad.nix
-              ./nixos/hosts/wannabethinkpad-hw.nix
+              ./nixos/modules/jamlytics.nix
+              ./nixos/modules/nixnas.nix
 
-              ./nixos/workspace/dev.nix
-              ./nixos/workspace/3d.nix
-              ./nixos/workspace/office.nix
-              ./nixos/workspace/communications.nix
-              ./nixos/workspace/monitoring.nix
+              ./nixos/hosts/nixnasduo.nix
+              ./nixos/hosts/nixnas-hw.nix
+
+              #./nixos/services/qbittorrent-nox.nix
             ];
           };
-        */
 
-        wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./common.nix
+          bpim1 = nixpkgs.lib.nixosSystem {
+            system = "armv7l-linux";
+            specialArgs = { inherit inputs outputs; };
+            modules = [
+              ./nixos/modules/jamlytics.nix
 
-            ./nixos/hosts/wannabethinkpad.nix
-            ./nixos/hosts/wannabewannabethinkpad-hw.nix
-
-            ./nixos/workspace/hyprland.nix
-            ./nixos/workspace/dev.nix
-          ];
+              ./nixos/hosts/bpim1.nix
+              ./nixos/hosts/bpim1-hw.nix
+            ];
+          };
         };
-
-        actuallythinkpad = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./common.nix
-
-            ./nixos/hosts/actuallythinkpad.nix
-            ./nixos/hosts/actuallythinkpad-hw.nix
-
-            ./nixos/workspace/dev.nix
-            ./nixos/workspace/communications.nix
-            ./nixos/workspace/office.nix
-            ./nixos/workspace/monitoring.nix
-          ];
-        };
-
-        idonotevenknowwhatiwantthistobe = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./common.nix
-
-            ./nixos/hosts/actuallythinkpad.nix
-            ./nixos/hosts/idonotevenknowwhatiwantthistobe-hw.nix
-
-            ./nixos/workspace/dev.nix
-          ];
-        };
-
-        wannabethinkpadsmother = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./common.nix
-
-            ./nixos/hosts/actuallythinkpad.nix
-            ./nixos/hosts/wannabethinkpadsmother-hw.nix
-
-            ./nixos/workspace/dev.nix
-          ];
-        };
-
-        wannaberiscv = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./common.nix
-
-            ./nixos/hosts/wannaberiscv.nix
-            ./nixos/hosts/wannaberiscv-hw.nix
-
-            ./nixos/workspace/dev.nix
-            ./nixos/workspace/3d.nix
-            ./nixos/workspace/office.nix
-            ./nixos/workspace/media.nix
-            ./nixos/workspace/monitoring.nix
-          ];
-        };
-
-        nixnasduo = nixpkgs2205.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./common.nix
-
-            ./nixos/modules/jamlytics.nix
-            ./nixos/modules/nixnas.nix
-
-            ./nixos/hosts/nixnasduo.nix
-            ./nixos/hosts/nixnas-hw.nix
-
-            ./nixos/services/qbittorrent-nox.nix
-          ];
-        };
-
-        bpim1 = nixpkgs.lib.nixosSystem {
-          system = "armv7l-linux";
-          specialArgs = { inherit inputs outputs; };
-          modules = [
-            ./nixos/modules/jamlytics.nix
-
-            ./nixos/hosts/bpim1.nix
-            ./nixos/hosts/bpim1-hw.nix
-          ];
-        };
-      };
 
       darwinConfigurations = {
         apowerbooksgrandchild = nix-darwin.lib.darwinSystem {
@@ -354,27 +382,18 @@
       hydraJobs = forAllSystems (
         system:
         let
-          lib = pkgs.lib;
           pkgs = import nixpkgs {
-            buildPlatform = "x86_64-linux";
-            hostPlatform = if system == "x86_64-linux" then {
-              system = "x86_64-linux";
-              gcc = {
-                arch = "znver5";
-                tune = "znver5";
-              };
-            } else {
-              inherit system;
-            };
-            # Evaluate unfree packages
+            localSystem = "x86_64-linux";
+            crossSystem = system;
             config.allowUnfree = true;
           };
-          # Do not include unfree packages in hydra jobs
-          freePkgs = lib.filterAttrs (
-          pname: package: lib.licenses.isFree (self.lib.normalizeLicense (package.meta.license or lib.licenses.free))
-        ) self.packages.${system};
+          lib = pkgs.lib;
         in
-        freePkgs
+        # Do not include unfree packages in hydra jobs
+        lib.filterAttrs (_: pdrv: lib.meta.availableOn pkgs.stdenv.hostPlatform pdrv) (lib.filterAttrs (
+            pname: package:
+            lib.licenses.isFree (self.lib.normalizeLicense (package.meta.license or lib.licenses.free))
+          ) (makeLocalPackagesWith pkgs))
       );
     };
 }
