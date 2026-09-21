@@ -120,7 +120,7 @@
         );
     in
     {
-      packages = forAllSystems (system: makePackagesInPathWith (pkgsFor system) ./nixos/packages/pkgsNative);
+      packages = forAllSystems (system: makePackagesInPathWith (pkgsFor system) ./nixos/packages);
 
       lib = {
         foldl1 =
@@ -386,7 +386,7 @@
         lib.filterAttrs (_: pdrv: lib.meta.availableOn pkgs.stdenv.hostPlatform pdrv) (lib.filterAttrs (
             pname: package:
             lib.licenses.isFree (self.lib.normalizeLicense (package.meta.license or lib.licenses.free))
-          ) (makePackagesInPathWith pkgs ./nixos/packages/pkgsNative))
+          ) (makePackagesInPathWith pkgs ./nixos/packages))
       );
     };
 }
