@@ -1,17 +1,16 @@
 {
-  stdenv,
   lib,
+  stdenv,
   fetchFromGitHub,
-  gcc,
-  gnumake,
+  pkg-config, 
+  wrapGAppsHook3,
   gtk3,
-  gtk3-x11,
   cairo,
-  pkg-config
 }:
 stdenv.mkDerivation {
   pname = "tek4010";
   version = "1.9.0";
+
   src = fetchFromGitHub {
     owner = "Llamato";
     repo = "Tek4010";
@@ -19,19 +18,27 @@ stdenv.mkDerivation {
     hash = "sha256-5wUEIdiZSbC2yq0pCU2lVdwaa+QEADIZOqEGYa7mH4c=";
   };
 
-strictDeps = true;
-__structuredAttrs = true;
+  strictDeps = true;
+  __structuredAttrs = true;
 
-  nativeBuildInputs = [ 
-    gcc
-    gnumake
+  nativeBuildInputs = [
     pkg-config
+    wrapGAppsHook3
   ];
 
   buildInputs = [
     gtk3
-    gtk3-x11
-    cairo.dev
+    cairo
+  ];
+
+  postPatch = ''
+    substituteInPlace makefile --replace-fail 'pkg-config' "${pkg-config}/bin/pkg-config"
+  '';
+
+  makeFlags = [
+    "AR=${stdenv.cc.targetPrefix}ar"
+    "CC=${stdenv.cc.targetPrefix}cc"
+    "CXX=${stdenv.cc.targetPrefix}c++"
   ];
 
   installPhase = ''
@@ -42,9 +49,8 @@ __structuredAttrs = true;
   '';
 
   meta = with lib; {
-    description = "Tek4010 - Tektronics 4010 emulator";
+    description = "Tek4010 - Tektronix 4010 emulator";
     license = licenses.gpl3;
     platforms = platforms.unix;
-   #maintainers = with maintainers; [ llamato ];
   };
 }

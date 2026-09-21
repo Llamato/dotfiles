@@ -7,6 +7,7 @@
   automake,
   libtool,
   pkg-config,
+  pkgsBuildBuild,
 }:
 let
   version = "1.3";
@@ -31,12 +32,11 @@ stdenv.mkDerivation {
     automake
     libtool
     pkg-config
+    pkgsBuildBuild.binutils
   ];
 
-  # Ensure aclocal finds local macros
   ACLOCAL_PATH = "./macros";
-
-  # Patch to remove -Werror
+  
   prePatch = ''
     sed -i "s/-Werror//g" configure.ac
   '';
