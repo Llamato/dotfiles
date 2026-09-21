@@ -8,7 +8,7 @@
 }:
 let
   qttoolsBuild = pkgsBuildBuild.qt6.qttools;
-  qttools = pkgsBuildBuild.runCommand "qttools-tools" { } ''
+  qttoolBinaries = pkgsBuildBuild.runCommand "qttools-tools" { } ''
     mkdir -p $out/bin
     for b in ${qttoolsBuild}/bin/*; do
       ln -s "$b" $out/bin/$(basename "$b")
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     qt6.wrapQtAppsHook
-    qttools
+    qttoolBinaries
   ];
 
   buildInputs = [
