@@ -34,4 +34,16 @@ in
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMEePG3qRnXD2QqpWLM80nBls+9T9kX5U3IKJn3UdTSe"
       ];
     };
+
+  secrets = {
+    passwordHashes = {
+      qbittorrent = "@ByteArray(6a5uZbO9yKW5/ScWabltvw==:xVSh8UHwV0TgnBs1t0aYnARXbVBD8zmGYLpMnFgdChIOmLURFzY8TEh1aBkjUh3P7bl17q0QmyNp5esW5RLMXw==)";
+    };
+  };
+
+  knownWifiNetworks = {
+    "Ponto-3" = {
+      psk = "ponto-233603";
+    };
+  };
 }

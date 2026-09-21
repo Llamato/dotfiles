@@ -117,13 +117,7 @@
                 )
               )
           )
-        )
-        // {
-          #gcalc   = inputs.gcalc.packages.${system}.default;
-          #gcrypt  = inputs.gcrypt.packages.${system}.default;
-          #gbounce = inputs.gbounce.packages.${system}.default;
-          cbmtext = inputs.cbmtext.packages.${system}.default;
-        };
+        );
     in
     {
       packages = forAllSystems (system: makePackagesInPathWith (pkgsFor system) ./nixos/packages/pkgsNative);

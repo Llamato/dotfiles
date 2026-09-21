@@ -2,7 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: let
+  semisecrets = (import ../../semisecrets.nix { inherit lib pkgs; }); 
+  in  {
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
@@ -28,10 +30,12 @@
     v4l2loopback
   ];
 
+  #Video for linux loopback. Screen share, obs, etc...
   boot.kernelModules = [ 
     "v4l2loopback" 
   ];
 
+  # OBS virtual camera
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Cam, Virt Cam" exclusive_caps=1
   '';
@@ -90,12 +94,12 @@
   services.pulseaudio = {
     enable = false;
 
-    # Daemon configuration to fix auto-regulation
-    extraConfig = ''
-      # Disable echo cancellation/AGC
-      unload-module module-echo-cancel
-      load-module module-echo-cancel aec_method=webrtc aec_args="analog_gain_control=0,digital_gain_control=0"
-    '';
+  # Daemon configuration to fix auto-regulation
+  extraConfig = ''
+    # Disable echo cancellation/AGC
+    unload-module module-echo-cancel
+    load-module module-echo-cancel aec_method=webrtc aec_args="analog_gain_control=0,digital_gain_control=0"
+  '';
   };
 
   services.pipewire = {
@@ -247,10 +251,6 @@
     
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "mbedtls-2.28.10"
-  ];
-
   #No automatic firmware updates
   services.fwupd.enable = false;
 
@@ -346,11 +346,7 @@
 
     wireless = {
       enable = true;
-      networks = {
-        "Ponto-3" = {
-          psk = "ponto-233603";
-        };
-      };
+      networks = semisecrets.knownWifiNetworks;
     };
 
     #How do we get on the internet

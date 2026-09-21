@@ -95,7 +95,7 @@
     MatchName=keyd virtual keyboard
     AttrKeyboardIntegration=internal
   ''; */
-  services.keyd = {
+  /*services.keyd = {
     enable = true;
     keyboards = {
       default = {
@@ -108,7 +108,7 @@
         };
       };
     };
-  };
+  };*/
 
   #AMD Plafrom stuff
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

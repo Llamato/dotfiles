@@ -1,4 +1,6 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: let
+  semisecrets = (import ../../semisecrets.nix { inherit lib pkgs; }); 
+  in {
   services.qbittorrent = {
     enable = false;
     package = pkgs.qbittorrent-nox;
@@ -14,11 +16,10 @@
           Address = "*";
           AuthSubnetWhitelistEnabled=false;
           Username = "tina";
-          Password_PBKDF2="@ByteArray(6a5uZbO9yKW5/ScWabltvw==:xVSh8UHwV0TgnBs1t0aYnARXbVBD8zmGYLpMnFgdChIOmLURFzY8TEh1aBkjUh3P7bl17q0QmyNp5esW5RLMXw==)";
+          Password_PBKDF2 = semisecrets.secrets.passwordHashes.qbittorrent;
         };
         General.Locale = "en";
       };
-    }
-    ;
+    };
   };
 }
