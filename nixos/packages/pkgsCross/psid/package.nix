@@ -7,6 +7,7 @@
   automake,
   libtool,
   pkg-config,
+  pkgsBuildBuild,
 }:
 let
   version = "1.3";
@@ -31,6 +32,7 @@ stdenv.mkDerivation {
     automake
     libtool
     pkg-config
+    pkgsBuildBuild.binutils
   ];
 
   # Ensure aclocal finds local macros
