@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 let
   fetchKeysFromGithub =
     with builtins // lib;
@@ -38,12 +38,6 @@ in
   secrets = {
     passwordHashes = {
       qbittorrent = "@ByteArray(6a5uZbO9yKW5/ScWabltvw==:xVSh8UHwV0TgnBs1t0aYnARXbVBD8zmGYLpMnFgdChIOmLURFzY8TEh1aBkjUh3P7bl17q0QmyNp5esW5RLMXw==)";
-    };
-  };
-
-  knownWifiNetworks = {
-    "Ponto-3" = {
-      psk = "ponto-233603";
     };
   };
 }

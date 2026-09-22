@@ -1,17 +1,11 @@
-{ config, pkgs, ... }: let 
-  isInHomelab = true;
+{ inputs, config, pkgs, ... }: let 
 in {
+  imports = [ inputs.sops-nix.nixosModules.sops ];
   nix = {
     #package = pkgs.lixPackageSets.stable.lix;
     optimise.automatic = true;
     settings = {
-      extra-substituters = if isInHomelab 
-      then [
-        "http://192.168.3.14:5000"
-      ]
-      else [
-        "http://homelab.llamato.dev:5000"
-      ];
+      extra-substituters = [];
       extra-trusted-public-keys = [
         "192.168.3.14-1:WN5/PjgQlzQ+PSDMXjv+B5rXKzkFtRg1+/UkAmnEvkM="
       ];
@@ -30,7 +24,6 @@ in {
       experimental-features = "nix-command flakes";
       allow-import-from-derivation = true;
       connect-timeout = 1;
-
     };
   };
   nixpkgs = {
@@ -39,7 +32,12 @@ in {
       android_sdk.accept_license = true;
     };
   };
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+  };
   environment.systemPackages = with pkgs; [ 
     git
+    sops
   ];
 }

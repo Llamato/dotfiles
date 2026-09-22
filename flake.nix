@@ -3,8 +3,8 @@
 
   inputs = {
     #nixos package repos
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
+    nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs2205.url = "github:nixos/nixpkgs/nixos-22.05";
     nixpkgs2511.url = "github:nixos/nixpkgs/nixos-25.11";
@@ -22,6 +22,12 @@
     stenc.url = "github:llamato/stenc";
     openlogi = {
       url = "github:AprilNEA/OpenLogi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    #security
+    sops-nix = {
+      url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -57,6 +63,7 @@
       nix-darwin,
       apple-silicon,
       openlogi,
+      sops-nix,
       ...
     }@inputs:
     let
@@ -164,6 +171,7 @@
               ./nixos/hosts/wannabeonyx-hw.nix
 
               openlogi.nixosModules.default
+
               ./nixos/modules/river.nix
 
               ./nixos/services/commenssh.nix

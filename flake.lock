@@ -363,11 +363,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1789808407,
-        "narHash": "sha256-J0NasaToUrj1og3RiUvXY0iua7KbPpL2UFiv0ax5Xj4=",
+        "lastModified": 1790025776,
+        "narHash": "sha256-eisutJEcLuStgJr//rK9k52TYFWaP4HIHsp88ueyT1U=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "1613e472ad9077812d74c56ea0dfd442be2872ae",
+        "rev": "6d5802171adbcce5af39d226932dc4e9e027d525",
         "type": "github"
       },
       "original": {
@@ -427,18 +427,15 @@
     },
     "nixpkgs-unstable_3": {
       "locked": {
-        "lastModified": 1789632929,
-        "narHash": "sha256-RjR8AyvGlWuw16XRj7C1YDEw4E27ciuyPeB2nDMzgTU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "a32edd7654519351e48e80372a928df336394670",
-        "type": "github"
+        "lastModified": 1789921291,
+        "narHash": "sha256-uLLUj+TLUmBc6KrUzx76KZdPi5ZkI1ORR9A6lJUIZlo=",
+        "rev": "44a91898084f46797b5fac650c7e8c9ac38c43d4",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1077143.44a91898084f/nixexprs.tar.zst"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"
       }
     },
     "nixpkgs2205": {
@@ -603,18 +600,15 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1789749394,
-        "narHash": "sha256-cFTsMQz8Hzn8MT49oaeLSHg62tE86NykugCWkeM2ypk=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "cf9d2fb3e50fa1cd5114c47505ea9177f7ff5f49",
-        "type": "github"
+        "lastModified": 1789885152,
+        "narHash": "sha256-lIL3uDaS4Q9Ks6klLrBlDr+XS71sbjMJFSipIp2yPjs=",
+        "rev": "6d663c0533ff269008fb84e45930151e37c99db9",
+        "type": "tarball",
+        "url": "https://releases.nixos.org/nixos/26.05/nixos-26.05.10304.6d663c0533ff/nixexprs.tar.zst"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-26.05",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst"
       }
     },
     "openlogi": {
@@ -625,11 +619,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1789808976,
-        "narHash": "sha256-VMdJ26kAKCYypSGoRGNrQ70UVwfh6smiMToCZ/d2luA=",
+        "lastModified": 1789853463,
+        "narHash": "sha256-mJKj+CnSxCPeLarMbv68PLGQg+ZkPk/N4J3btbhGtz0=",
         "owner": "AprilNEA",
         "repo": "OpenLogi",
-        "rev": "462e2d4d2392f49d07348fb64bb992e5f04e0f22",
+        "rev": "a92aa43bed3732be5f7fde7aed2fc12cc48ba001",
         "type": "github"
       },
       "original": {
@@ -675,6 +669,7 @@
         "nixpkgs2511": "nixpkgs2511",
         "openlogi": "openlogi",
         "rom-a-dotfiles": "rom-a-dotfiles",
+        "sops-nix": "sops-nix",
         "stenc": "stenc"
       }
     },
@@ -714,6 +709,26 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789890976,
+        "narHash": "sha256-GKwH3zpy7tartuJMG0Rv/xUsdetG1QLmTVv8UKgJLmA=",
+        "owner": "mic92",
+        "repo": "sops-nix",
+        "rev": "7214124c20c1542c90deb54af50e2f53ae02711f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },

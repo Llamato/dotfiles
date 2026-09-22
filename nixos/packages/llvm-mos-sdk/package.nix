@@ -2,12 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  cmake,
-  ninja,
-  python3,
   libffi,
   libxml2,
-  pkg-config,
   zlib,
   SDL2,
   zmusic,
@@ -15,7 +11,7 @@
   libbacktrace,
   ncurses,
   callPackage,
-  darwin
+  pkgsBuildBuild
 }: let
   llvm-mos = (callPackage ../llvm-mos/package.nix {}); #Temporary
 in stdenv.mkDerivation {
@@ -34,14 +30,13 @@ in stdenv.mkDerivation {
   __structuredAttrs = true;
 
   nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    python3
-    llvm-mos
+    pkgsBuildBuild.cmake
+    pkgsBuildBuild.ninja
+    pkgsBuildBuild.pkg-config
+    pkgsBuildBuild.python3
   ] ++ lib.optionals stdenv.isDarwin [
-    darwin.cctools
-    darwin.binutils
+    pkgsBuildBuild.darwin.cctools
+    pkgsBuildBuild.darwin.binutils
   ];
 
   buildInputs = [

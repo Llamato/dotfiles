@@ -3,7 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, lib, ... }: let
-  semisecrets = (import ../../semisecrets.nix { inherit lib pkgs; }); 
+  semisecrets = (import ../../semisecrets.nix { inherit config lib pkgs; }); 
   in  {
   boot = {
     loader = {
@@ -128,7 +128,7 @@
               rules = [
                 {
                   matches = [
-                    [
+                    [ 
                       { "application.process.binary" = "electron"; }
                       { "application.process.binary" = "webcord"; }
                       { "application.process.binary" = "firefox"; }
@@ -345,8 +345,8 @@
     };
 
     wireless = {
-      enable = true;
-      networks = semisecrets.knownWifiNetworks;
+      enable = false;
+      
     };
 
     #How do we get on the internet
