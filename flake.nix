@@ -201,7 +201,8 @@
               ./nixos/services/nfs.nix
               ./nixos/services/virtualmaschines.nix
               ./nixos/services/storageserver.nix
-              ./nixos/services/hydra.nix
+              ./nixos/services/hydraheart.nix
+              ./nixos/services/hydrastomach.nix
               (import ./nixos/services/smb.nix {
                 shares = [
                   "osraid"
@@ -235,6 +236,7 @@
               ./nixos/services/devserver.nix
               ./nixos/services/storageserver.nix
               ./nixos/services/qbittorrent-nox.nix
+              ./nixos/services/hydrastomach.nix
               (import ./nixos/services/smb.nix {
                 shares = [
                   "raid"
