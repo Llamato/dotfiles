@@ -198,6 +198,14 @@
     ];
   };
 
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+    dumpcap.enable = true;
+    usbmon.enable = true;
+  };
+  users.groups.wireshark.members = [ "tina" ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -211,7 +219,7 @@
     ryzen-monitor-ng
     sg3_utils
     archivemount
-    discord vencord vesktop
+    discord
     cool-retro-term
     sl
     kdePackages.kdenlive

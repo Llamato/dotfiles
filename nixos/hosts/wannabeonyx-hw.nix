@@ -32,6 +32,7 @@
     "ahci"
     "usbhid"
     "usb_storage"
+    "usbmon"
     "mmc_block"
   ];
 
