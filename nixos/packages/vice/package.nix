@@ -70,6 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
   configureFlags = [
     "--enable-sdl2ui"
     "--enable-gtk3ui"
+    "--enable-headless"
     "--enable-desktop-files"
     "--disable-pdf-docs"
     "--with-gif"
