@@ -5,6 +5,7 @@
       environment.systemPackages = with pkgs; [
           fastfetch
           hyfetch
+          btop
           gnupg
           git
           cool-retro-term
