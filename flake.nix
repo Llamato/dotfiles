@@ -376,7 +376,7 @@
           system = "aarch64-darwin";
           specialArgs = { inherit inputs outputs; };
           modules = [
-            ./common.nix
+            #./common.nix
 
             ./darwin/hosts/apowerbooksgrandchild.nix
           ];
