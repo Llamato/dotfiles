@@ -6,7 +6,7 @@ in {
     optimise.automatic = true;
     settings = {
       extra-substituters = [
-        "homelab.llamato.dev:5000"
+        "http://homelab.llamato.dev:5000"
       ];
       extra-trusted-public-keys = [
         "192.168.3.14-1:WN5/PjgQlzQ+PSDMXjv+B5rXKzkFtRg1+/UkAmnEvkM="

@@ -9,7 +9,7 @@
 in {
   programs = {
     nix-ld = {
-      enable = lib.mkDefault true;
+      enable = lib.mkForce false;
     };
     gnupg.agent = {
       enable = true;

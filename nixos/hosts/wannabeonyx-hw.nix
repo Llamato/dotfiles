@@ -32,7 +32,6 @@
     "ahci"
     "usbhid"
     "usb_storage"
-    "usbmon"
     "mmc_block"
   ];
 
@@ -43,6 +42,7 @@
   boot.kernelModules = [ 
     "kvm-amd"
     "nct6775"
+    "usbmon"
   ];
 
   fileSystems."/" = {
