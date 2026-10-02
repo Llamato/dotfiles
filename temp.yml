@@ -1,0 +1,9 @@
+knownWifiNetworks:
+  - ssid: "Ponto-3"
+    password: "ponto-233603"
+  - ssid: "Ponto-2"
+    password: "ponto-222603"
+  - ssid: "Ponto-1"
+    password: "ponto-211601"
+  - ssid: "Ponto-0"
+    password: "ponto-200600"

@@ -59,6 +59,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       nixpkgs2205,
       nix-darwin,
       apple-silicon,
@@ -161,7 +162,7 @@
           };
         in
         {
-          wannabeonyx = nixpkgs.lib.nixosSystem {
+          wannabeonyx = nixpkgs.lib.nixosSystem rec {
             inherit specialArgs;
             system = "x86_64-linux";
             modules = [
@@ -184,6 +185,10 @@
               ./nixos/workspace/office.nix
               ./nixos/workspace/media.nix
               ./nixos/workspace/monitoring.nix
+              (import ./nixos/workspace/applerestore.nix {
+                gpkgs = self.packages.${system};
+                pkgs = nixpkgs-unstable.legacyPackages.${system};
+              })
             ];
           };
 
@@ -235,7 +240,7 @@
               ./nixos/services/virtualmaschines.nix
               ./nixos/services/devserver.nix
               ./nixos/services/storageserver.nix
-              ./nixos/services/qbittorrent-nox.nix
+              #./nixos/services/qbittorrent-nox.nix
               ./nixos/services/hydrastomach.nix
               (import ./nixos/services/smb.nix {
                 shares = [
