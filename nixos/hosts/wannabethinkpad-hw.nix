@@ -12,6 +12,8 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
+  boot.systemd-boot.enable = true;
+  boot.efi.canTouchEfiVariables = false;
 
   hardware.bluetooth.enable = true;
   hardware.asahi.enable = true;

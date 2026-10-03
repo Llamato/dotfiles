@@ -8,6 +8,7 @@
     "bitlocker"
     "exfat"
     "vfat"
+    "f2fs"
   ];
   
   /*boot.binfmt.emulatedSystems = [
