@@ -15,7 +15,7 @@
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-26.05";
 
     #nixos on apple silicon
-    apple-silicon.url = "github:nix-community/nixos-apple-silicon";
+    apple-silicon.url = "github:nix-community/nixos-apple-silicon?tag=release-2026-07-30";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
 
     #specialty hardware support
