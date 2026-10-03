@@ -361,21 +361,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1791047264,
-        "narHash": "sha256-SYjc4Bi9zKWFEyTdm2MUXdxMe+d3kyoYXd20heHkZKA=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "9db39da36395341298fd114ae31a541d664fed69",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-muvm": {
       "flake": false,
       "locked": {
@@ -663,7 +648,6 @@
         "nixpkgs": "nixpkgs_9",
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-llamato": "nixpkgs-llamato",
-        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable_3",
         "nixpkgs2205": "nixpkgs2205",
         "nixpkgs2511": "nixpkgs2511",

@@ -5,7 +5,6 @@
     #nixos package repos
     nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
     nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
-    nixpkgs-master.url = "github:nixos/nixpkgs";
     nixpkgs2205.url = "github:nixos/nixpkgs/nixos-22.05";
     nixpkgs2511.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
@@ -15,7 +14,7 @@
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-26.05";
 
     #nixos on apple silicon
-    apple-silicon.url = "github:nix-community/nixos-apple-silicon?tag=release-2026-07-30";
+    apple-silicon.url = "github:nix-community/nixos-apple-silicon";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
 
     #specialty hardware support
