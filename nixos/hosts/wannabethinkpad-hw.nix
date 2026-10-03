@@ -24,12 +24,12 @@
   hardware.bluetooth.enable = true;
   
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/a6f3e7b1-6c8c-475e-abae-1a983d0e6821";
+    { device = "/dev/nvme0n1p4";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7F5E-1E0C";
+    { device = "/dev/nvme0n1p6";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
