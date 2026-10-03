@@ -15,8 +15,9 @@
   #boot.systemd-boot.enable = true;
   #boot.efi.canTouchEfiVariables = false;
 
-  hardware.bluetooth.enable = true;
   hardware.asahi.enable = true;
+  hardware.bluetooth.enable = true;
+  hardware.avd.enable = false;
   
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/a6f3e7b1-6c8c-475e-abae-1a983d0e6821";
