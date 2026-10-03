@@ -12,8 +12,6 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-  #boot.systemd-boot.enable = true;
-  #boot.efi.canTouchEfiVariables = false;
 
   hardware.asahi = {
     enable = true;
