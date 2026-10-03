@@ -24,7 +24,7 @@
   hardware.bluetooth.enable = true;
   
   fileSystems."/" =
-    { device = "/dev/nvme0n1p6";
+    { device = "/dev/nvme0n1p5";
       fsType = "ext4";
     };
 
