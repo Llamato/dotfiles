@@ -12,7 +12,8 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  /*boot.kernelPackages =  let
+  /*
+    boot.kernelPackages =  let
       pinnedNixPkgs = import (pkgs.fetchFromGitHub {
           owner = "nixos";
           repo = "nixpkgs";
@@ -20,8 +21,9 @@
           hash = "sha256-FKSlfAc9IUQ3BqiETWaVV0ONqeArQihIEnRH3v9rcwg=";
       }) {};
       myKernel = pinnedNixPkgs.linux_6_17;
-      in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);*/
-  
+      in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);
+  */
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -39,7 +41,7 @@
     "amdgpu"
   ];
 
-  boot.kernelModules = [ 
+  boot.kernelModules = [
     "kvm-amd"
     "nct6775"
     "usbmon"
@@ -48,8 +50,8 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/68c792be-a306-4116-9c75-d582ecfd32ae";
     fsType = "f2fs";
-    options = [ 
-      "defaults" 
+    options = [
+      "defaults"
       "inline_data"
     ];
   };
@@ -75,35 +77,38 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   #Keychron keyboard things
-  hardware.keyboard = { 
+  hardware.keyboard = {
     qmk = {
       enable = true;
-      keychronSupport =  true;
+      keychronSupport = true;
     };
   };
 
-
   # Fixing Model M / No super key
-  /*environment.etc."libinput/local-overrides.quirks".text = ''
-    [Serial Keyboards]
-    MatchUdevType=keyboard
-    MatchName=keyd virtual keyboard
-    AttrKeyboardIntegration=internal
-  ''; */
-  /*services.keyd = {
-    enable = true;
-    keyboards = {
-      default = {
-        ids = [ "*" ];
-        settings = {
-          main = {
-            rightcontrol = "leftmeta";
+  /*
+    environment.etc."libinput/local-overrides.quirks".text = ''
+      [Serial Keyboards]
+      MatchUdevType=keyboard
+      MatchName=keyd virtual keyboard
+      AttrKeyboardIntegration=internal
+    '';
+  */
+  /*
+    services.keyd = {
+      enable = true;
+      keyboards = {
+        default = {
+          ids = [ "*" ];
+          settings = {
+            main = {
+              rightcontrol = "leftmeta";
+            };
+            otherlayer = { };
           };
-          otherlayer = { };
         };
       };
     };
-  };*/
+  */
 
   #AMD Plafrom stuff
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -128,7 +133,10 @@
     rocmPackages.rocm-smi
     openrgb-with-all-plugins
     ryzen-monitor-ng
-    qmk via vial qmk-udev-rules
+    qmk
+    via
+    vial
+    qmk-udev-rules
   ];
 
   services.udev = {
@@ -154,7 +162,7 @@
     settings = {
       General = {
         # Enables multi-profile negotiation (Audio + Controls)
-        Experimental = true; 
+        Experimental = true;
       };
     };
   };

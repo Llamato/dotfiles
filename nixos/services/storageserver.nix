@@ -1,13 +1,14 @@
 {
   pkgs,
   ...
-}: {
+}:
+{
   environment.systemPackages = with pkgs; [
     jdupes
     ncdu
-    iperf 
+    iperf
     vnstat
-    smartmontools#
+    smartmontools
     ripgrep
   ];
 }

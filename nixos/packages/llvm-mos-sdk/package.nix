@@ -11,10 +11,12 @@
   libbacktrace,
   ncurses,
   callPackage,
-  pkgsBuildBuild
-}: let
-  llvm-mos = (callPackage ../llvm-mos/package.nix {}); #Temporary
-in stdenv.mkDerivation {
+  pkgsBuildBuild,
+}:
+let
+  llvm-mos = (callPackage ../llvm-mos/package.nix { }); # Temporary
+in
+stdenv.mkDerivation {
   pname = "llvm-mos-sdk";
   version = "23.0.1";
 
@@ -34,7 +36,8 @@ in stdenv.mkDerivation {
     pkgsBuildBuild.ninja
     pkgsBuildBuild.pkg-config
     pkgsBuildBuild.python3
-  ] ++ lib.optionals stdenv.isDarwin [
+  ]
+  ++ lib.optionals stdenv.isDarwin [
     pkgsBuildBuild.darwin.cctools
     pkgsBuildBuild.darwin.binutils
   ];
@@ -55,7 +58,7 @@ in stdenv.mkDerivation {
   dontPatchElf = true;
   dontStrip = true;
   dontFixup = true;
-  
+
   # Set environment for the build
   preConfigure = ''
     export LLVM_MOS_TOOLCHAIN_DIR=${llvm-mos}

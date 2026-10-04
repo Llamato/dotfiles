@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
 
   programs.hyprland = {
     enable = true;
@@ -22,8 +22,8 @@
 
   # Needed for nautilus stuff
   services.gvfs.enable = true;
-  programs.dconf.enable = true;
   services.gnome.sushi.enable = true;
+  programs.dconf.enable = true;
 
   programs.nautilus-open-any-terminal = {
     enable = true;
@@ -40,14 +40,32 @@
   };
 
   environment.systemPackages = with pkgs; [
-    waybar dunst kitty nautilus
-    wl-clipboard vicinae
-    gtk-engine-murrine gnome-themes-extra
-    grim slurp ffmpegthumbnailer #devnotify 
-    killall xorg.xrandr libnotify playerctl pwvucontrol
-    hyprpaper hypridle hyprlock hyprpicker hyprpolkitagent
-    adwaita-icon-theme phinger-cursors tokyonight-gtk-theme
-    kdePackages.breeze kdePackages.breeze-icons kdePackages.qt6ct 
-    #fcitx5 fcitx5-gtk fcitx5-mozc 
+    waybar
+    dunst
+    kitty
+    nautilus
+    wl-clipboard
+    vicinae
+    gtk-engine-murrine
+    gnome-themes-extra
+    grim
+    slurp
+    ffmpegthumbnailer # devnotify
+    killall
+    xorg.xrandr
+    libnotify
+    playerctl
+    pwvucontrol
+    hyprpaper
+    hypridle
+    hyprlock
+    hyprpicker
+    hyprpolkitagent
+    adwaita-icon-theme
+    phinger-cursors
+    tokyonight-gtk-theme
+    kdePackages.breeze
+    kdePackages.breeze-icons
+    kdePackages.qt6ct
   ];
 }

@@ -6,7 +6,7 @@ let
   password = "llamato";
 in
 {
-  #Change this only after reinstall 
+  #Change this only after reinstall
   system.stateVersion = "25.05";
 
   time.timeZone = "Europe/Berlin";
@@ -71,7 +71,7 @@ in
     python313
     python313Packages.spidev
   ];
-  
+
   services = {
     openssh = {
       enable = true;

@@ -5,7 +5,7 @@
   ncurses,
   glibc,
   rpmextract,
-  autoPatchelfHook
+  autoPatchelfHook,
 }:
 stdenv.mkDerivation rec {
   pname = "ssacli";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0f61x3iy8wj169zass6sp765rhb9khgifzrhqd9ykv1fx0c1spgm";
   };
 
-    strictDeps = true;
+  strictDeps = true;
   __structuredAttrs = true;
 
   nativeBuildInputs = [

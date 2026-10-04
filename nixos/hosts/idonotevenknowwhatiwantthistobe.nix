@@ -1,25 +1,25 @@
-{ config, pkgs, ... }:                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                               
-{                                                                                                                                                                                                                                                              
-  imports =                                                                                                                                                                                                                                                    
-    [ # Include the results of the hardware scan.                                                                                                                                                                                                              
-      ./hardware-configuration.nix                                                                                                                                                                                                                             
-    ];                                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                               
-  # Bootloader.                                                                                                                                                                                                                                                
-  boot.loader.systemd-boot.enable = true;                                                                                                                                                                                                                      
-  boot.loader.efi.canTouchEfiVariables = true;                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                               
-  networking.hostName = "idonotevenknowwhatiwantthistobe"; # Define your hostname.                                                                                                                                                                                                       
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.                                                                                                                                                                         
-                                                                                                                                                                                                                                                               
-  # Configure network proxy if necessary                                                                                                                                                                                                                       
-  # networking.proxy.default = "http://user:password@proxy:port/";                                                                                                                                                                                             
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";                                                                                                                                                                                          
-                                                                                                                                                                                                                                                               
-  # Enable networking                                                                                                                                                                                                                                          
-  networking.networkmanager.enable = true;                                                                                                                                                                                                                     
-                                                                                                                                                                                                                                                               
+{ config, pkgs, ... }:
+
+{
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
+
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  networking.hostName = "idonotevenknowwhatiwantthistobe"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -81,10 +81,13 @@
   users.users.tina = {
     isNormalUser = true;
     description = "tina";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -97,8 +100,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

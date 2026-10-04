@@ -4,14 +4,13 @@ let
     with builtins // lib;
     username: splitString "\n" (readFile (fetchurl "https://github.com/${username}.keys"));
   makeUserEntry =
-    username: trust:
+    username:
     {
       ssh ? [ ],
       gpg ? [ ],
     }:
     {
       ${username} = {
-        inherit trust;
         keys = {
           ssh = ssh;
           gpg = gpg;
@@ -20,15 +19,17 @@ let
     };
 in
 {
-  userTrustThreshold = 1000;
-  rootTrustThreshold = 9001;
   semisecrets =
-    makeUserEntry "tina" 9002 { ssh = fetchKeysFromGithub "llamato"; }
-    // makeUserEntry "quinten" 2000 { ssh = fetchKeysFromGithub "QuintenMuyllaert"; }
-    // makeUserEntry "amber" 2000 { ssh = fetchKeysFromGithub "ShyAssassin"; }
-    // makeUserEntry "romana" 2000 { ssh = fetchKeysFromGithub "R0M-A"; }
-    // makeUserEntry "xlr8" 2000 { ssh = fetchKeysFromGithub "0x48piraj"; }
-    // makeUserEntry "zvit" 2000 {
+    makeUserEntry "tina" {
+      ssh = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINmuHyyOtAxG1GSuqIoeeGfV8XfLQGzS6zalYuAumlD+ tina_modern"
+      ];
+    }
+    // makeUserEntry "quinten" { ssh = fetchKeysFromGithub "QuintenMuyllaert"; }
+    // makeUserEntry "amber" { ssh = fetchKeysFromGithub "ShyAssassin"; }
+    // makeUserEntry "romana" { ssh = fetchKeysFromGithub "R0M-A"; }
+    // makeUserEntry "xlr8" { ssh = fetchKeysFromGithub "0x48piraj"; }
+    // makeUserEntry "zvit" {
       ssh = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFLTCoAAHoImrR+FdiWmGJDD7ke8MmiTaZukANS/uPvQ"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMEePG3qRnXD2QqpWLM80nBls+9T9kX5U3IKJn3UdTSe"

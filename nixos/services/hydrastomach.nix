@@ -1,4 +1,4 @@
-  { self, ... }: {
+{ self, ... }: {
   services.nix-serve = {
     enable = true;
     port = 5000;

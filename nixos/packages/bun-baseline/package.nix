@@ -117,10 +117,12 @@ stdenvNoCC.mkDerivation rec {
     longDescription = ''
       All in one fast & easy-to-use tool. Instead of 1,000 node_modules for development, you only need bun.
     '';
-    license = with lib.licenses; AND [
-      mit
-      lgpl21Only
-    ];
+    license =
+      with lib.licenses;
+      AND [
+        mit
+        lgpl21Only
+      ];
     mainProgram = "bun";
     maintainers = with lib.maintainers; [
       DAlperin

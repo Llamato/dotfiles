@@ -8,7 +8,7 @@
     hostName = "actuallythinkpad";
     networkmanager.enable = true;
   };
-  
+
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -26,7 +26,7 @@
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
   };
-  
+
   programs.firefox.enable = true;
   environment.systemPackages = with pkgs; [
     wget
@@ -37,7 +37,8 @@
     localsend
     sl
     qemu
-    flashprog tlp
+    flashprog
+    tlp
     toolbox
   ];
 
@@ -63,7 +64,6 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-
   #Tinas edits
 
   # Enable the KDE Plasma Desktop Environment.
@@ -76,8 +76,8 @@
   #  settings.General.EnableNetworkConfiguration = true;
   #};
 
-users.users = {
-  tina = {
+  users.users = {
+    tina = {
       isNormalUser = true;
       description = "Tina";
       extraGroups = [
@@ -87,7 +87,7 @@ users.users = {
         "lp"
         "podman"
       ];
-      
+
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINmuHyyOtAxG1GSuqIoeeGfV8XfLQGzS6zalYuAumlD+ tina_modern"
         #"ssh-falcon1024 AAAADnNzaC1mYWxjb24xMDI0AAAHAQqaziOEHQMfjzzldpYUP3+mYzpujWGR8IvWrIJtdHyjFHdt61Q9UGj3QAdLcjQGXk1xcW0l6+2kHi1IZXh/y35BTixUj+sdsehlqGOnhWFkPepJonQkRm>

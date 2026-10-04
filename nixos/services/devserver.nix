@@ -27,7 +27,7 @@
     man-pages-posix
     cloc
     clinfo
-    kmod 
+    kmod
     dtc
     python3
     nmap

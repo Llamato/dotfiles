@@ -1,4 +1,4 @@
-{ self,  ... }: {
+{ self, ... }: {
   services.hydra = {
     enable = true;
     hydraURL = "http://homelab.llamato.dev:3000";

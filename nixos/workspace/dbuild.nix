@@ -19,7 +19,8 @@ in
         hostName = "homelab.llamato.dev";
         sshUser = "remotebuild";
         sshKey = sshKeyFile;
-        systems = [ #Unify with qemu emulated systems?
+        systems = [
+          # Unify with qemu emulated systems?
           "x86_64-linux"
           "aarch64-linux"
           "armv7l-linux"

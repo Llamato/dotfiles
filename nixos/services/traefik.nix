@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   services.traefik = {
     enable = true;
@@ -46,7 +51,7 @@
         };
       };
       http.services = {
-         service1 = {
+        service1 = {
           loadBalancer = {
             servers = [
               {

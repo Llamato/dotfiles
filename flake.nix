@@ -72,7 +72,7 @@
         "aarch64-linux"
         "armv7l-linux"
         "riscv64-linux"
-        
+
       ];
       lib = nixpkgs.lib;
       forAllSystems = lib.genAttrs systems;
@@ -183,7 +183,7 @@
               ./nixos/workspace/office.nix
               ./nixos/workspace/media.nix
               ./nixos/workspace/monitoring.nix
-              ./nixos/workspace/jp.nix
+              ./nixos/workspace/ime.nix
             ];
           };
 
@@ -250,24 +250,23 @@
             ];
           };
 
-            wannabethinkpad = nixpkgs.lib.nixosSystem {
-              system = "aarch64-linux";
-              specialArgs = { inherit inputs outputs; };
-              modules = [
-                ./common.nix
+          wannabethinkpad = nixpkgs.lib.nixosSystem {
+            system = "aarch64-linux";
+            specialArgs = { inherit inputs outputs; };
+            modules = [
+              ./common.nix
 
-                apple-silicon.nixosModules.apple-silicon-support
-                ./nixos/hosts/wannabethinkpad.nix
-                ./nixos/hosts/wannabethinkpad-hw.nix
+              apple-silicon.nixosModules.apple-silicon-support
+              ./nixos/hosts/wannabethinkpad.nix
+              ./nixos/hosts/wannabethinkpad-hw.nix
 
-                ./nixos/workspace/dev.nix
-                ./nixos/workspace/3d.nix
-                ./nixos/workspace/office.nix
-                ./nixos/workspace/communications.nix
-                ./nixos/workspace/monitoring.nix
-              ];
-            };
-          
+              ./nixos/workspace/dev.nix
+              ./nixos/workspace/3d.nix
+              ./nixos/workspace/office.nix
+              ./nixos/workspace/communications.nix
+              ./nixos/workspace/monitoring.nix
+            ];
+          };
 
           wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
@@ -392,10 +391,12 @@
           };
           lib = pkgs.lib;
         in
-        lib.filterAttrs (_: pdrv: lib.meta.availableOn pkgs.stdenv.hostPlatform pdrv) (lib.filterAttrs (
+        lib.filterAttrs (_: pdrv: lib.meta.availableOn pkgs.stdenv.hostPlatform pdrv) (
+          lib.filterAttrs (
             pname: package:
             lib.licenses.isFree (self.lib.normalizeLicense (package.meta.license or lib.licenses.free))
-          ) (makePackagesInPathWith pkgs ./nixos/packages))
+          ) (makePackagesInPathWith pkgs ./nixos/packages)
+        )
       );
     };
 }

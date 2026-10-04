@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pkg-config, 
+  pkg-config,
   wrapGAppsHook3,
   gtk3,
   cairo,

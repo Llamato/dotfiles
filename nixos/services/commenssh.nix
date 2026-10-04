@@ -1,5 +1,11 @@
-{config, lib, pkgs, ...}: {
-services.openssh = {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  services.openssh = {
     enable = true;
     ports = [ 22 ];
     settings = {
@@ -19,9 +25,9 @@ services.openssh = {
     };
     hostKeys = [
       {
-         openSSHFormat = true;
-         path = "/etc/ssh/ssh_host_ed25519_key";
-         type = "ed25519";
+        openSSHFormat = true;
+        path = "/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
       }
     ];
   };

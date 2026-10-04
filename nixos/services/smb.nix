@@ -1,9 +1,18 @@
-{shares ? [ "raid" ] , ... }: 
-  let sharesConfig = builtins.foldl' (acc: share: acc // {
-  "${share}" = {
-    "path" = "/mnt/${share}";
-  };
-}) {} shares; in
+{
+  shares ? [ "raid" ],
+  ...
+}:
+let
+  sharesConfig = builtins.foldl' (
+    acc: share:
+    acc
+    // {
+      "${share}" = {
+        "path" = "/mnt/${share}";
+      };
+    }
+  ) { } shares;
+in
 {
   services.samba = {
     enable = true;
@@ -19,7 +28,7 @@
         "server multi channel support" = "yes";
         "client min protocol" = "SMB3_11";
         "server max protocol" = "SMB3_11";
-        
+
         "browsable" = "yes";
         "read only" = "no";
         "create mask" = "0755";
@@ -28,6 +37,7 @@
         "write list" = "tina";
         "writeable" = "yes";
       };
-    } // sharesConfig;
+    }
+    // sharesConfig;
   };
 }

@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }: let
-  semisecrets = (import ../../semisecrets.nix { inherit lib pkgs; }); 
-  in {
+{ pkgs, lib, ... }:
+let
+  semisecrets = (import ../../semisecrets.nix { inherit lib pkgs; });
+in
+{
   services.qbittorrent = {
     enable = false;
     package = pkgs.qbittorrent-nox;
@@ -14,7 +16,7 @@
         "Connection\\Proxy\\UseProxyForBT" = true;
         WebUI = {
           Address = "*";
-          AuthSubnetWhitelistEnabled=false;
+          AuthSubnetWhitelistEnabled = false;
           Username = "tina";
           Password_PBKDF2 = semisecrets.secrets.passwordHashes.qbittorrent;
         };

@@ -1,33 +1,33 @@
 { pkgs, ... }: {
-      # List packages installed in system profile. To search by name, run:
-      # $ nix-env -qaP | grep wget
-      ids.gids.nixbld = 350;
-      environment.systemPackages = with pkgs; [
-          fastfetch
-          hyfetch
-          btop
-          gnupg
-          git
-          cool-retro-term
-        ];
+  # List packages installed in system profile. To search by name, run:
+  # $ nix-env -qaP | grep wget
+  ids.gids.nixbld = 350;
+  environment.systemPackages = with pkgs; [
+    fastfetch
+    hyfetch
+    btop
+    gnupg
+    git
+    cool-retro-term
+  ];
 
-      # Auto upgrade nix package
-      # nix.package = pkgs.nix;
+  # Auto upgrade nix package
+  # nix.package = pkgs.nix;
 
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
+  # Necessary for using flakes on this system.
+  nix.settings.experimental-features = "nix-command flakes";
 
-      # Create /etc/zshrc that loads the nix-darwin environment.
-      #programs.zsh.enable = true;  # default shell on catalina
-      # programs.fish.enable = true;
+  # Create /etc/zshrc that loads the nix-darwin environment.
+  #programs.zsh.enable = true;  # default shell on catalina
+  # programs.fish.enable = true;
 
-      # Used for backwards compatibility, please read the changelog before changing.
-      # $ darwin-rebuild changelog
-      system.stateVersion = 4;
+  # Used for backwards compatibility, please read the changelog before changing.
+  # $ darwin-rebuild changelog
+  system.stateVersion = 4;
 
-      # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+  # The platform the configuration will be used on.
+  nixpkgs.hostPlatform = "aarch64-darwin";
 
-      # Sudo with touch ID
-      security.pam.services.sudo_local.touchIdAuth = true;
+  # Sudo with touch ID
+  security.pam.services.sudo_local.touchIdAuth = true;
 }

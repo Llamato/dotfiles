@@ -36,7 +36,7 @@ stdenv.mkDerivation {
   ];
 
   ACLOCAL_PATH = "./macros";
-  
+
   prePatch = ''
     sed -i "s/-Werror//g" configure.ac
   '';

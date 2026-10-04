@@ -1,18 +1,27 @@
 { lib, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = false;
   boot.loader.grub.device = "/dev/sda";
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" "sd_mod" "sdhci_acpi" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "usb_storage"
+    "sd_mod"
+    "sdhci_acpi"
+    "rtsx_pci_sdmmc"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "mem.devmem=1" "iomem=relaxed" ];
+  boot.kernelParams = [
+    "mem.devmem=1"
+    "iomem=relaxed"
+  ];
   boot.supportedFilesystems = [
     "f2fs"
     "btrfs"
@@ -23,12 +32,10 @@
     "exfat"
     "vfat"
     "apfs"
-  ];  
+  ];
 
-
-  fileSystems."/" =
-    { 
-      device = "/dev/disk/by-uuid/cbe035aa-c7db-44e2-b230-45f1cce5169f";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/cbe035aa-c7db-44e2-b230-45f1cce5169f";
+    fsType = "ext4";
+  };
 }

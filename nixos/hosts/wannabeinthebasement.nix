@@ -82,7 +82,7 @@ in
     "armv7l-linux"
     "riscv64-linux"
   ];
-  
+
   #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   # Set your time zone.
@@ -121,7 +121,7 @@ in
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
-    mutableUsers = true; 
+    mutableUsers = true;
     users = {
       tina = {
         isNormalUser = true;
@@ -169,10 +169,12 @@ in
   services.haveged.enable = true;
 
   # --- SSH Access (Headless) ---
-  /*services.openssh = {
-    enable = true;
-    permitRootLogin = "yes";
-  };*/
+  /*
+    services.openssh = {
+      enable = true;
+      permitRootLogin = "yes";
+    };
+  */
   services.openssh.enable = true;
 
   # List packages installed in system profile. To search, run:

@@ -1,4 +1,13 @@
-{ pkgs, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  semisecrets = (import ../../semisecrets.nix { inherit config pkgs lib; });
+in
+{
 
   system.stateVersion = "26.05";
 
@@ -13,11 +22,11 @@
     "vfat"
     "f2fs"
   ];
-  
-  /*boot.binfmt.emulatedSystems = [
+
+  boot.binfmt.emulatedSystems = [
     "x86_64-linux"
     "i686-linux"
-  ];*/
+  ];
 
   #Nix
   #nix.config.trusted-users = [ "root" "tina" ];
@@ -69,7 +78,7 @@
     muvm
     file
   ];
-  
+
   #Vr Things
   programs.alvr.enable = true;
 
@@ -105,11 +114,6 @@
   services.desktopManager.plasma6.enable = true;
   services.desktopManager.cosmic.enable = true;
 
-  #networking.wireless.iwd = {
-  #  enable = true;
-  #  settings.General.EnableNetworkConfiguration = true;
-  #};²
-
   users.users = {
     tina = {
       isNormalUser = true;
@@ -121,23 +125,7 @@
         "lp"
         "docker"
       ];
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINmuHyyOtAxG1GSuqIoeeGfV8XfLQGzS6zalYuAumlD+ tina_modern"
-        #"ssh-falcon1024 AAAADnNzaC1mYWxjb24xMDI0AAAHAQqaziOEHQMfjzzldpYUP3+mYzpujWGR8IvWrIJtdHyjFHdt61Q9UGj3QAdLcjQGXk1xcW0l6+2kHi1IZXh/y35BTixUj+sdsehlqGOnhWFkPepJonQkRm>
-        #"ssh-falcon512 AAAADXNzaC1mYWxjb241MTIAAAOBCYselVfYAiMNMr/352O5W05OFNCDgR/VQOKtihMduSTDbZFYUxXU+b8Kh3IBg9A3aw0FcMp6PayAiu5oV5WL0zdoivJP1pGakIKUdFhdFCH9xtfIiJGQP9b>
-      ];
-    };
-    katie = {
-      isNormalUser = true;
-      description = "Katie";
-      initialPassword = "FroggyFurits";
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-        "scanner"
-        "lp"
-        "docker"
-      ];
+      openssh.authorizedKeys.keys = semisecrets.semisecrets.tina.keys.ssh;
     };
   };
 }

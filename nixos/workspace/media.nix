@@ -5,7 +5,8 @@
 {
   environment.systemPackages = with pkgs; [
     vlc
-    cifs-utils nfs-utils
+    cifs-utils
+    nfs-utils
     ffmpeg
     gimp3
     rawtherapee

@@ -1,5 +1,6 @@
 { config, lib, ... }: # 1. These are passed by the 'import' in flake.nix
-final: prev: {            # 2. These are the standard overlay arguments
+final: prev: {
+  # 2. These are the standard overlay arguments
   oqs-openssh = prev.stdenv.mkDerivation {
     pname = "oqs-openssh";
     version = "OQS-OpenSSH-snapshot-2025-05";
@@ -10,10 +11,10 @@ final: prev: {            # 2. These are the standard overlay arguments
       sha256 = "sha256-YXuK6Lg790fkglVgJAWatkivqjqvJUL0bD/UCVhk2VI=";
     };
 
-    nativeBuildInputs = [ 
-      prev.autoreconfHook 
-      prev.pkg-config 
-      prev.makeWrapper 
+    nativeBuildInputs = [
+      prev.autoreconfHook
+      prev.pkg-config
+      prev.makeWrapper
     ];
 
     buildInputs = [
@@ -36,33 +37,30 @@ final: prev: {            # 2. These are the standard overlay arguments
     ];
 
     installTargets = [ "install-files" ];
-    installFlags = [ 
-      "sysconfdir=$(out)/etc" 
-      "STRIP_OPT=" 
-      "PRIVSEP_PATH=$(out)/empty" 
+    installFlags = [
+      "sysconfdir=$(out)/etc"
+      "STRIP_OPT="
+      "PRIVSEP_PATH=$(out)/empty"
     ];
 
     preInstall = ''
       substituteInPlace Makefile --replace "-m 4711" "-m 0711"
     '';
-      postInstall = ''
-        mkdir -p $out/bin
-        for file in $out/sbin/*; do
-          if [ -e "$file" ]; then
-            mv "$file" $out/bin/
-          fi
-        done
-
-        pubkeyTypes="${
-          lib.concatStringsSep ","
-          (config.programs.ssh.pubkeyAcceptedKeyTypes or [ ])
-        }"
-
-        if [ -n "$pubkeyTypes" ]; then
-          wrapProgram $out/bin/ssh \
-            --add-flags "-o PubkeyAcceptedKeyTypes=$pubkeyTypes"
+    postInstall = ''
+      mkdir -p $out/bin
+      for file in $out/sbin/*; do
+        if [ -e "$file" ]; then
+          mv "$file" $out/bin/
         fi
-      '';
+      done
+
+      pubkeyTypes="${lib.concatStringsSep "," (config.programs.ssh.pubkeyAcceptedKeyTypes or [ ])}"
+
+      if [ -n "$pubkeyTypes" ]; then
+        wrapProgram $out/bin/ssh \
+          --add-flags "-o PubkeyAcceptedKeyTypes=$pubkeyTypes"
+      fi
+    '';
     meta = with prev.lib; {
       description = "OpenSSH fork with post-quantum crypto (OQS)";
       homepage = "https://github.com/open-quantum-safe/openssh";

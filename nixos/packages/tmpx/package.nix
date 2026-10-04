@@ -1,9 +1,10 @@
 {
-stdenv,
-lib,
-fetchzip,
-autoPatchelfHook
-}: let
+  stdenv,
+  lib,
+  fetchzip,
+  autoPatchelfHook,
+}:
+let
   platformMap = {
     "x86_64-linux" = "linux-x86_64";
     "i686-linux" = "linux-i386";
@@ -18,13 +19,14 @@ autoPatchelfHook
   };
   currentSystem = builtins.currentSystem or "x86_64-linux";
   platformSrc = platformMap.${currentSystem} or (throw "Unsupported system: ${currentSystem}");
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   pname = "tmpx";
   version = "1.1";
   src = fetchzip {
-        url = "https://style64.org/file/TMPx_v1.1.0-STYLE.zip";
-        sha256 = "sha256-Qini9kRLosuF88wEqoCyR1u+LN6RtQIrRjGCSIpxtVk=";
-      };
+    url = "https://style64.org/file/TMPx_v1.1.0-STYLE.zip";
+    sha256 = "sha256-Qini9kRLosuF88wEqoCyR1u+LN6RtQIrRjGCSIpxtVk=";
+  };
 
   installPhase = ''
     mkdir -p $out/bin
@@ -37,7 +39,7 @@ in stdenv.mkDerivation {
   buildInputs = [ stdenv.cc.cc.lib ];
 
   nativeBuildInputs = [ autoPatchelfHook ];
-  
+
   meta = with lib; {
     description = "TMPx cross assembler for 6502";
     homepage = "https://style64.org";

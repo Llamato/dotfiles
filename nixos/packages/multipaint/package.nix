@@ -3,7 +3,7 @@
   stdenv,
   unzip,
   jre,
-  makeWrapper
+  makeWrapper,
 }:
 let
   sources = {

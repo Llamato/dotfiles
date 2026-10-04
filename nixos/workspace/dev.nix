@@ -4,9 +4,11 @@
   lib,
   pkgs,
   ...
-}: let 
-  kate-wakatime = pkgs.callPackage (inputs.rom-a-dotfiles + "/modules/kate-wakatime.nix") {}; 
-in {
+}:
+let
+  kate-wakatime = pkgs.callPackage (inputs.rom-a-dotfiles + "/modules/kate-wakatime.nix") { };
+in
+{
   programs = {
     nix-ld = {
       enable = lib.mkForce false;
