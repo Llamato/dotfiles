@@ -11,12 +11,6 @@
   # --- Entropy Fix (Fixes SSH hang) ---
   services.haveged.enable = true;
 
-  # --- SSH Access (Headless) ---
-  services.openssh = {
-    enable = true;
-    permitRootLogin = "yes";
-  };
-
   # --- X11 forwarding ---
   services.xserver.enable = true;
 

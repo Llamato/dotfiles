@@ -18,7 +18,7 @@
   # --- SSH Access (Headless) ---
   services.openssh = {
     enable = true;
-    permitRootLogin = "yes";
+    settings.PermitRootLogin = "yes";
   };
 
   # --- X11 forwarding ---
@@ -51,14 +51,12 @@
     btop
     iproute2
     iperf
-    neofetch
+    fastfetch
     sl
     cowsay
     fortune
     nfs-utils
-    qbittorrent-nox
     firefox
-    gzdoom
 
     # GOD HELP
     (pkgs.writeShellScriptBin "nixos-rebuild" ''

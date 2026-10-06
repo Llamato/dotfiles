@@ -5,9 +5,8 @@
     #nixos package repos
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs2205.url = "github:nixos/nixpkgs/nixos-22.05";
-    nixpkgs2511.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
+    nixpkgs2505.url = "github:nixos/nixpkgs/nixos-25.05";
 
     #nix darwin package repos
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
@@ -58,7 +57,7 @@
     {
       self,
       nixpkgs,
-      nixpkgs2205,
+      nixpkgs2505,
       nix-darwin,
       apple-silicon,
       openlogi,
@@ -236,7 +235,7 @@
               ./nixos/services/devserver.nix
               ./nixos/services/storageserver.nix
               ./nixos/services/qbittorrent-nox.nix
-              ./nixos/services/hydrastomach.nix
+              #./nixos/services/hydrastomach.nix
               (import ./nixos/services/smb.nix {
                 shares = [
                   "raid"
@@ -341,13 +340,11 @@
             ];
           };
 
-          nixnasduo = nixpkgs2205.lib.nixosSystem {
+          nixnasduo = nixpkgs2505.lib.nixosSystem {
             system = "aarch64-linux";
             specialArgs = { inherit inputs outputs; };
             modules = [
               ./common.nix
-
-              ./nixos/modules/jamlytics.nix
               ./nixos/modules/nixnas.nix
 
               ./nixos/hosts/nixnasduo.nix
@@ -361,8 +358,6 @@
             system = "armv7l-linux";
             specialArgs = { inherit inputs outputs; };
             modules = [
-              ./nixos/modules/jamlytics.nix
-
               ./nixos/hosts/bpim1.nix
               ./nixos/hosts/bpim1-hw.nix
             ];

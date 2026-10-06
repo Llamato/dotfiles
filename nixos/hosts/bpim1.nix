@@ -31,8 +31,6 @@ in
       doCheckByDefault = false;
       doInstallCheck = false;
     };
-    buildPlatform.system = "x86_64-linux";
-    hostPlatform.system = "armv7l-linux";
   };
 
   hardware = {
