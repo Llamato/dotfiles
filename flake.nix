@@ -5,7 +5,7 @@
     #nixos package repos
     nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
     nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
-    nixpkgs2205.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs2210.url = "github:nixos/nixpkgs/nixos-22.10";
     nixpkgs2511.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
 
@@ -58,7 +58,7 @@
     {
       self,
       nixpkgs,
-      nixpkgs2205,
+      nixpkgs2210,
       nix-darwin,
       apple-silicon,
       openlogi,
@@ -341,7 +341,7 @@
             ];
           };
 
-          nixnasduo = nixpkgs2205.lib.nixosSystem {
+          nixnasduo = nixpkgs2210.lib.nixosSystem {
             system = "aarch64-linux";
             specialArgs = { inherit inputs outputs; };
             modules = [
