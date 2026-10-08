@@ -47,11 +47,11 @@ in
     options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Cam, Virt Cam" exclusive_caps=1
   '';
 
-  #Clean temp dir on boot
+  # Clean temp dir on boot
   boot.tmp.cleanOnBoot = true;
   boot.tmp.useTmpfs = false;
 
-  #Enable Architecture emulation in QEMU
+  # Enable Architecture emulation in QEMU
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
     "armv7l-linux"

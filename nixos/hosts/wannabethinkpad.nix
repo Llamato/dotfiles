@@ -77,6 +77,7 @@ in
     kdePackages.krfb
     muvm
     file
+    cifs-utils
   ];
 
   #Vr Things
