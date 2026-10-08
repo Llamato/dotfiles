@@ -109,6 +109,21 @@ in
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Enable sound without pipewire.
+  services.pulseaudio = {
+    enable = false;
+
+    # Daemon configuration to fix auto-regulation
+    extraConfig = ''
+      # Disable echo cancellation/AGC
+      unload-module module-echo-cancel
+      load-module module-echo-cancel aec_method=webrtc aec_args="analog_gain_control=0,digital_gain_control=0"
+
+      load-module module-bluetooth-policy
+      load-module module-bluetooth-discover
+    '';
+  };
+
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
