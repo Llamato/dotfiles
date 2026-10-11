@@ -264,6 +264,7 @@
               ./nixos/workspace/office.nix
               ./nixos/workspace/communications.nix
               ./nixos/workspace/monitoring.nix
+              ./nixos/workspace/benchmark.nix
             ];
           };
 
