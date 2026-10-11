@@ -51,4 +51,5 @@
     enable = true;
     extraRules = ''ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Apple SMC power/lid events", ATTR{inhibited}="1"'';
   };
+  services.power-profiles-daemon.enable = true;
 }

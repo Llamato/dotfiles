@@ -17,7 +17,7 @@
     initrd = {
       kernelModules = [ ];
       availableKernelModules = [
-        "ohci_pci"
+        "ohci_pci"wannabeth
         "ehci_pci"
         "ahci"
         "usb_storage"
