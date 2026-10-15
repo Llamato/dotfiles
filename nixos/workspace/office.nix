@@ -13,7 +13,7 @@
     thunderbird
     ghostscript
     libreoffice-qt6-fresh
-
+    joplin-desktop
     #Tina's flakes
     inputs.gcalc.packages.${pkgs.system}.default
   ];
