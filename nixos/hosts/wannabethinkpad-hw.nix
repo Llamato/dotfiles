@@ -27,9 +27,6 @@
 
   hardware.asahi = {
     enable = true;
-    avd = {
-      enable = false;
-    };
   };
   hardware.bluetooth.enable = true;
 
