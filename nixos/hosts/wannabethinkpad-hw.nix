@@ -14,6 +14,9 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  boot.kernelParams = lib.mkAfter [
+    "appledrm.show_notch=1"
+  ];
   boot.initrd.availableKernelModules = [
     "usb_storage"
     "sdhci_pci"
