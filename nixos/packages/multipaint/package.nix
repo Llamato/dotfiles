@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     shopt -s extglob
     cp -r multipaint/${sources."${stdenv.hostPlatform.system}"}/!(multipaint) $out/share
     makeWrapper ${jre}/bin/java $out/bin/multipaint \
-    --add-flags "-Djna.nosys=true \
+      --add-flags "-Djna.nosys=true \
       -Djava.library.path=$out/share/lib \
       -cp $out/share/lib/multipaint.jar:$out/share/lib/jogl-all.jar:$out/share/lib/gluegen-rt.jar:$out/share/lib/core.jar \
       multipaint"

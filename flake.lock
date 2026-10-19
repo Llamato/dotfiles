@@ -426,18 +426,18 @@
         "type": "github"
       }
     },
-    "nixpkgs2505": {
+    "nixpkgs2405": {
       "locked": {
-        "lastModified": 1767313136,
-        "narHash": "sha256-16KkgfdYqjaeRGBaYsNrhPRRENs0qzkQVUooNHtoy2w=",
+        "lastModified": 1704290814,
+        "narHash": "sha256-LWvKHp7kGxk/GEtlrGYV68qIvPHkU9iToomNFGagixU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "ac62194c3917d5f474c1a844b6fd6da2db95077d",
+        "rev": "70bdadeb94ffc8806c0570eb5c2695ad29f0e421",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-25.05",
+        "ref": "nixos-23.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -639,7 +639,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-llamato": "nixpkgs-llamato",
         "nixpkgs-unstable": "nixpkgs-unstable_3",
-        "nixpkgs2505": "nixpkgs2505",
+        "nixpkgs2405": "nixpkgs2405",
         "openlogi": "openlogi",
         "rom-a-dotfiles": "rom-a-dotfiles",
         "sops-nix": "sops-nix",

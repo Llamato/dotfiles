@@ -6,7 +6,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
-    nixpkgs2505.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs2405.url = "github:nixos/nixpkgs/nixos-23.05";
 
     #nix darwin package repos
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
@@ -57,7 +57,7 @@
     {
       self,
       nixpkgs,
-      nixpkgs2505,
+      nixpkgs2405,
       nix-darwin,
       apple-silicon,
       openlogi,
@@ -342,7 +342,7 @@
             ];
           };
 
-          nixnasduo = nixpkgs2505.lib.nixosSystem {
+          nixnasduo = nixpkgs2405.lib.nixosSystem {
             system = "aarch64-linux";
             specialArgs = { inherit inputs outputs; };
             modules = [
