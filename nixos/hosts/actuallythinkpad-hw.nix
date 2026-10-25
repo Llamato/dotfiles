@@ -34,7 +34,7 @@
     "apfs"
   ];
 
-  fileSystems."/" = {
+  fileSystems."/" = lib.mkDefault {
     device = "/dev/disk/by-uuid/cbe035aa-c7db-44e2-b230-45f1cce5169f";
     fsType = "ext4";
   };

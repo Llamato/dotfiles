@@ -24,7 +24,7 @@
       in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);
   */
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "nvme"
@@ -47,7 +47,7 @@
     "usbmon"
   ];
 
-  fileSystems."/" = {
+  fileSystems."/" = lib.mkDefault {
     device = "/dev/disk/by-uuid/68c792be-a306-4116-9c75-d582ecfd32ae";
     fsType = "f2fs";
     options = [
@@ -56,7 +56,7 @@
     ];
   };
 
-  fileSystems."/boot" = {
+  fileSystems."/boot" = lib.mkDefault {
     device = "/dev/disk/by-uuid/F797-4691";
     fsType = "vfat";
     options = [
@@ -118,11 +118,11 @@
 
   #Hardware specific packages
   programs.openlogi.enable = true;
-  programs.coolercontrol.enable = true;
+  #programs.coolercontrol.enable = true;
   programs.corectrl.enable = true;
   environment.systemPackages = with pkgs; [
     lm_sensors
-    liquidctl # Corsair monitoring and settings
+    liquidctl
     pciutils
     hwloc
     usbutils
@@ -131,21 +131,13 @@
     vulkan-tools
     (btop.override { rocmSupport = true; })
     rocmPackages.rocm-smi
+    rocmPackages.clr
+    rocmPackages.hipcc
+    rocmPackages.rocm-device-libs
+    rocmPackages.rocminfo
     openrgb-with-all-plugins
     ryzen-monitor-ng
-    qmk
-    via
-    vial
-    qmk-udev-rules
   ];
-
-  services.udev = {
-    packages = [
-      pkgs.via
-      pkgs.qmk-udev-rules
-    ];
-    #extraRules = ''KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="1261", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"'';
-  };
 
   #Hardware specific services
   #services.cpupower-gui.enable = true;

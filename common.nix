@@ -33,7 +33,10 @@ in
       log-lines = "35";
       max-jobs = "auto";
       nix-path = config.nix.nixPath;
-      experimental-features = "nix-command flakes";
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       allow-import-from-derivation = true;
       connect-timeout = 1;
     };

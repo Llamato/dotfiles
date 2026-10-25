@@ -6,17 +6,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-llamato.url = "github:llamato/nixpkgs/master";
-    nixpkgs2405.url = "github:nixos/nixpkgs/nixos-23.05";
 
     #nix darwin package repos
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-26.05-darwin";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-26.05";
 
-    #nixos on apple silicon
+    #specialty hardware support
     apple-silicon.url = "github:nix-community/nixos-apple-silicon";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
-
-    #specialty hardware support
     stenc.url = "github:llamato/stenc";
     openlogi = {
       url = "github:AprilNEA/OpenLogi";
@@ -28,6 +25,9 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    #Ai
+    strata-nix.url = "github:Yunor743/strata.nix";
 
     #hyprland and it's addons
     easymotion = {
@@ -57,11 +57,11 @@
     {
       self,
       nixpkgs,
-      nixpkgs2405,
+      nixpkgs-unstable,
       nix-darwin,
       apple-silicon,
       openlogi,
-      sops-nix,
+      strata-nix,
       ...
     }@inputs:
     let
@@ -163,14 +163,14 @@
             inherit specialArgs;
             system = "x86_64-linux";
             modules = [
+              strata-nix.nixosModules.default
               ./common.nix
 
               ./nixos/hosts/wannabeonyx.nix
               ./nixos/hosts/wannabeonyx-hw.nix
 
               openlogi.nixosModules.default
-
-              ./nixos/modules/river.nix
+              ./nixos/modules/localllm.nix
 
               ./nixos/services/commenssh.nix
 
@@ -336,14 +336,14 @@
               ./nixos/hosts/wannaberiscv-hw.nix
 
               ./nixos/workspace/dev.nix
-              ./nixos/workspace/3d.nix
+              #./nixos/workspace/3d.nix
               ./nixos/workspace/office.nix
-              ./nixos/workspace/media.nix
+              #./nixos/workspace/media.nix
               ./nixos/workspace/monitoring.nix
             ];
           };
 
-          nixnasduo = nixpkgs2405.lib.nixosSystem {
+          nixnasduo = nixpkgs.lib.nixosSystem {
             system = "aarch64-linux";
             specialArgs = { inherit inputs outputs; };
             modules = [

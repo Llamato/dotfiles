@@ -46,7 +46,6 @@
     nautilus
     wl-clipboard
     vicinae
-    gtk-engine-murrine
     gnome-themes-extra
     grim
     slurp

@@ -256,7 +256,6 @@ in
     monero-gui
     bitcoin
     android-file-transfer
-    mtpfs
     f2fs-tools
     cinny
     fortune
@@ -274,9 +273,6 @@ in
 
   #Space Mouse driver
   systemd.user.services.spacenavd.enable = true;
-
-  #Kate wakatime
-  #services.kate-wakatime.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -392,8 +388,25 @@ in
   #VPN things
   services.tailscale.enable = true;
 
-  # Dynamic linking (impure)
-  programs.nix-ld.enable = true;
+  #Local ai
+  #services.strata.enable = true;
+
+  # Dynamic linking (impure) (Not working?)
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+      libxml2
+      ncurses
+      clangrt
+      rocmPackages.clr
+      rocmPackages.hipcc
+      rocmPackages.rocm-device-libs
+      rocmPackages.rocminfo
+      rocmPackages.clang
+    ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

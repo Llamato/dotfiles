@@ -33,12 +33,12 @@
     extraModulePackages = [ ];
   };
 
-  fileSystems."/" = {
+  fileSystems."/" = lib.mkDefault {
     device = "/dev/disk/by-uuid/ff07e809-a669-402f-9399-5967c20eb8b0";
     fsType = "f2fs";
   };
 
-  fileSystems."/boot" = {
+  fileSystems."/boot" = lib.mkDefault {
     device = "/dev/disk/by-uuid/06F4-E685";
     fsType = "vfat";
     options = [

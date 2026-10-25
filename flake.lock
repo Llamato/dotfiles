@@ -256,6 +256,23 @@
         "type": "github"
       }
     },
+    "llama-pinned": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789891691,
+        "narHash": "sha256-SRGoXa+4ACBCB3eaG9XFYhMN1i0FyPEy9Rrer+dFGYI=",
+        "owner": "ggml-org",
+        "repo": "llama.cpp",
+        "rev": "3cf03257f219afbe7334045ff7c6a06ac68c627d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ggml-org",
+        "repo": "llama.cpp",
+        "rev": "3cf03257f219afbe7334045ff7c6a06ac68c627d",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": "nixpkgs_7"
@@ -426,22 +443,6 @@
         "type": "github"
       }
     },
-    "nixpkgs2405": {
-      "locked": {
-        "lastModified": 1704290814,
-        "narHash": "sha256-LWvKHp7kGxk/GEtlrGYV68qIvPHkU9iToomNFGagixU=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "70bdadeb94ffc8806c0570eb5c2695ad29f0e421",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-23.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_10": {
       "locked": {
         "lastModified": 1762482733,
@@ -454,6 +455,22 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_11": {
+      "locked": {
+        "lastModified": 1790578696,
+        "narHash": "sha256-ZoxIApko70jCdbH3l20HWXOBaT2HZd87orzd2yJ9dVE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "7a0f122f5090cf4c2ade2a13a0e229d4e19ba71f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -639,11 +656,11 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nixpkgs-llamato": "nixpkgs-llamato",
         "nixpkgs-unstable": "nixpkgs-unstable_3",
-        "nixpkgs2405": "nixpkgs2405",
         "openlogi": "openlogi",
         "rom-a-dotfiles": "rom-a-dotfiles",
         "sops-nix": "sops-nix",
-        "stenc": "stenc"
+        "stenc": "stenc",
+        "strata-nix": "strata-nix"
       }
     },
     "rust-overlay": {
@@ -720,6 +737,43 @@
       "original": {
         "owner": "llamato",
         "repo": "stenc",
+        "type": "github"
+      }
+    },
+    "strata": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791636577,
+        "narHash": "sha256-FPwm4cuGTFiXgWkK5eTcfD9VIrH/OnVZiG6ToQFOfMQ=",
+        "owner": "Niko1221",
+        "repo": "Strata",
+        "rev": "61b3fb5dd3f1e8ec09cf7e4e05208bc6d3c46406",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Niko1221",
+        "ref": "main",
+        "repo": "Strata",
+        "type": "github"
+      }
+    },
+    "strata-nix": {
+      "inputs": {
+        "llama-pinned": "llama-pinned",
+        "nixpkgs": "nixpkgs_11",
+        "strata": "strata"
+      },
+      "locked": {
+        "lastModified": 1792267363,
+        "narHash": "sha256-i3GeeDYPPLt1Lzrn1YXjANPiUdoKna2kVc8i7LqVQow=",
+        "owner": "Yunor743",
+        "repo": "strata.nix",
+        "rev": "b574718d4d6039ff2aff97c9166c5119cb81179d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Yunor743",
+        "repo": "strata.nix",
         "type": "github"
       }
     },

@@ -14,7 +14,7 @@
     net-tools
     mtr
     htop
-    btop
+    (btop.override { rocmSupport = true; })
     iotop
     fastfetch
   ];
