@@ -54,6 +54,10 @@
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIw9ADAxAp4BiARz2gkSWvh0LbORToF1yy7rhlLkw5nQ eddsa-key-20260208"
         ];
+        extraGroups = [
+          "networkmanager"
+          "wheel"
+        ];
       };
     };
   };
