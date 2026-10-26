@@ -230,6 +230,9 @@
 
               ./nixos/hosts/llamkattthpmicroserver.nix
               ./nixos/hosts/llamkattthpmicroserver-hw.nix
+
+              ./nixos/modules/steamserver.nix
+
               ./nixos/services/nfs.nix
               ./nixos/services/virtualmaschines.nix
               ./nixos/services/devserver.nix
