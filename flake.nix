@@ -35,6 +35,9 @@
       inputs.hyprland.follows = "nixpkgs";
     };
 
+    #steam game servers
+    steamcmd-servers.url = "github:kagurazaka-ayano/steamcmd-servers";
+
     #software made by Tina
     gcalc.url = "github:llamato/gcalc";
     gcrypt.url = "github:llamato/gcrypt";
@@ -62,6 +65,7 @@
       apple-silicon,
       openlogi,
       strata-nix,
+      steamcmd-servers,
       ...
     }@inputs:
     let
@@ -211,7 +215,7 @@
             ];
           };
 
-          llamkatttserver = nixpkgs.lib.nixosSystem rec {
+          llamkatttserver = nixpkgs-unstable.lib.nixosSystem rec {
             inherit specialArgs;
             system = "x86_64-linux";
             modules = [
@@ -236,6 +240,8 @@
               ./nixos/services/storageserver.nix
               ./nixos/services/qbittorrent-nox.nix
               #./nixos/services/hydrastomach.nix
+              steamcmd-servers.nixosModules.default
+              ./nixos/services/
               (import ./nixos/services/smb.nix {
                 shares = [
                   "raid"
