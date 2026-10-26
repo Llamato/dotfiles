@@ -62,7 +62,6 @@
       apple-silicon,
       openlogi,
       strata-nix,
-      steamcmd-servers,
       ...
     }@inputs:
     let
@@ -237,7 +236,6 @@
               ./nixos/services/storageserver.nix
               ./nixos/services/qbittorrent-nox.nix
               #./nixos/services/hydrastomach.nix
-              steamcmd-servers.nixosModules.default
               (import ./nixos/services/smb.nix {
                 shares = [
                   "raid"
