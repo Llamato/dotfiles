@@ -241,7 +241,7 @@
               ./nixos/services/qbittorrent-nox.nix
               #./nixos/services/hydrastomach.nix
               steamcmd-servers.nixosModules.default
-              ./nixos/services/
+              ./nixos/services/enshouded.nix
               (import ./nixos/services/smb.nix {
                 shares = [
                   "raid"
