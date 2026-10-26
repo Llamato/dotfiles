@@ -35,9 +35,6 @@
       inputs.hyprland.follows = "nixpkgs";
     };
 
-    #steam game servers
-    steamcmd-servers.url = "github:kagurazaka-ayano/steamcmd-servers";
-
     #software made by Tina
     gcalc.url = "github:llamato/gcalc";
     gcrypt.url = "github:llamato/gcrypt";
