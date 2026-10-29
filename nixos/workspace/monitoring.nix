@@ -1,6 +1,5 @@
 {
-  config,
-  lib,
+  inputs,
   pkgs,
   ...
 }:
@@ -14,7 +13,7 @@
     net-tools
     mtr
     htop
-    (btop.override { rocmSupport = true; })
+    (inputs.btop.packages.${system}.btop.override { rocmSupport = true; })
     iotop
     fastfetch
   ];

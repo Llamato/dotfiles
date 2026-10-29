@@ -29,6 +29,11 @@
     #Ai
     strata-nix.url = "github:Yunor743/strata.nix";
 
+    #btop
+    btop = {
+      url = "github:Llamato/btop/cpu_capacity";
+    };
+
     #hyprland and it's addons
     easymotion = {
       url = "github:zakk4223/hyprland-easymotion";
@@ -249,6 +254,7 @@
                 bun = self.packages.${system}.bun-baseline;
                 servingDirectory = "/mnt/raid/www/public";
               })
+              
             ];
           };
 
