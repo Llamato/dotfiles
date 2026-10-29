@@ -13,8 +13,8 @@
     net-tools
     mtr
     htop
-    (inputs.btop.packages.${system}.btop.override { rocmSupport = true; })
     iotop
     fastfetch
+    inputs.btop.packages.${system}.btop
   ];
 }
