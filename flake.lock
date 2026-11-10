@@ -41,16 +41,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1793275129,
-        "narHash": "sha256-zxLsJsNFso9VJy4zsh5JZCs5csFaEnvCJxdh0Js+x8w=",
+        "lastModified": 1794320741,
+        "narHash": "sha256-4GJADP5POpLT+ZNMlAoTEmXFU3Yu6lKzxhj9jK4OeRM=",
         "owner": "Llamato",
         "repo": "btop",
-        "rev": "c9bd34edc27af8bc5af4103d0d27e36724e8a1a8",
+        "rev": "ef93bee9921b577f8a87d53470a3e8bbb8f5df9e",
         "type": "github"
       },
       "original": {
         "owner": "Llamato",
-        "ref": "cpu_capacity",
+        "ref": "testing",
         "repo": "btop",
         "type": "github"
       }
@@ -644,11 +644,11 @@
         "openlogi": "openlogi_2"
       },
       "locked": {
-        "lastModified": 1794286833,
-        "narHash": "sha256-KVywar8qlmhlowq3DFmqC5UtXyKRWorVGfK493lXcnQ=",
+        "lastModified": 1794304611,
+        "narHash": "sha256-ab32dhYDL5t2j18reU1MSxlmc3PzSjJUlVF8+J35uco=",
         "owner": "AprilNEA",
         "repo": "OpenLogi",
-        "rev": "1bd2954ad277c3db65a3f45f0e612c5d3ea25abf",
+        "rev": "98d60ca7b34b7e9b3fe7975ae11dff223b634c8e",
         "type": "github"
       },
       "original": {
@@ -819,11 +819,11 @@
         "strata": "strata"
       },
       "locked": {
-        "lastModified": 1792267363,
-        "narHash": "sha256-i3GeeDYPPLt1Lzrn1YXjANPiUdoKna2kVc8i7LqVQow=",
+        "lastModified": 1794317425,
+        "narHash": "sha256-28ZUWEa8RmbyBG3d6vUzJBmlGeyDyrWd9peONxu9SRk=",
         "owner": "Yunor743",
         "repo": "strata.nix",
-        "rev": "b574718d4d6039ff2aff97c9166c5119cb81179d",
+        "rev": "aa8bdc057c59c36d8a70f746b3f09e1c02b6a8fb",
         "type": "github"
       },
       "original": {

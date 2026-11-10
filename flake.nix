@@ -31,7 +31,7 @@
 
     #btop
     btop = {
-      url = "github:Llamato/btop/cpu_capacity";
+      url = "github:Llamato/btop/testing";
     };
 
     #hyprland and it's addons
