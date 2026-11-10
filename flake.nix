@@ -12,7 +12,7 @@
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-26.05";
 
     #specialty hardware support
-    apple-silicon.url = "github:nix-community/nixos-apple-silicon";
+    apple-silicon.url = "github:nix-community/nixos-apple-silicon?rev=46e80bc641f5aaee6ed7ef90a12314a81492f48f";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
     stenc.url = "github:llamato/stenc";
     openlogi = {

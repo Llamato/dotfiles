@@ -65,7 +65,7 @@ in
     ghidra
     meld
     file
-    vscode-fhs
+    #vscode-fhs
     uutils-coreutils-noprefix
     distrobox
     dosfstools
