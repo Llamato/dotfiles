@@ -15,6 +15,7 @@
     htop
     iotop
     fastfetch
+    hdparm
     inputs.btop.packages.${system}.btop
   ];
 }

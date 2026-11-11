@@ -41,11 +41,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1794320741,
-        "narHash": "sha256-4GJADP5POpLT+ZNMlAoTEmXFU3Yu6lKzxhj9jK4OeRM=",
+        "lastModified": 1794351624,
+        "narHash": "sha256-L0agDYdeF8FtCbshwWe86luxjMprWShvv55HiREtB1A=",
         "owner": "Llamato",
         "repo": "btop",
-        "rev": "ef93bee9921b577f8a87d53470a3e8bbb8f5df9e",
+        "rev": "7c131daa65de09be9e31b8a29ed01954fdfed5f7",
         "type": "github"
       },
       "original": {
@@ -819,11 +819,11 @@
         "strata": "strata"
       },
       "locked": {
-        "lastModified": 1794317425,
-        "narHash": "sha256-28ZUWEa8RmbyBG3d6vUzJBmlGeyDyrWd9peONxu9SRk=",
+        "lastModified": 1794342743,
+        "narHash": "sha256-R5wbp12UoYreoW7vyp+O9YLBhQzhXlrJd91fdJiXqN8=",
         "owner": "Yunor743",
         "repo": "strata.nix",
-        "rev": "aa8bdc057c59c36d8a70f746b3f09e1c02b6a8fb",
+        "rev": "8f3ff2ae382254a88af881ec2656c7008893d943",
         "type": "github"
       },
       "original": {
