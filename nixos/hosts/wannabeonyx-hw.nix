@@ -84,32 +84,6 @@
     };
   };
 
-  # Fixing Model M / No super key
-  /*
-    environment.etc."libinput/local-overrides.quirks".text = ''
-      [Serial Keyboards]
-      MatchUdevType=keyboard
-      MatchName=keyd virtual keyboard
-      AttrKeyboardIntegration=internal
-    '';
-  */
-  /*
-    services.keyd = {
-      enable = true;
-      keyboards = {
-        default = {
-          ids = [ "*" ];
-          settings = {
-            main = {
-              rightcontrol = "leftmeta";
-            };
-            otherlayer = { };
-          };
-        };
-      };
-    };
-  */
-
   #AMD Plafrom stuff
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 

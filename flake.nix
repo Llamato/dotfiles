@@ -267,7 +267,9 @@
               apple-silicon.nixosModules.apple-silicon-support
               ./nixos/hosts/wannabethinkpad.nix
               ./nixos/hosts/wannabethinkpad-hw.nix
+
               ./nixos/modules/fairydust.nix
+              ./nixos/modules/modelm.nix
 
               ./nixos/workspace/dev.nix
               ./nixos/workspace/3d.nix
