@@ -31,9 +31,6 @@ in
       enable = true;
       loadInNixShell = true;
     };
-    vscode = {
-      enable = true;
-    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -68,7 +65,6 @@ in
     ghidra
     meld
     file
-    #vscode-fhs
     uutils-coreutils-noprefix
     distrobox
     dosfstools
