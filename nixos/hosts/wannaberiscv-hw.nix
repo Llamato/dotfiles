@@ -3,6 +3,7 @@
 # to /etc/nixos/configuration.nix instead.
 {
   config,
+  pkgs,
   lib,
   modulesPath,
   ...
@@ -50,5 +51,14 @@
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver        # VA-API für Hardware-Videoacceleration (iHD)
+      vpl-gpu-rt                # OneVPL GPU Runtime (neuerer Standard)
+      libva-vdpau-driver
+      libvdpau-va-gl
+    ];
+  };
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
