@@ -58,6 +58,8 @@
       vpl-gpu-rt                # OneVPL GPU Runtime (neuerer Standard)
       libva-vdpau-driver
       libvdpau-va-gl
+      mesa
+      mesa-gl-headers
     ];
   };
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
