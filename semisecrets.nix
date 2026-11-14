@@ -33,7 +33,7 @@ in
       ssh = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFLTCoAAHoImrR+FdiWmGJDD7ke8MmiTaZukANS/uPvQ"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMEePG3qRnXD2QqpWLM80nBls+9T9kX5U3IKJn3UdTSe"
-      ];
+      ] ++ fetchKeysFromGithub "pepemimi";
     };
 
   secrets = {

@@ -25,27 +25,41 @@
   */
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "nvme"
-    "thunderbolt"
-    "mptsas"
-    "mpt3sas"
-    "ahci"
-    "usbhid"
-    "usb_storage"
-    "mmc_block"
-  ];
-
-  boot.initrd.kernelModules = [
-    "amdgpu"
-  ];
-
-  boot.kernelModules = [
-    "kvm-amd"
-    "nct6775"
-    "usbmon"
-  ];
+  boot = {
+    kernelParams = [
+      "default_hugepagesz=2M"
+      "hugepagez=2M"
+      "hugepages=32768"
+      "hugepagesz=1G"
+      "hugepages=8"
+      "iommu=pt"
+    ];
+    kernel.sysctl = {
+      "vm.nr_hugepages" = 32768;
+      "kernel.numabalancing" = 0;
+    };
+    initrd = {
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "thunderbolt"
+        "mptsas"
+        "mpt3sas"
+        "ahci"
+        "usbhid"
+        "usb_storage"
+        "mmc_block"
+      ];
+      kernelModules = [
+        "kvm-amd"
+        "nct6775"
+        "usbmon"
+      ];
+    };
+    kernelModules = [
+      "amdgpu"
+    ];
+  };
 
   fileSystems."/" = lib.mkDefault {
     device = "/dev/disk/by-uuid/68c792be-a306-4116-9c75-d582ecfd32ae";
@@ -111,6 +125,7 @@
     rocmPackages.rocminfo
     openrgb-with-all-plugins
     ryzen-monitor-ng
+    numactl
   ];
 
   #Hardware specific services
