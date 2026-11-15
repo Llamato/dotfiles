@@ -41,11 +41,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1794351624,
-        "narHash": "sha256-L0agDYdeF8FtCbshwWe86luxjMprWShvv55HiREtB1A=",
+        "lastModified": 1794765996,
+        "narHash": "sha256-nWhs/cJiRd+FlY+1MZr8om7bUx5lQh5ToSPYfN+51Sg=",
         "owner": "Llamato",
         "repo": "btop",
-        "rev": "7c131daa65de09be9e31b8a29ed01954fdfed5f7",
+        "rev": "ba86276725a1239c4077c3286eeb04fa4d8d57a0",
         "type": "github"
       },
       "original": {
@@ -513,11 +513,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1793136825,
-        "narHash": "sha256-8VGQQhZfWvvWCoqOf5lb8AzUVbKJKvnihiXwJKKPH0s=",
-        "rev": "f05535a0efcb2134c478d1e88434fadf486d42b5",
+        "lastModified": 1794554816,
+        "narHash": "sha256-E5zhHNI4GPnhvJFu8cxkO5wt0NK23Hu66QQXrD4XX8Q=",
+        "rev": "e126e9e73c335158ff8279ac14d5f4afec153716",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1103464.f05535a0efcb/nixexprs.tar.zst"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1119636.e126e9e73c33/nixexprs.tar.zst"
       },
       "original": {
         "type": "tarball",
