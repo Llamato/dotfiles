@@ -44,6 +44,14 @@
               };
               features.rust = true;
             }
+            # Adds DRM_IOCTL_ASAHI_GET_STATS to the asahi GPU driver, which btop uses for AGX
+            # utilisation and clock statistics (see btop docs/asahi_agx.md).
+            # Note: keep this out of boot.kernelPatches, nixpkgs appends those to the kernel
+            # derivation as well, which would apply the patch twice.
+            {
+              name = "asahi-get-stats";
+              patch = ../patches/asahi-get-stats.patch;
+            }
           ]
           ++ _kernelPatches;
       };

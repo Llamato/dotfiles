@@ -1,0 +1,459 @@
+From 13c91432460cf45ddef5364675e73084b061ed6a Mon Sep 17 00:00:00 2001
+From: Llamato <tguessbacher@gmx.de>
+Date: Sun, 15 Nov 2026 04:49:23 +0100
+Subject: [PATCH] drm/asahi: Add DRM_ASAHI_GET_STATS
+
+Asahi Linux users have no way to see what the AGX iGPU is doing: the driver
+exposes no utilisation, clock, power or temperature value to userspace, so
+monitoring tools either show no GPU at all or a GPU with no data in it.
+
+Add DRM_ASAHI_GET_STATS, which reports:
+
+ - The fraction of time the driver had submissions in flight since the
+   previous call, plus the busy/idle totals since probe. This is the only
+   utilisation signal available without firmware support, sampled in
+   start_op()/end_op().
+ - The performance state last reported by the firmware stats channel, with
+   the core clock rate of that state taken from the operating points read
+   from the device tree.
+
+The statistics live in a StatsState shared between the GPU manager and the
+firmware stats channel, so a performance state is recorded as it arrives
+instead of only being debug-logged.
+
+The power and temperature fields are defined in the UAPI but left invalid:
+the firmware does send power and temperature messages on the stats channel,
+but their units and semantics are not understood well enough to report them
+as such yet.
+
+The ioctl is RENDER_ALLOW without AUTH, so a monitoring tool can query it
+through the render node without needing DRM master.
+---
+ drivers/gpu/drm/asahi/channel.rs | 116 ++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/asahi/driver.rs  |   2 +
+ drivers/gpu/drm/asahi/file.rs    |  42 +++++++++++
+ drivers/gpu/drm/asahi/gpu.rs     |  28 +++++++-
+ include/uapi/drm/asahi_drm.h     |  82 ++++++++++++++++++++++
+ 5 files changed, 267 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/asahi/channel.rs b/drivers/gpu/drm/asahi/channel.rs
+index 30cc0efbf3ce..b5d37b43fd76 100644
+--- a/drivers/gpu/drm/asahi/channel.rs
++++ b/drivers/gpu/drm/asahi/channel.rs
+@@ -26,9 +26,10 @@
+     mem, //
+ };
+ use kernel::{
++    bindings,
+     c_str,
+     prelude::*,
+-    sync::Arc,
++    sync::{Arc, Mutex},
+     time::{
+         delay::fsleep,
+         Delta,
+@@ -584,11 +585,113 @@ pub(crate) fn poll(&mut self) {
+ }
+ 
+ /// Statistics channel, reporting power-related statistics to the driver.
+-/// Not really implemented other than debug logs yet...
+ #[versions(AGX)]
+ pub(crate) struct StatsChannel {
+     dev: AsahiDevRef,
+     ch: RxChannel<ChannelState, RawStatsMsg::ver>,
++    stats: Arc<Mutex<StatsState>>,
++}
++
++/// Accumulated GPU statistics, reported to userspace by `DRM_IOCTL_ASAHI_GET_STATS`.
++///
++/// The driver counts the submissions it has in flight, which is the only utilisation signal it has
++/// without firmware support: time with submissions in flight is accounted as busy, the rest as
++/// idle.
++#[derive(Default)]
++pub(crate) struct StatsState {
++    /// Number of submissions in flight.
++    ops: u32,
++    /// Last time the counters below were advanced.
++    last_tick: Option<Instant<Monotonic>>,
++    /// Nanoseconds with submissions in flight / idle since the driver was initialised.
++    busy_ns: u64,
++    idle_ns: u64,
++    /// Nanoseconds with submissions in flight / idle since the last snapshot.
++    window_busy_ns: u64,
++    window_idle_ns: u64,
++    /// Latest performance state reported by the firmware, if any.
++    pstate: Option<u32>,
++}
++
++impl StatsState {
++    /// Advance the busy/idle counters up to `now`.
++    fn tick(&mut self, now: Instant<Monotonic>) {
++        if let Some(last) = self.last_tick {
++            let delta = now - last;
++            if !delta.is_negative() {
++                let delta = delta.as_nanos() as u64;
++                if self.ops > 0 {
++                    self.busy_ns += delta;
++                    self.window_busy_ns += delta;
++                } else {
++                    self.idle_ns += delta;
++                    self.window_idle_ns += delta;
++                }
++            }
++        }
++
++        self.last_tick = Some(now);
++    }
++
++    /// Account for a submission that started.
++    pub(crate) fn op_start(&mut self) {
++        let now = Instant::<Monotonic>::now();
++        self.tick(now);
++        self.ops = self.ops.saturating_add(1);
++    }
++
++    /// Account for a submission that completed.
++    pub(crate) fn op_end(&mut self) {
++        let now = Instant::<Monotonic>::now();
++        self.tick(now);
++        self.ops = self.ops.saturating_sub(1);
++    }
++
++    /// Update the state from a performance state reported by the firmware.
++    pub(crate) fn report_pstate(&mut self, pstate: u32) {
++        self.pstate = Some(pstate);
++    }
++
++    /// Take a snapshot of the statistics, which starts a new measurement window.
++    pub(crate) fn snapshot(&mut self) -> StatsSnapshot {
++        let now = Instant::<Monotonic>::now();
++        self.tick(now);
++
++        let window_busy = core::mem::take(&mut self.window_busy_ns);
++        let window_idle = core::mem::take(&mut self.window_idle_ns);
++        let window = window_busy + window_idle;
++
++        StatsSnapshot {
++            // SAFETY: `ktime_get()` just reads the monotonic clock.
++            timestamp_ns: (unsafe { bindings::ktime_get() }) as u64,
++            busy_percent: (window > 0).then(|| {
++                // window * 100 would overflow for a window of over ~58 years of nanoseconds,
++                // which happens if the ioctl is never called. Scale such a window down first,
++                // 128-bit division is not available to modules.
++                let (busy, total) = if window > u64::MAX / 100 {
++                    (window_busy / 1024, window / 1024)
++                } else {
++                    (window_busy, window)
++                };
++
++                ((busy * 100) / total) as u32
++            }),
++            busy_ns: self.busy_ns,
++            idle_ns: self.idle_ns,
++            pstate: self.pstate,
++            frequency_khz: None,
++        }
++    }
++}
++
++/// Snapshot of `StatsState`, see `drm_asahi_get_stats`.
++pub(crate) struct StatsSnapshot {
++    pub(crate) timestamp_ns: u64,
++    pub(crate) busy_percent: Option<u32>,
++    pub(crate) busy_ns: u64,
++    pub(crate) idle_ns: u64,
++    pub(crate) pstate: Option<u32>,
++    pub(crate) frequency_khz: Option<u32>,
+ }
+ 
+ #[versions(AGX)]
+@@ -597,10 +700,12 @@ impl StatsChannel::ver {
+     pub(crate) fn new(
+         dev: &AsahiDevice,
+         alloc: &mut gpu::KernelAllocators,
++        stats: Arc<Mutex<StatsState>>,
+     ) -> Result<StatsChannel::ver> {
+         Ok(StatsChannel::ver {
+             dev: dev.into(),
+             ch: RxChannel::<ChannelState, RawStatsMsg::ver>::new(alloc, 0x100)?,
++            stats,
+         })
+     }
+ 
+@@ -620,6 +725,13 @@ pub(crate) fn poll(&mut self) {
+                     // accessing the enum view is valid.
+                     let msg = unsafe { msg.msg };
+                     cls_dev_dbg!(StatsCh, self.dev, "Stats: {:?}\n", msg);
++
++                    // TODO: Only the performance state is reported for now. The power,
++                    // temperature and utilisation messages are debug-logged above, but their units
++                    // and semantics are not understood well enough to report them yet.
++                    if let StatsMsg::ver::PowerState { pstate, .. } = msg {
++                        self.stats.lock().report_pstate(pstate)
++                    }
+                 }
+                 _ => {
+                     // SAFETY: The raw view is always valid for all bit patterns.
+diff --git a/drivers/gpu/drm/asahi/driver.rs b/drivers/gpu/drm/asahi/driver.rs
+index bafcfc4edc1f..f11cf2725721 100644
+--- a/drivers/gpu/drm/asahi/driver.rs
++++ b/drivers/gpu/drm/asahi/driver.rs
+@@ -104,6 +104,8 @@ impl drm::driver::Driver for AsahiDriver {
+             ioctl::AUTH | ioctl::RENDER_ALLOW, crate::file::File::queue_destroy),
+         (ASAHI_SUBMIT,          drm_asahi_submit,
+             ioctl::AUTH | ioctl::RENDER_ALLOW, crate::file::File::submit),
++        (ASAHI_GET_STATS,       drm_asahi_get_stats,
++                          ioctl::RENDER_ALLOW, crate::file::File::get_stats),
+     }
+ }
+ 
+diff --git a/drivers/gpu/drm/asahi/file.rs b/drivers/gpu/drm/asahi/file.rs
+index 061f289e40d9..193c216fc7c7 100644
+--- a/drivers/gpu/drm/asahi/file.rs
++++ b/drivers/gpu/drm/asahi/file.rs
+@@ -1085,6 +1085,48 @@ pub(crate) fn get_time(
+ 
+         Ok(0)
+     }
++
++    /// IOCTL: get_stats: Get GPU utilisation, clock and power state statistics.
++    pub(crate) fn get_stats(
++        device: &AsahiDevice,
++        data: &mut uapi::drm_asahi_get_stats,
++        _file: &DrmFile,
++    ) -> Result<u32> {
++        if data.flags != 0 {
++            cls_pr_debug!(Errors, "get_stats: Unexpected flags\n");
++            return Err(EINVAL);
++        }
++
++        let snapshot = device.gpu.stats_snapshot();
++        let mut stats = uapi::drm_asahi_get_stats {
++            timestamp_ns: snapshot.timestamp_ns,
++            gpu_busy_ns: snapshot.busy_ns,
++            gpu_idle_ns: snapshot.idle_ns,
++            ..Default::default()
++        };
++
++        if let Some(busy_percent) = snapshot.busy_percent {
++            stats.valid |= uapi::DRM_ASAHI_STAT_BUSY;
++            stats.busy_percent = busy_percent;
++        }
++
++        if let Some(pstate) = snapshot.pstate {
++            stats.valid |= uapi::DRM_ASAHI_STAT_PSTATE;
++            stats.pstate = pstate;
++        }
++
++        if let Some(frequency_khz) = snapshot.frequency_khz {
++            stats.valid |= uapi::DRM_ASAHI_STAT_FREQ;
++            stats.frequency_khz = frequency_khz;
++        }
++
++        // TODO: @power_uw and @temp_mcelsius are left invalid: the firmware reports power and
++        // temperature on the stats channel, but not in a unit we can trust yet.
++
++        *data = stats;
++
++        Ok(0)
++    }
+ }
+ 
+ impl Drop for File {
+diff --git a/drivers/gpu/drm/asahi/gpu.rs b/drivers/gpu/drm/asahi/gpu.rs
+index b6c1c64c5036..aaa8a70a87ec 100644
+--- a/drivers/gpu/drm/asahi/gpu.rs
++++ b/drivers/gpu/drm/asahi/gpu.rs
+@@ -257,6 +257,8 @@ pub(crate) struct GpuManager {
+     event_manager: Arc<event::EventManager>,
+     buffer_mgr: buffer::BufferManager::ver,
+     ids: SequenceIDs,
++    /// GPU statistics, shared with the firmware stats channel.
++    stats: Arc<Mutex<channel::StatsState>>,
+     #[allow(clippy::vec_box)]
+     #[pin]
+     garbage_contexts: Mutex<KVec<KBox<fw::types::GpuObject<fw::workqueue::GpuContextData>>>>,
+@@ -320,6 +322,10 @@ fn handle_channel_error(
+     fn get_cfg(&self) -> &'static hw::HwConfig;
+     /// Get the dynamic GPU configuration for this SoC.
+     fn get_dyncfg(&self) -> &hw::DynConfig;
++    /// Take a snapshot of the GPU statistics, see `drm_asahi_get_stats`.
++    ///
++    /// This also restarts the utilisation measurement window.
++    fn stats_snapshot(&self) -> channel::StatsSnapshot;
+     /// Register an unused context as garbage
+     fn free_context(&self, data: KBox<fw::types::GpuObject<fw::workqueue::GpuContextData>>);
+     /// Check whether the GPU is crashed
+@@ -728,6 +734,8 @@ fn make_mgr(
+         let buffer_mgr = buffer::BufferManager::ver::new()?;
+         let event_manager_clone = event_manager.clone();
+         let buffer_mgr_clone = buffer_mgr.clone();
++        let stats = Arc::pin_init(new_mutex!(channel::StatsState::default(), "stats"), GFP_KERNEL)?;
++        let stats_rx = stats.clone();
+         let alloc_ref = &mut alloc;
+         let rx_channels = KBox::init(
+             try_init!(RxChannels::ver {
+@@ -739,7 +747,7 @@ fn make_mgr(
+                 )?,
+                 fw_log: channel::FwLogChannel::new(dev, alloc_ref)?,
+                 ktrace: channel::KTraceChannel::new(dev, alloc_ref)?,
+-                stats: channel::StatsChannel::ver::new(dev, alloc_ref)?,
++                stats: channel::StatsChannel::ver::new(dev, alloc_ref, stats_rx)?,
+             }),
+             GFP_KERNEL,
+         )?;
+@@ -771,6 +779,7 @@ fn make_mgr(
+                 pipes,
+                 buffer_mgr,
+                 ids: Default::default(),
++                stats,
+                 garbage_contexts <- new_mutex!(KVec::new(), "garbage_contexts"),
+             }),
+             GFP_KERNEL,
+@@ -1140,6 +1149,7 @@ pub(crate) fn start_op(self: &Arc<GpuManager::ver>) -> Result<OpGuard> {
+ 
+         mod_dev_dbg!(self.dev, "OP start (pending: {})\n", val + 1);
+         self.kick_firmware()?;
++        self.stats.lock().op_start();
+         Ok(OpGuard(self.clone()))
+     }
+ 
+@@ -1598,6 +1608,20 @@ fn get_dyncfg(&self) -> &hw::DynConfig {
+         &self.dyncfg
+     }
+ 
++    fn stats_snapshot(&self) -> channel::StatsSnapshot {
++        let mut snapshot = self.stats.lock().snapshot();
++
++        // The firmware reports a performance state index, map it to a clock rate using the
++        // operating points read from the device tree.
++        if let Some(pstate) = snapshot.pstate {
++            if let Some(state) = self.dyncfg.pwr.perf_states.get(pstate as usize) {
++                snapshot.frequency_khz = Some(state.freq_hz / 1000);
++            }
++        }
++
++        snapshot
++    }
++
+     fn free_context(&self, ctx: KBox<fw::types::GpuObject<fw::workqueue::GpuContextData>>) {
+         let mut garbage = self.garbage_contexts.lock();
+ 
+@@ -1638,5 +1662,7 @@ fn end_op(&self) {
+             .with(|raw, _inner| raw.pending_submissions.fetch_sub(1, Ordering::Release));
+ 
+         mod_dev_dbg!(self.dev, "OP end (pending: {})\n", val - 1);
++
++        self.stats.lock().op_end();
+     }
+ }
+diff --git a/include/uapi/drm/asahi_drm.h b/include/uapi/drm/asahi_drm.h
+index de67f1c603af..6fd4df1eefd5 100644
+--- a/include/uapi/drm/asahi_drm.h
++++ b/include/uapi/drm/asahi_drm.h
+@@ -93,6 +93,9 @@ enum drm_asahi_ioctl_id {
+ 
+ 	/** @DRM_ASAHI_SUBMIT: Submit commands to a queue. */
+ 	DRM_ASAHI_SUBMIT,
++
++	/** @DRM_ASAHI_GET_STATS: Query GPU utilisation and power state statistics. */
++	DRM_ASAHI_GET_STATS,
+ };
+ 
+ #define DRM_ASAHI_MAX_CLUSTERS	64
+@@ -1157,6 +1160,84 @@ struct drm_asahi_get_time {
+ 	__u64 gpu_timestamp;
+ };
+ 
++/**
++ * define DRM_ASAHI_STAT_BUSY - &drm_asahi_get_stats.busy_percent is valid.
++ */
++#define DRM_ASAHI_STAT_BUSY	(1 << 0)
++
++/**
++ * define DRM_ASAHI_STAT_PSTATE - &drm_asahi_get_stats.pstate is valid.
++ */
++#define DRM_ASAHI_STAT_PSTATE	(1 << 1)
++
++/**
++ * define DRM_ASAHI_STAT_FREQ - &drm_asahi_get_stats.frequency_khz is valid.
++ */
++#define DRM_ASAHI_STAT_FREQ	(1 << 2)
++
++/**
++ * define DRM_ASAHI_STAT_POWER - &drm_asahi_get_stats.power_uw is valid.
++ */
++#define DRM_ASAHI_STAT_POWER	(1 << 3)
++
++/**
++ * define DRM_ASAHI_STAT_TEMP - &drm_asahi_get_stats.temp_mcelsius is valid.
++ */
++#define DRM_ASAHI_STAT_TEMP	(1 << 4)
++
++/**
++ * struct drm_asahi_get_stats - Arguments passed to DRM_IOCTL_ASAHI_GET_STATS
++ *
++ * Only the fields flagged in @valid by the driver carry data, all other fields
++ * are left untouched. A driver that does not implement this ioctl fails it with
++ * EINVAL, like any unknown Asahi ioctl.
++ *
++ * The counters are sampled: @busy_percent describes the fraction of the time
++ * the driver had work in flight since the previous DRM_IOCTL_ASAHI_GET_STATS
++ * call on this device (the measurement window is shared by all clients, so a
++ * client only sees the window since the last call from any client), while
++ * @gpu_busy_ns and @gpu_idle_ns are totals since the driver was initialised and
++ * can be used to build windows of any length. The remaining fields are
++ * point-in-time values.
++ */
++struct drm_asahi_get_stats {
++	/** @flags: MBZ. */
++	__u64 flags;
++
++	/**
++	 * @timestamp_ns: On return, driver monotonic time (CLOCK_MONOTONIC) of
++	 * the sample, in nanoseconds.
++	 */
++	__u64 timestamp_ns;
++
++	/** @valid: Bitmask of DRM_ASAHI_STAT_xxx. */
++	__u32 valid;
++
++	/** @busy_percent: Utilisation of the last window, in percent (0-100). */
++	__u32 busy_percent;
++
++	/** @gpu_busy_ns: Nanoseconds with GPU work in flight since init. */
++	__u64 gpu_busy_ns;
++
++	/** @gpu_idle_ns: Nanoseconds without GPU work in flight since init. */
++	__u64 gpu_idle_ns;
++
++	/** @pstate: Current GPU performance state index. */
++	__u32 pstate;
++
++	/** @frequency_khz: GPU core clock of @pstate, in kilohertz. */
++	__u32 frequency_khz;
++
++	/** @power_uw: GPU power consumption in microwatts. */
++	__u64 power_uw;
++
++	/** @temp_mcelsius: GPU temperature in milli-degrees Celsius. */
++	__s32 temp_mcelsius;
++
++	/** @pad: MBZ. */
++	__u32 pad;
++};
++
+ /**
+  * DRM_IOCTL_ASAHI() - Build an Asahi IOCTL number
+  * @__access: Access type. Must be R, W or RW.
+@@ -1185,6 +1266,7 @@ enum {
+ 	DRM_IOCTL_ASAHI_QUEUE_CREATE     = DRM_IOCTL_ASAHI(WR, QUEUE_CREATE, queue_create),
+ 	DRM_IOCTL_ASAHI_QUEUE_DESTROY    = DRM_IOCTL_ASAHI(W, QUEUE_DESTROY, queue_destroy),
+ 	DRM_IOCTL_ASAHI_SUBMIT           = DRM_IOCTL_ASAHI(W, SUBMIT, submit),
++	DRM_IOCTL_ASAHI_GET_STATS        = DRM_IOCTL_ASAHI(WR, GET_STATS, get_stats),
+ };
+ 
+ #if defined(__cplusplus)
+-- 
+2.54.0
+
