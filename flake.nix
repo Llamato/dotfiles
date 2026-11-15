@@ -179,7 +179,6 @@
 
               openlogi.nixosModules.default
               
-              ./nixos/services/strata.nix
               ./nixos/services/commenssh.nix
 
               ./nixos/workspace/hyprland.nix

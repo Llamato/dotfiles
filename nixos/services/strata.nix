@@ -1,6 +1,5 @@
-{ config, pkgs, ... }: let
+{ pkgs, ... }: let
   strata_xxs = "/home/tina/git/Strata-Tina/run-iq3_xxs-huge.sh";
-  strata_s = "/home/tina/git/Strata-Tina/run-iq3_s.sh";
  in {
   boot = { 
     kernelParams = [
@@ -82,6 +81,7 @@
       '';
 
       ExecStart = strata_xxs;
+      
 
       ExecStopPost = "+" + pkgs.writeShellScript "strata-free-hugepages" ''
         echo 0 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
