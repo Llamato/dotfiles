@@ -28,7 +28,7 @@ in
     "i686-linux"
   ];
 
-  #Nix
+  # Nix
   #nix.config.trusted-users = [ "root" "tina" ];
   nixpkgs.config.allowUnfree = true;
   nix.distributedBuilds = true;
@@ -81,16 +81,16 @@ in
     sl
   ];
 
-  #Vr Things
+  # Vr Things
   programs.alvr.enable = true;
 
-  #VNC for wayland
+  # VNC for wayland
   programs.wayvnc.enable = true;
 
-  #Enable firefox bowser
+  # Enable firefox bowser
   programs.firefox.enable = true;
 
-  #Enable stream
+  # Enable stream
   #programs.steam.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -105,8 +105,6 @@ in
     enable = true;
     openFirewall = true;
   };
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

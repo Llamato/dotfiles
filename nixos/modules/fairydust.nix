@@ -22,9 +22,9 @@
         extraMeta.branch = "7.1";
 
         src = fetchFromGitHub {
-          owner = "AsahiLinux";
-          repo = "linux";
-          rev = "ce9f2eba72c061a50b2d790450e90af3439d8c24";
+          owner = "llamato";
+          repo = "linux-asahi";
+          rev = "3c2312b420cd57d0f1d9947cfc014a951d2f5523";
           hash = "sha256-W3yMSUe6xa+M/X0k86kbCS4g3d7jJmO3WV9L/5rQRhI=";
         };
 

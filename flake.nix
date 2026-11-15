@@ -30,9 +30,6 @@
     strata-nix.url = "github:Yunor743/strata.nix";
 
     #btop
-    # Local clone with the Asahi AGX GPU collection (git+file picks up whatever branch is checked
-    # out in ~/git/btop). Switch back to the GitHub fork once that branch is pushed:
-    # url = "github:Llamato/btop/testing";
     btop = {
       url = "git+file:///home/tina/git/btop?ref=asahi_gpu_detection";
     };
