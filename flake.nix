@@ -29,9 +29,9 @@
     #Ai
     strata-nix.url = "github:Yunor743/strata.nix";
 
-    #btop
+    #btop 
     btop = {
-      url = "git+file:///home/tina/git/btop?ref=asahi_gpu_detection";
+      url = "github:Llamato/btop/testing";
     };
 
     #hyprland and it's addons
