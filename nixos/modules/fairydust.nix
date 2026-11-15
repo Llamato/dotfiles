@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }: let
   linux-fairydust = pkgs.callPackage (
@@ -65,4 +66,10 @@ in {
       config.boot.kernelPackages.evdi # DisplayLink USB display adapter support
     ];
   };
+
+  # btop built from the btop flake input (~/git/btop) with the Asahi AGX GPU collector, installed as
+  # bin/btop-asahi so the plain btop from monitoring.nix stays available.
+  environment.systemPackages = [
+    inputs.btop.packages.${pkgs.system}.btop-asahi
+  ];
 }
