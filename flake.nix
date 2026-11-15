@@ -175,8 +175,8 @@
               ./nixos/hosts/wannabeonyx-hw.nix
 
               openlogi.nixosModules.default
-              ./nixos/modules/localllm.nix
-
+              
+              ./nixos/services/strata.nix
               ./nixos/services/commenssh.nix
 
               ./nixos/workspace/hyprland.nix

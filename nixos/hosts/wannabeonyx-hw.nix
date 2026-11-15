@@ -26,18 +26,6 @@
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot = {
-    kernelParams = [
-      "default_hugepagesz=2M"
-      "hugepagez=2M"
-      "hugepages=32768"
-      "hugepagesz=1G"
-      "hugepages=8"
-      "iommu=pt"
-    ];
-    kernel.sysctl = {
-      "vm.nr_hugepages" = 32768;
-      "kernel.numabalancing" = 0;
-    };
     initrd = {
       availableKernelModules = [
         "xhci_pci"
@@ -131,6 +119,7 @@
   #Hardware specific services
   #services.cpupower-gui.enable = true;
   services.hardware.openrgb.enable = true;
+  services.lact.enable = true;
 
   #GPU drivers (6800xt)
   services.xserver.videoDrivers = [ "amdgpu" ];

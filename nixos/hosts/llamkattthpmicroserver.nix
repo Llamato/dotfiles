@@ -141,6 +141,7 @@
     settings = {
       PermitRootLogin = "no";
       PasswordAuthentication = false;
+      GatewayPorts = "clientspecified";
     };
   };
 }
