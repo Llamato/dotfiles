@@ -44,13 +44,20 @@ in
       initialPassword = password;
       openssh.authorizedKeys.keys = sshKeys;
     };
+    tina = {
+      isNormalUser = true;
+      description = "llamato";
+      extraGroups = [ "networkmanager" "wheel" "input" "dailout" ];
+      initialPassword = password;
+      openssh.authorizedKeys.keys = sshKeys; 
+    };
   };
 
   environment.systemPackages = with pkgs; [
     git
     wget
     sl
-    fastfetch
+    fastfetch.minimal
     hyfetch
     ethtool
     mtr
@@ -68,6 +75,7 @@ in
     atftp
     python313
     python313Packages.spidev
+    (pkgs.callPackage ../packages/serial-tether/package.nix { })
   ];
 
   services = {

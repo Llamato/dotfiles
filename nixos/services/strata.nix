@@ -16,7 +16,7 @@
     "vm.swappiness" = 10;
     "vm.vfs_cache_pressure" = 200;
     "kernel.numa_balancing" = 0;
-  };
+    };
   };
 
   fileSystems."/dev/hugepages" = {

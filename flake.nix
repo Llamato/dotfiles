@@ -369,9 +369,17 @@
           };
 
           bpim1 = nixpkgs.lib.nixosSystem {
-            system = "armv7l-linux";
             specialArgs = { inherit inputs outputs; };
             modules = [
+              # Build natively for armv7l *on this x86_64 machine* using a cross
+              # toolchain. Without buildPlatform, nixpkgs assumes buildPlatform ==
+              # hostPlatform == armv7l-linux and every armv7 binary (gcc, make,
+              # bash, ...) is run through qemu binfmt emulation, which is brutally slow.
+              {
+                nixpkgs.hostPlatform = "armv7l-linux";
+                nixpkgs.buildPlatform = "x86_64-linux";
+              }
+
               ./nixos/hosts/bpim1.nix
               ./nixos/hosts/bpim1-hw.nix
             ];

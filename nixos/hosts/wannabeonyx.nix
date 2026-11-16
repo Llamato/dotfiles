@@ -15,49 +15,62 @@ in
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        memtest86.enable = true;
+      };
       timeout = 5;
     };
+
+    kernelParams = [
+      "default_hugepagesz=2M"
+      "hugepagesz=2M"
+      "hugepages=0"
+      "hugepagesz=1G"
+      "hugepages=0"
+      "iommu=pt"
+    ];
+  
+    kernel.sysctl = {
+      "vm.swappiness" = 10;
+      "vm.vfs_cache_pressure" = 200;
+      "kernel.numa_balancing" = 0;
+      };
+
+    supportedFilesystems = [
+      "bcachefs"
+      "btrfs"
+      "xfs"
+      "ntfs"
+      "bitlocker"
+      "exfat"
+      "vfat"
+      "f2fs"
+    ];
+
+    extraModulePackages = with config.boot.kernelPackages; [
+      v4l2loopback
+    ];
+
+    kernelModules = [
+      "v4l2loopback"
+    ];
+
+    extraModprobeConfig = ''
+      options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Cam, Virt Cam" exclusive_caps=1
+    '';
+
+    tmp = {
+      cleanOnBoot = true;
+      useTmpfs = false;
+    };
+
+    binfmt.emulatedSystems = [
+      "aarch64-linux"
+      "armv7l-linux"
+      "riscv64-linux"
+    ];
   };
-
-  # Extra filesystems
-  boot.supportedFilesystems = [
-    "bcachefs"
-    "btrfs"
-    "xfs"
-    "ntfs"
-    "bitlocker"
-    "exfat"
-    "vfat"
-    "f2fs"
-  ];
-
-  # Extra Kernel modules
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    v4l2loopback
-  ];
-
-  #Video for linux loopback. Screen share, obs, etc...
-  boot.kernelModules = [
-    "v4l2loopback"
-  ];
-
-  # OBS virtual camera
-  boot.extraModprobeConfig = ''
-    options v4l2loopback devices=2 video_nr=1,2 card_label="OBS Cam, Virt Cam" exclusive_caps=1
-  '';
-
-  # Clean temp dir on boot
-  boot.tmp.cleanOnBoot = true;
-  boot.tmp.useTmpfs = false;
-
-  # Enable Architecture emulation in QEMU
-  boot.binfmt.emulatedSystems = [
-    "aarch64-linux"
-    "armv7l-linux"
-    "riscv64-linux"
-  ];
-
   security.polkit.enable = true;
 
   networking.hostName = "wannabeonyx";
@@ -66,18 +79,19 @@ in
   time.timeZone = "Europe/Berlin";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_DE.UTF-8";
-    LC_IDENTIFICATION = "de_DE.UTF-8";
-    LC_MEASUREMENT = "de_DE.UTF-8";
-    LC_MONETARY = "de_DE.UTF-8";
-    LC_NAME = "de_DE.UTF-8";
-    LC_NUMERIC = "de_DE.UTF-8";
-    LC_PAPER = "de_DE.UTF-8";
-    LC_TELEPHONE = "de_DE.UTF-8";
-    LC_TIME = "de_DE.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "de_DE.UTF-8";
+      LC_IDENTIFICATION = "de_DE.UTF-8";
+      LC_MEASUREMENT = "de_DE.UTF-8";
+      LC_MONETARY = "de_DE.UTF-8";
+      LC_NAME = "de_DE.UTF-8";
+      LC_NUMERIC = "de_DE.UTF-8";
+      LC_PAPER = "de_DE.UTF-8";
+      LC_TELEPHONE = "de_DE.UTF-8";
+      LC_TIME = "de_DE.UTF-8";
+    };
   };
 
   # Enable the KDE Plasma Desktop Environment.
@@ -202,6 +216,7 @@ in
     ];
   };
 
+  #Wireshark
   programs.wireshark = {
     enable = true;
     package = pkgs.wireshark;
@@ -266,6 +281,7 @@ in
     android-studio
     android-tools
 
+    (pkgs.callPackage ../packages/serial-tether/package.nix { })
   ];
 
   #No automatic firmware updates
