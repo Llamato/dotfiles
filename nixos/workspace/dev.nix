@@ -13,11 +13,6 @@ in
     nix-ld = {
       enable = lib.mkForce false;
     };
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryPackage = pkgs.pinentry-qt;
-    };
     seahorse = {
       enable = true;
     };
@@ -73,6 +68,7 @@ in
     gdb
     ripgrep
     kate-wakatime
+    copyq
   ];
 
   # clangd service

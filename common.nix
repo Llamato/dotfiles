@@ -51,6 +51,11 @@ in
     defaultSopsFile = ./secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
   };
+  programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-qt;
+    };
   environment.systemPackages = with pkgs; [
     git
     sops

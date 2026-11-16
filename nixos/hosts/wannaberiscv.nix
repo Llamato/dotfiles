@@ -38,11 +38,6 @@
 
   programs.firefox.enable = true;
 
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
   programs.localsend = {
     enable = true;
     openFirewall = true;
