@@ -243,6 +243,10 @@
               ./nixos/services/storageserver.nix
               ./nixos/services/qbittorrent-nox.nix
               #./nixos/services/hydrastomach.nix
+
+              (import ./nixos/services/wireguard.nix {
+                
+              })
               (import ./nixos/services/smb.nix {
                 shares = [
                   "raid"
