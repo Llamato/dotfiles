@@ -29,7 +29,7 @@
     #Ai
     strata-nix.url = "github:Yunor743/strata.nix";
 
-    #btop 
+    #btop
     btop = {
       url = "github:Llamato/btop/testing";
     };
@@ -175,7 +175,7 @@
               ./nixos/hosts/wannabeonyx-hw.nix
 
               openlogi.nixosModules.default
-              
+
               ./nixos/services/commenssh.nix
 
               ./nixos/workspace/hyprland.nix
@@ -246,7 +246,21 @@
               #./nixos/services/hydrastomach.nix
 
               (import ./nixos/services/wireguard.nix {
-
+                peers = [
+                  {
+                    publicKey = "q6ezuOFhYdjmQzcO/h/1R6R+Q9nmtgww7FtwpsaXd2w=";
+                    address = "10.10.0.2";
+                  } # zvit
+                  {
+                    publicKey = "B1QWfWuJpl4pLMS8MeGXukwSLnVBGXAMSJaPnoMII2U=";
+                    address = "10.10.0.3";
+                  } # quinten
+                  {
+                    publicKey = "XFl0rIujwW85KZOVG0MGTWh5dBmQ2Jw9zG1tERWoxzg=";
+                    address = "10.10.0.4";
+                  } # piyush
+                ];
+                firewallDevice = "bond0";
               })
               (import ./nixos/services/smb.nix {
                 shares = [
@@ -258,7 +272,7 @@
                 bun = self.packages.${system}.bun-baseline;
                 servingDirectory = "/mnt/raid/www/public";
               })
-              
+
             ];
           };
 
