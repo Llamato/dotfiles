@@ -241,11 +241,12 @@
               ./nixos/services/virtualmaschines.nix
               ./nixos/services/devserver.nix
               ./nixos/services/storageserver.nix
-              ./nixos/services/qbittorrent-nox.nix
+              ./nixos/services/murmur.nix
+              #./nixos/services/qbittorrent-nox.nix
               #./nixos/services/hydrastomach.nix
 
               (import ./nixos/services/wireguard.nix {
-                
+
               })
               (import ./nixos/services/smb.nix {
                 shares = [

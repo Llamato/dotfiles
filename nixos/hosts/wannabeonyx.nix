@@ -281,6 +281,8 @@ in
     android-studio
     android-tools
 
+    mumble
+
     (pkgs.callPackage ../packages/serial-tether/package.nix { })
   ];
 

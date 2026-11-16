@@ -1,0 +1,5 @@
+{ ... }: {
+  services.murmur = {
+    enable = true;
+  };
+}
