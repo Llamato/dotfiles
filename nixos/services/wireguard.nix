@@ -69,4 +69,8 @@ in
   networking.nat.enable = nat;
   networking.nat.internalInterfaces = [ interfaceName ];
   networking.nat.externalInterface = firewallDevice;
+
+  environment.systemPackages = with pkgs; [
+    wireguard-tools
+  ];
 }
