@@ -245,7 +245,7 @@
               #./nixos/services/qbittorrent-nox.nix
               #./nixos/services/hydrastomach.nix
 
-              /*(import ./nixos/services/wireguard.nix {
+              (import ./nixos/services/wireguard.nix {
                 peers = [
                   {
                     publicKey = "q6ezuOFhYdjmQzcO/h/1R6R+Q9nmtgww7FtwpsaXd2w=";
@@ -261,7 +261,7 @@
                   } # piyush
                 ];
                 firewallDevice = "bond0";
-              })*/
+              })
               (import ./nixos/services/smb.nix {
                 shares = [
                   "raid"
