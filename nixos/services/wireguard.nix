@@ -6,15 +6,22 @@
   #     ];
   #   })
   #
-  # Generate keys on each machine:  wg genkey | tee privatekey | wg pubkey
-  # The server's private key is managed via sops (secrets.yaml key: wg-privatekey)
-  # or generated at runtime with wg genkey if privateKeyFile does not exist.
+  # The server private key lives on the host only (root-only file, mode 0600):
+  # it is never written to the nix store and never committed.  It is generated
+  # with `wg genkey` by an activation script the first time the system is built
+  # with this module, and the resulting public key is printed to the activation
+  # log so it can be handed to clients.  Seed it by hand to keep an existing
+  # key/pubkey pair stable:
+  #   install -m 0600 -o root /path/to/privatekey /etc/wireguard/wg0.key
+  #
+  # Client keys are generated on each machine:  wg genkey | tee privatekey | wg pubkey
   interfaceName ? "wg0",
   port ? 51820,
   address ? "10.10.0.1/24",
   peers ? [ ],
   nat ? true,
   firewallDevice ? "eth0",
+  privateKeyFile ? "/etc/wireguard/${interfaceName}.key",
   ...
 }:
 let
@@ -47,19 +54,34 @@ in
   ...
 }:
 {
-  # Server private key, kept out of the nix store via sops.
-  # Add to secrets/secrets.yaml:  wg-privatekey: <output of `wg genkey`>
-  sops.secrets.wg-privatekey = {
-    owner = "root";
-    mode = "0600";
-  };
+  # Generate the host private key during activation, i.e. before any unit
+  # (systemd-networkd included) is started.  Runs before the interface is
+  # configured, which is required because LoadCredential= of a non-existent
+  # file makes systemd-networkd fail outright.
+  system.activationScripts.setupWireguardHostKey =
+    lib.stringAfter
+      [
+        "users"
+        "groups"
+        "specialfs"
+      ]
+      ''
+        if [ ! -f ${lib.escapeShellArg privateKeyFile} ]; then
+          echo "wireguard: generating new host private key for ${interfaceName}"
+          install -d -m 0700 -o root $(dirname ${lib.escapeShellArg privateKeyFile})
+          umask 077
+          ${pkgs.wireguard-tools}/bin/wg genkey > ${lib.escapeShellArg privateKeyFile}
+          chmod 0600 ${lib.escapeShellArg privateKeyFile}
+          echo "wireguard: ${interfaceName} host public key: $(${pkgs.wireguard-tools}/bin/wg pubkey < ${lib.escapeShellArg privateKeyFile})"
+        fi
+      '';
 
   networking.firewall.allowedUDPPorts = [ port ];
 
   networking.wireguard.interfaces = {
     ${interfaceName} = {
       ips = [ address ];
-      privateKeyFile = config.sops.secrets.wg-privatekey.path;
+      inherit privateKeyFile;
       listenPort = port;
       peers = peerConfigs;
     };
