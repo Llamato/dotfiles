@@ -276,7 +276,7 @@
             ];
           };
 
-          wannabethinkpad = nixpkgs.lib.nixosSystem {
+          wannabethinkpad = nixpkgs.lib.nixosSystem rec {
             system = "aarch64-linux";
             specialArgs = { inherit inputs outputs; };
             modules = [
@@ -297,7 +297,7 @@
               ./nixos/workspace/benchmark.nix
               ./nixos/workspace/media.nix
               (import ./nixos/workspace/uni.nix  {
-                pkgs = nixpkgs-unstable.legacyPackages.${systems};
+                pkgs = nixpkgs-unstable.legacyPackages.${system};
               })
             ];
           };
