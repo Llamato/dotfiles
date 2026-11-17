@@ -296,7 +296,9 @@
               ./nixos/workspace/monitoring.nix
               ./nixos/workspace/benchmark.nix
               ./nixos/workspace/media.nix
-              ./nixos/workspace/uni.nix
+              (import ./nixos/workspace/uni.nix  {
+                pkgs = nixpkgs-unstable.legacyPackages.${systems};
+              })
             ];
           };
 

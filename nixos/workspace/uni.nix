@@ -10,5 +10,7 @@
   
   environment.systemPackages = with pkgs; [
     eduvpn-client
+    pi-coding-agent
+    socat
   ];
 }
