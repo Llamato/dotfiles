@@ -10,6 +10,36 @@
 }:
 let
   semisecrets = (import ../../semisecrets.nix { inherit config lib pkgs; });
+
+  # The kernel's 2 MiB huge-page pool as one fixed root command, so the Strata run script can take
+  # the pool when the server starts and hand it back when the server stops. Writing nr_hugepages is
+  # root-only in the kernel ("A user with root privileges can dynamically allocate more or free some
+  # persistent huge pages", kernel HugeTLB admin guide), so this one command is what the sudoers rule
+  # below allows without a password. It is a store path: it changes with every rebuild, and sudoers is
+  # rebuilt together with it.
+  strataHugepages = pkgs.writeShellScriptBin "strata-hugepages" ''
+    # strata-hugepages <pages>: set the 2 MiB pool, then print what the kernel actually gave.
+    # strata-hugepages 0 hands the whole pool back. IQ3_XXS asks for 20464 pages (40 GiB), IQ3_S for 23983.
+    N=$1
+    [ -n "$N" ] || { echo "usage: strata-hugepages <pages>   (0 frees the pool)"; exit 2; }
+    P=/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+    have=$(cat $P)
+    if [ "$N" -gt "$have" ]; then
+      # A runtime reserve lands short on a machine that has been up for a while: each 2 MiB page needs
+      # a contiguous block. Drop the reclaimable page cache and defragment first, then ask.
+      sync
+      echo 3 > /proc/sys/vm/drop_caches
+      echo 1 > /proc/sys/vm/compact_memory
+    fi
+    echo $N > $P
+    got=$(cat $P)
+    echo "2 MiB pool: asked $N, got $got ($(( got * 2 / 1024 )) GiB)"
+    if [ "$got" -ne "$N" ]; then
+      echo "warning: the kernel gave $got of $N pages (fragmentation, or not enough free RAM)."
+      echo "         MAP_HUGETLB is all-or-nothing: an arena that needs $N pages falls back to 4 KiB pages."
+      exit 1
+    fi
+  '';
 in
 {
   boot = {
@@ -25,6 +55,13 @@ in
     kernelParams = [
       "default_hugepagesz=2M"
       "hugepagesz=2M"
+      # Strata's expert arena maps MAP_HUGETLB, which is all-or-nothing: the pool has to hold the whole
+      # mapping or the arena falls back to 4 KiB pages. Qwen3.8-Flash-Next IQ3_XXS asks for 20464 2 MiB
+      # pages (40 GiB), IQ3_S for 23983. Nothing is reserved at boot: run-iq3_xxs-huge-7900xtx.sh takes
+      # 24576 pages when the server starts and frees them when it stops (sudo strata-hugepages, see
+      # security.sudo.extraRules below). A boot reserve is the deterministic version of the same thing -
+      # it cannot land short on fragmentation, but the RAM is held even with no server running. To go
+      # back to it, this line is "hugepages=24576" or "hugepages=32768".
       "hugepages=0"
       "hugepagesz=1G"
       "hugepages=0"
@@ -72,6 +109,42 @@ in
     ];
   };
   security.polkit.enable = true;
+
+  # Strata page-locks its n-gram (PLE) table: 26.8 GiB on Qwen3.8-Flash-Next IQ3_XXS. The engine can
+  # raise its own soft limit but never the hard one, so both have to come from PAM - 8 MiB (this
+  # PC's default) locks none of it. The engine reads the table either way; the lock was measured up
+  # to 6% faster decode (Strata engine #4671). Takes effect on the next login, not for sessions
+  # already open.
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "memlock";
+      value = "unlimited";
+    }
+    {
+      domain = "*";
+      type = "hard";
+      item = "memlock";
+      value = "unlimited";
+    }
+  ];
+
+  # The only root command the Strata run scripts may use, and the only one without a password.
+  # Without it the runner would sit on a sudo password prompt at every start (sudo -n asks for one
+  # on this PC today).
+  security.sudo.extraRules = [
+    {
+      users = [ "tina" ];
+      runAs = "root";
+      commands = [
+        {
+          command = "${strataHugepages}/bin/strata-hugepages";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
   networking.hostName = "wannabeonyx";
 
@@ -228,6 +301,7 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    strataHugepages
     wget
     dig
     libspnav

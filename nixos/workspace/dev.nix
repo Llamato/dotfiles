@@ -69,6 +69,7 @@ in
     ripgrep
     kate-wakatime
     copyq
+    micro
   ];
 
   # clangd service
