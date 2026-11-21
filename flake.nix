@@ -97,6 +97,22 @@
           gcc.arch = "znver5";
           gcc.tune = "znver5";
         };
+        config.allowUnfree = true;
+        overldays = [
+          (final: prev: {
+            stdenv = prev.stdenv.override {
+              mkDerivation =
+                args:
+                prev.stdenv.mkDerivation (
+                  args
+                  // {
+                    doCheck = false;
+                    doInstallCheck = false;
+                  }
+                );
+            };
+          })
+        ];
       };
       pkgsCrossFor =
         system:
@@ -171,13 +187,15 @@
               ./nixos/hosts/wannabeonyx.nix
               ./nixos/hosts/wannabeonyx-hw.nix
 
-              {
-                nixpkgs.hostPlatform = {
-                  system = "x86_64-linux";
-                  gcc.arch = "znver5";
-                  gcc.tune = "znver5";
-                };
-              }
+              /*
+                {
+                  nixpkgs.hostPlatform = {
+                    system = "x86_64-linux";
+                    gcc.arch = "znver5";
+                    gcc.tune = "znver5";
+                  };
+                }
+              */
 
               openlogi.nixosModules.default
               strata-nix.nixosModules.default
@@ -194,6 +212,7 @@
               ./nixos/workspace/media.nix
               ./nixos/workspace/monitoring.nix
               ./nixos/workspace/ime.nix
+              ./zvitWg.nix
             ];
           };
 
@@ -430,7 +449,12 @@
       };
 
       hydraJobs = {
-        nodes = builtins.mapAttrs (name: config: config.config.system.build.toplevel) (removeAttrs self.nixosConfigurations [ "wannabethinkpad" "nixnasduo" ]);
+        nodes = builtins.mapAttrs (name: config: config.config.system.build.toplevel) (
+          removeAttrs self.nixosConfigurations [
+            "wannabethinkpad"
+            "nixnasduo"
+          ]
+        );
         packages = forAllSystems (
           system:
           let
