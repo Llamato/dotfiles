@@ -85,6 +85,15 @@
           inherit system;
           config.allowUnfree = true;
         };
+        disableTestsOverlay = final: prev: {
+          stdenv = prev.stdenv.override {
+            mkDerivation = args:
+              prev.stdenv.mkDerivation (args // {
+                doCheck = false;
+                doInstallCheck = false;
+              });
+          };
+        };
       pkgsForx86 = import nixpkgs {
         localSystem = {
           system = "x86_64-linux";
@@ -98,21 +107,7 @@
           gcc.tune = "znver5";
         };
         config.allowUnfree = true;
-        overldays = [
-          (final: prev: {
-            stdenv = prev.stdenv.override {
-              mkDerivation =
-                args:
-                prev.stdenv.mkDerivation (
-                  args
-                  // {
-                    doCheck = false;
-                    doInstallCheck = false;
-                  }
-                );
-            };
-          })
-        ];
+        overldays = [ disableTestsOverlay ];
       };
       pkgsCrossFor =
         system:
@@ -187,15 +182,16 @@
               ./nixos/hosts/wannabeonyx.nix
               ./nixos/hosts/wannabeonyx-hw.nix
 
-              /*
-                {
-                  nixpkgs.hostPlatform = {
+              {
+                nixpkgs = { 
+                  hostPlatform = {
                     system = "x86_64-linux";
                     gcc.arch = "znver5";
                     gcc.tune = "znver5";
                   };
-                }
-              */
+                  overlays =  [ disableTestsOverlay ];
+                };
+              }
 
               openlogi.nixosModules.default
               strata-nix.nixosModules.default
@@ -449,12 +445,7 @@
       };
 
       hydraJobs = {
-        nodes = builtins.mapAttrs (name: config: config.config.system.build.toplevel) (
-          removeAttrs self.nixosConfigurations [
-            "wannabethinkpad"
-            "nixnasduo"
-          ]
-        );
+        nodes = builtins.mapAttrs (name: config: config.config.system.build.toplevel) (removeAttrs self.nixosConfigurations [ "wannabethinkpad" "nixnasduo" ]);
         packages = forAllSystems (
           system:
           let
