@@ -51,8 +51,8 @@
     btop
     iproute2
     iperf
-    #fastfetch
-    neofetch
+    fastfetch
+    #neofetch
     sl
     cowsay
     fortune

@@ -129,7 +129,7 @@ stdenvNoCC.mkDerivation rec {
       jk
       thilobillerbeck
       cdmistman
-      coffeeispower
+      #coffeeispower
       diogomdp
     ];
     platforms = builtins.attrNames passthru.sources;

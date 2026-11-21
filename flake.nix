@@ -171,11 +171,13 @@
               ./nixos/hosts/wannabeonyx.nix
               ./nixos/hosts/wannabeonyx-hw.nix
 
-              { nixpkgs.hostPlatform = {
-                system = "x86_64-linux";
-                gcc.arch = "znver5";
-                gcc.tune = "znver5";
-              }; }
+              {
+                nixpkgs.hostPlatform = {
+                  system = "x86_64-linux";
+                  gcc.arch = "znver5";
+                  gcc.tune = "znver5";
+                };
+              }
 
               openlogi.nixosModules.default
               strata-nix.nixosModules.default
@@ -281,31 +283,33 @@
             ];
           };
 
-          /*wannabethinkpad = nixpkgs.lib.nixosSystem rec {
-            system = "aarch64-linux";
-            specialArgs = { inherit inputs outputs; };
-            modules = [
-              ./common.nix
+          /*
+            wannabethinkpad = nixpkgs.lib.nixosSystem rec {
+              system = "aarch64-linux";
+              specialArgs = { inherit inputs outputs; };
+              modules = [
+                ./common.nix
 
-              apple-silicon.nixosModules.apple-silicon-support
-              ./nixos/hosts/wannabethinkpad.nix
-              ./nixos/hosts/wannabethinkpad-hw.nix
+                apple-silicon.nixosModules.apple-silicon-support
+                ./nixos/hosts/wannabethinkpad.nix
+                ./nixos/hosts/wannabethinkpad-hw.nix
 
-              ./nixos/modules/fairydust.nix
-              ./nixos/modules/modelm.nix
+                ./nixos/modules/fairydust.nix
+                ./nixos/modules/modelm.nix
 
-              ./nixos/workspace/dev.nix
-              ./nixos/workspace/3d.nix
-              ./nixos/workspace/office.nix
-              ./nixos/workspace/communications.nix
-              ./nixos/workspace/monitoring.nix
-              ./nixos/workspace/benchmark.nix
-              ./nixos/workspace/media.nix
-              (import ./nixos/workspace/uni.nix {
-                pkgs = nixpkgs-unstable.legacyPackages.${system};
-              })
-            ];
-          };*/
+                ./nixos/workspace/dev.nix
+                ./nixos/workspace/3d.nix
+                ./nixos/workspace/office.nix
+                ./nixos/workspace/communications.nix
+                ./nixos/workspace/monitoring.nix
+                ./nixos/workspace/benchmark.nix
+                ./nixos/workspace/media.nix
+                (import ./nixos/workspace/uni.nix {
+                  pkgs = nixpkgs-unstable.legacyPackages.${system};
+                })
+              ];
+            };
+          */
 
           wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
@@ -426,9 +430,7 @@
       };
 
       hydraJobs = {
-        nodes = builtins.mapAttrs (
-          name: config: config.config.system.build.toplevel
-        ) self.nixosConfigurations;
+        nodes = builtins.mapAttrs (name: config: config.config.system.build.toplevel) (removeAttrs self.nixosConfigurations [ "wannabethinkpad" ]);
         packages = forAllSystems (
           system:
           let
