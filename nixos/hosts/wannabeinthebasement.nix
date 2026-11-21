@@ -80,7 +80,6 @@ in
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
     "armv7l-linux"
-    "riscv64-linux"
   ];
 
   #boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
