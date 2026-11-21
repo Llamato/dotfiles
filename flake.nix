@@ -430,7 +430,7 @@
       };
 
       hydraJobs = {
-        nodes = builtins.mapAttrs (name: config: config.config.system.build.toplevel) (removeAttrs self.nixosConfigurations [ "wannabethinkpad" ]);
+        nodes = builtins.mapAttrs (name: config: config.config.system.build.toplevel) (removeAttrs self.nixosConfigurations [ "wannabethinkpad" "nixnasduo" ]);
         packages = forAllSystems (
           system:
           let
