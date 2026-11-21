@@ -75,7 +75,6 @@
         "x86_64-linux"
         "aarch64-linux"
         "armv7l-linux"
-        "riscv64-linux"
 
       ];
       lib = nixpkgs.lib;
@@ -168,13 +167,15 @@
             inherit specialArgs;
             system = "x86_64-linux";
             modules = [
-              strata-nix.nixosModules.default
               ./common.nix
 
               ./nixos/hosts/wannabeonyx.nix
               ./nixos/hosts/wannabeonyx-hw.nix
 
+              { nixpkgs.pkgs = pkgsForZen5; }
+
               openlogi.nixosModules.default
+              strata-nix.nixosModules.default
 
               ./nixos/services/commenssh.nix
 
@@ -420,22 +421,27 @@
         };
       };
 
-      hydraJobs = forAllSystems (
-        system:
-        let
-          pkgs = import nixpkgs {
-            localSystem = "x86_64-linux";
-            crossSystem = system;
-            config.allowUnfree = true;
-          };
-          lib = pkgs.lib;
-        in
-        lib.filterAttrs (_: pdrv: lib.meta.availableOn pkgs.stdenv.hostPlatform pdrv) (
-          lib.filterAttrs (
-            pname: package:
-            lib.licenses.isFree (self.lib.normalizeLicense (package.meta.license or lib.licenses.free))
-          ) (makePackagesInPathWith pkgs ./nixos/packages)
-        )
-      );
+      hydraJobs = {
+        nodes = builtins.mapAttrs (
+          name: config: config.config.system.build.toplevel
+        ) self.nixosConfigurations;
+        packages = forAllSystems (
+          system:
+          let
+            pkgs = import nixpkgs {
+              localSystem = "x86_64-linux";
+              crossSystem = system;
+              config.allowUnfree = true;
+            };
+            lib = pkgs.lib;
+          in
+          lib.filterAttrs (_: pdrv: lib.meta.availableOn pkgs.stdenv.hostPlatform pdrv) (
+            lib.filterAttrs (
+              pname: package:
+              lib.licenses.isFree (self.lib.normalizeLicense (package.meta.license or lib.licenses.free))
+            ) (makePackagesInPathWith pkgs ./nixos/packages)
+          )
+        );
+      };
     };
 }
