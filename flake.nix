@@ -85,15 +85,31 @@
           inherit system;
           config.allowUnfree = true;
         };
-        disableTestsOverlay = final: prev: {
-          stdenv = prev.stdenv.override {
-            mkDerivation = args:
-              prev.stdenv.mkDerivation (args // {
-                doCheck = false;
-                doInstallCheck = false;
-              });
-          };
-        };
+        disableTestsOverlay = final: prev:
+  let
+    disableChecks = mkDerivation: args:
+      if builtins.isFunction args then
+        # finalAttrs-style: (finalAttrs: attrs)
+        mkDerivation (finalAttrs:
+          (args finalAttrs) // {
+            doCheck = false;
+            doInstallCheck = false;
+          })
+      else
+        # plain attrset style
+        mkDerivation (args // {
+          doCheck = false;
+          doInstallCheck = false;
+        });
+  in
+  {
+    stdenv = prev.stdenv // {
+      mkDerivation = disableChecks prev.stdenv.mkDerivation;
+    };
+    stdenvNoCC = prev.stdenvNoCC // {
+      mkDerivation = disableChecks prev.stdenvNoCC.mkDerivation;
+    };
+  };
       pkgsForx86 = import nixpkgs {
         localSystem = {
           system = "x86_64-linux";
@@ -208,7 +224,7 @@
               ./nixos/workspace/media.nix
               ./nixos/workspace/monitoring.nix
               ./nixos/workspace/ime.nix
-              ./zvitWg.nix
+              #./zvitWg.nix
             ];
           };
 
