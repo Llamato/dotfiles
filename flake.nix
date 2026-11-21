@@ -186,7 +186,7 @@
 
               ./nixos/workspace/hyprland.nix
               ./nixos/workspace/dev.nix
-              ./nixos/workspace/reveng.nix
+              #./nixos/workspace/reveng.nix
               ./nixos/workspace/eda.nix
               ./nixos/workspace/3d.nix
               ./nixos/workspace/benchmark.nix
