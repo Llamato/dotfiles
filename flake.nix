@@ -97,7 +97,6 @@
           gcc.arch = "znver5";
           gcc.tune = "znver5";
         };
-        config.allowUnfree = true;
       };
       pkgsCrossFor =
         system:
@@ -172,7 +171,11 @@
               ./nixos/hosts/wannabeonyx.nix
               ./nixos/hosts/wannabeonyx-hw.nix
 
-              { nixpkgs.pkgs = pkgsForZen5; }
+              { nixpkgs.hostPlatform = {
+                system = "x86_64-linux";
+                gcc.arch = "znver5";
+                gcc.tune = "znver5";
+              }; }
 
               openlogi.nixosModules.default
               strata-nix.nixosModules.default
