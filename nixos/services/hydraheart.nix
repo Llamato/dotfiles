@@ -5,6 +5,9 @@
     notificationSender = "hydra@localhost";
     buildMachinesFiles = [ "/etc/nix/machines" ];
     useSubstitutes = true;
+    extraConfig = ''
+      allow_import_from_derivation = true
+    '';
   };
   users = {
     groups.hydra = { };
