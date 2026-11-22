@@ -3,7 +3,6 @@
     enable = true;
     hydraURL = "http://homelab.llamato.dev:3000";
     notificationSender = "hydra@localhost";
-    buildMachinesFiles = [ "/etc/nix/machines" ];
     useSubstitutes = true;
     extraConfig = ''
       allow_import_from_derivation = true
