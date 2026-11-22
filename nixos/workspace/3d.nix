@@ -1,10 +1,11 @@
 {
-  config,
-  lib,
+  inputs,
   pkgs,
   ...
 }:
 {
+
+  
 
   environment.systemPackages = with pkgs; [
     krita
@@ -13,5 +14,6 @@
     audacity
     spacenavd
     spacenav-cube-example
+    inputs.spacepilotDisplay.packages.${pkgs.system}.spacepilotDisplay
   ];
 }

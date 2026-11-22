@@ -34,6 +34,11 @@
       url = "github:Llamato/btop/testing";
     };
 
+    #3dxdisp
+    spacepilotDisplay = {
+      url = "github:Llamato/3dxdisp/master";
+    };
+
     #hyprland and it's addons
     easymotion = {
       url = "github:zakk4223/hyprland-easymotion";
@@ -200,7 +205,7 @@
               ./nixos/hosts/wannabeonyx.nix
               ./nixos/hosts/wannabeonyx-hw.nix
 
-              {
+              /*{
                 nixpkgs = { 
                   hostPlatform = {
                     system = "x86_64-linux";
@@ -209,7 +214,7 @@
                   };
                   overlays =  [ disableTestsOverlay ];
                 };
-              }
+              }*/
 
               openlogi.nixosModules.default
               strata-nix.nixosModules.default
@@ -218,7 +223,7 @@
 
               ./nixos/workspace/hyprland.nix
               ./nixos/workspace/dev.nix
-              #./nixos/workspace/reveng.nix
+              ./nixos/workspace/reveng.nix
               ./nixos/workspace/eda.nix
               ./nixos/workspace/3d.nix
               ./nixos/workspace/benchmark.nix
@@ -315,8 +320,6 @@
 
             ];
           };
-
-          /*
             wannabethinkpad = nixpkgs.lib.nixosSystem rec {
               system = "aarch64-linux";
               specialArgs = { inherit inputs outputs; };
@@ -342,7 +345,6 @@
                 })
               ];
             };
-          */
 
           wannabewannabethinkpad = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
@@ -435,10 +437,6 @@
           bpim1 = nixpkgs.lib.nixosSystem {
             specialArgs = { inherit inputs outputs; };
             modules = [
-              # Build natively for armv7l *on this x86_64 machine* using a cross
-              # toolchain. Without buildPlatform, nixpkgs assumes buildPlatform ==
-              # hostPlatform == armv7l-linux and every armv7 binary (gcc, make,
-              # bash, ...) is run through qemu binfmt emulation, which is brutally slow.
               {
                 nixpkgs.hostPlatform = "armv7l-linux";
                 nixpkgs.buildPlatform = "x86_64-linux";
