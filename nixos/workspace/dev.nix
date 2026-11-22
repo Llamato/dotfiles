@@ -70,6 +70,7 @@ in
     kate-wakatime
     copyq
     micro
+    cmake ninja gcc
   ];
 
   # clangd service

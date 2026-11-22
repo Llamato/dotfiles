@@ -190,9 +190,10 @@
         in
         {
           wannabeonyx = nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
+            specialArgs = specialArgs // {
+              overlays = [ disableTestsOverlay ];
+            };
             system = "x86_64-linux";
-            overlays = [ disableTestsOverlay ];
             modules = [
               ./common.nix
 
