@@ -462,9 +462,7 @@
         };
       };
 
-      hydraJobs = {
-        nodes = builtins.mapAttrs (name: config: config.config.system.build.toplevel) (removeAttrs self.nixosConfigurations [ "wannabethinkpad" "nixnasduo" ]);
-        packages = forAllSystems (
+      hydraJobs = forAllSystems (
           system:
           let
             pkgs = import nixpkgs {
@@ -481,6 +479,5 @@
             ) (makePackagesInPathWith pkgs ./nixos/packages)
           )
         );
-      };
     };
 }
