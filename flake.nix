@@ -20,7 +20,7 @@
     strata-nix.url = "github:Yunor743/strata.nix";
 
     #btop
-    btop.url = "github:joshuawarren/btop?rev=fa0180b671abaa61470e7a6b7477be45285c8183";
+    btop.url = "github:joshuawarren/btop";
 
     #3dxdisp
     spacepilotDisplay.url = "github:Llamato/3dxdisp/master";
