@@ -12,18 +12,6 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  /*
-    boot.kernelPackages =  let
-      pinnedNixPkgs = import (pkgs.fetchFromGitHub {
-          owner = "nixos";
-          repo = "nixpkgs";
-          rev = "f74c64bacf35f0be2c781de68afc2c84a8c54ea1";
-          hash = "sha256-FKSlfAc9IUQ3BqiETWaVV0ONqeArQihIEnRH3v9rcwg=";
-      }) {};
-      myKernel = pinnedNixPkgs.linux_6_17;
-      in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);
-  */
-
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
@@ -130,7 +118,6 @@
     mesa-demos
     vulkan-tools
     (btop.override { rocmSupport = true; })
-    
     openrgb-with-all-plugins
     ryzen-monitor-ng
     numactl
