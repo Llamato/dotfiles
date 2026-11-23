@@ -220,6 +220,7 @@
               strata-nix.nixosModules.default
 
               ./nixos/services/commenssh.nix
+              ./nixos/services/strata.nix
 
               ./nixos/workspace/hyprland.nix
               ./nixos/workspace/dev.nix

@@ -483,11 +483,6 @@ in
       libxml2
       ncurses
       clangrt
-      rocmPackages.clr
-      rocmPackages.hipcc
-      rocmPackages.rocm-device-libs
-      rocmPackages.rocminfo
-      rocmPackages.clang
     ];
   };
 

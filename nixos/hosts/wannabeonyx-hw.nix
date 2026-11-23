@@ -118,11 +118,7 @@
     mesa-demos
     vulkan-tools
     (btop.override { rocmSupport = true; })
-    rocmPackages.rocm-smi
-    rocmPackages.clr
-    rocmPackages.hipcc
-    rocmPackages.rocm-device-libs
-    rocmPackages.rocminfo
+    
     openrgb-with-all-plugins
     ryzen-monitor-ng
     numactl
