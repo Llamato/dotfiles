@@ -24,8 +24,8 @@
       in pkgs.recurseIntoAttrs (pinnedNixPkgs.linuxPackagesFor myKernel);
   */
 
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     initrd = {
       availableKernelModules = [
         "xhci_pci"
@@ -77,6 +77,17 @@
   # networking.interfaces.wlp11s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.overlays = [
+    (final: prev: {
+      linux-firmware = prev.linux-firmware.overrideAttrs (old: rec {
+        version = "20260916";
+        src = prev.fetchzip {
+          url = "https://cdn.kernel.org/pub/linux/kernel/firmware/linux-firmware-${version}.tar.xz";
+          hash = "sha256-VbDTRN/i+a1BrKnDtdDFxanp3BQujBhe9CyWay9GTXY=";
+        };
+      });
+    })
+  ];
 
   #Keychron keyboard things
   hardware.keyboard = {

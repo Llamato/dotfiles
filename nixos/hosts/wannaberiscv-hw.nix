@@ -11,6 +11,7 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     initrd = {
       availableKernelModules = [
         "xhci_pci"
@@ -50,7 +51,7 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver        # VA-API für Hardware-Videoacceleration (iHD)
-      vpl-gpu-rt                # OneVPL GPU Runtime (neuerer Standard)
+      vpl-gpu-rt                # OneVPL GPU Runtime (new standard)
       libva-vdpau-driver
       libvdpau-va-gl
       mesa
