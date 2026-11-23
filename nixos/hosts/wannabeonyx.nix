@@ -259,6 +259,7 @@ in
         "scanner"
         "lp"
         "docker"
+        "dialout"
       ];
       openssh.authorizedKeys.keys = semisecrets.semisecrets.tina.keys.ssh;
     };
