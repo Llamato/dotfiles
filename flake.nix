@@ -15,6 +15,17 @@
     apple-silicon.url = "github:nix-community/nixos-apple-silicon?rev=46e80bc641f5aaee6ed7ef90a12314a81492f48f";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
     stenc.url = "github:llamato/stenc";
+
+    #Ai
+    strata-nix.url = "github:Yunor743/strata.nix";
+
+    #btop
+    btop.url = "github:joshuawarren/btop?rev=fa0180b671abaa61470e7a6b7477be45285c8183";
+
+    #3dxdisp
+    spacepilotDisplay.url = "github:Llamato/3dxdisp/master";
+
+    #logitech
     openlogi = {
       url = "github:AprilNEA/OpenLogi";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,19 +35,6 @@
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    #Ai
-    strata-nix.url = "github:Yunor743/strata.nix";
-
-    #btop
-    btop = {
-      url = "github:Llamato/btop/testing";
-    };
-
-    #3dxdisp
-    spacepilotDisplay = {
-      url = "github:Llamato/3dxdisp/master";
     };
 
     #hyprland and it's addons
@@ -305,6 +303,7 @@
                     publicKey = "XFl0rIujwW85KZOVG0MGTWh5dBmQ2Jw9zG1tERWoxzg=";
                     address = "10.10.0.4";
                   } # piyush
+                  
                 ];
                 firewallDevice = "bond0";
               })
