@@ -2,17 +2,21 @@
   inputs,
   pkgs,
   ...
-}: let 
+}:
+let
   spacepilotDisplay = inputs.spacepilotDisplay.packages.${pkgs.system}.spacepilotDisplay.override {
     jamlytics = true;
   };
-in {
+in
+{
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="hidraw", KERNEL=="hidraw*", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c625", TAG+="systemd", ENV{SYSTEMD_WANTS}+="spacepilotJamlyticsDisplay.service"
+  '';
+
   systemd.services.spacepilotJamlyticsDisplay = {
-    unitConfig = { 
+    unitConfig = {
       Description = "Display the jamlytics logo on connected 3dconnexion spacepilot devices";
-      After = [ "multi-user.target" ];
-      Wants = [ "multi-user.target" ];
-      StartLimitBurst = 3;
+      StartLimitBurst = 10;
       StartLimitIntervalSec = 30;
     };
     serviceConfig = {
