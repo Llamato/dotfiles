@@ -17,9 +17,9 @@
       kernel = buildLinux {
         inherit stdenv lib;
         pname = "linux-asahi-fairydust";
-        version = "7.1.13";
-        modDirVersion = "7.1.13";
-        extraMeta.branch = "7.1";
+        version = "7.3.4";
+        modDirVersion = "7.3.4";
+        extraMeta.branch = "7.3";
 
         src = fetchFromGitHub {
           owner = "AsahiLinux";
