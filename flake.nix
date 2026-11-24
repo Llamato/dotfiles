@@ -303,7 +303,10 @@
                     publicKey = "XFl0rIujwW85KZOVG0MGTWh5dBmQ2Jw9zG1tERWoxzg=";
                     address = "10.10.0.4";
                   } # piyush
-                  
+                  {
+                    publicKey = "aDa7B3lWuKaBrsq+yg4ugi4LeLB5+t2TmMsf+2Rpqyo=";
+                    address = "10.10.0.5";
+                  } # Tina
                 ];
                 firewallDevice = "bond0";
               })
