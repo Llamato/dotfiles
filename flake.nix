@@ -351,6 +351,7 @@
                     })
                   ];
                   aurora.desktop = "minimal";
+                  aurora.gaming.enable = lib.mkForce false;
                 }
 
                 ./nixos/modules/modelm.nix
