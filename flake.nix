@@ -351,7 +351,8 @@
                     })
                   ];
                   aurora.desktop = "minimal";
-                  aurora.gaming.enable = lib.mkForce false;
+                  programs.steam.enable = false;
+                  aurora.fexMesa.enable = false;
                 }
 
                 ./nixos/modules/modelm.nix
