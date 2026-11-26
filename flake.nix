@@ -341,6 +341,11 @@
                   nixpkgs.overlays = [
                     aurora.inputs.apple-silicon.overlays.default
                     aurora.overlays.default
+                    (final: prev: {
+                      libfprint = prev.libfprint.overrideAttrs (old: {
+                        doCheck = false;
+                      });
+                    })
                   ];
                   aurora.desktop = "minimal";
                 }
