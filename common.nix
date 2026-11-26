@@ -29,6 +29,7 @@ in
         "kvm"
         "gccarch-znver5"
         "gccarch-armv7-a"
+        "uid-range"
       ];
       log-lines = "35";
       max-jobs = "auto";
