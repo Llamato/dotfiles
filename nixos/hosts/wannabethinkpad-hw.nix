@@ -25,7 +25,7 @@
     "vfat"
     "f2fs"
   ];
-  
+
   boot.kernelParams = lib.mkAfter [
     "appledrm.show_notch=1"
   ];
@@ -62,9 +62,12 @@
   swapDevices = [ ];
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 
-  services.udev = {
-    enable = true;
-    extraRules = ''ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Apple SMC power/lid events", ATTR{inhibited}="1"'';
+  services = {
+    fprintd.enable = false;
+    udev = {
+      enable = true;
+      extraRules = ''ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Apple SMC power/lid events", ATTR{inhibited}="1"'';
+    };
   };
   services.power-profiles-daemon.enable = true;
 }
