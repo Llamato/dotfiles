@@ -63,7 +63,7 @@
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 
   services = {
-    fprintd.enable = false;
+    fprintd.enable = lib.mkForce false;
     udev = {
       enable = true;
       extraRules = ''ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Apple SMC power/lid events", ATTR{inhibited}="1"'';
