@@ -13,6 +13,7 @@
 
     #specialty hardware support
     apple-silicon.url = "github:nix-community/nixos-apple-silicon?rev=46e80bc641f5aaee6ed7ef90a12314a81492f48f";
+    aurora.url = "github:aurora-silicon/nixos-aurora/channel-testing";
     nixos-muvm-fex.url = "github:nrabulinski/nixos-muvm-fex";
     stenc.url = "github:llamato/stenc";
 
@@ -68,6 +69,7 @@
       nixpkgs-unstable,
       nix-darwin,
       apple-silicon,
+      aurora,
       openlogi,
       strata-nix,
       ...
@@ -323,17 +325,26 @@
 
             ];
           };
-            wannabethinkpad = nixpkgs.lib.nixosSystem rec {
+            wannabethinkpad = aurora.inputs.nixpkgs.lib.nixosSystem  rec {
               system = "aarch64-linux";
               specialArgs = { inherit inputs outputs; };
               modules = [
                 ./common.nix
-
-                apple-silicon.nixosModules.apple-silicon-support
+                
                 ./nixos/hosts/wannabethinkpad.nix
                 ./nixos/hosts/wannabethinkpad-hw.nix
 
-                ./nixos/modules/fairydust.nix
+                aurora.inputs.apple-silicon.nixosModules.default
+                aurora.nixosModules.default
+                aurora.nixosModules.installed
+                {
+                  nixpkgs.overlays = [
+                    aurora.inputs.apple-silicon.overlays.default
+                    aurora.overlays.default
+                  ];
+                  aurora.desktop = "minimal";
+                }
+
                 ./nixos/modules/modelm.nix
 
                 ./nixos/workspace/dev.nix
