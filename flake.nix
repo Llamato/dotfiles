@@ -344,6 +344,11 @@
                     (final: prev: {
                       fprintd = prev.emptyDirectory;
                     })
+                    (final: prev: {
+                      libfprint = prev.libfprint.overrideAttrs {
+                        doCheck = false;
+                      };
+                    })
                   ];
                   aurora.desktop = "minimal";
                 }
