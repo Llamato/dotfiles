@@ -37,9 +37,12 @@ in
       experimental-features = [
         "nix-command"
         "flakes"
+        "auto-allocate-uids"
+        "cgroups"
       ];
       allow-import-from-derivation = true;
       connect-timeout = 1;
+      auto-allocate-uids = true;
     };
   };
   nixpkgs = {
