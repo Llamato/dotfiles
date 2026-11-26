@@ -110,7 +110,9 @@ in
 
   # Enable the KDE Plasma Desktop Environment.
   #services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  #services.desktopManager.plasma6.enable = true;
+  
+  # Enable the Cosmic Desktop Environment.
   services.desktopManager.cosmic.enable = true;
 
   users.users = {
