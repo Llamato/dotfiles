@@ -83,7 +83,7 @@ in
   programs.wayvnc.enable = true;
 
   # Enable firefox bowser
-  programs.firefox.enable = true;
+  #programs.firefox.enable = true;
 
   programs.localsend = {
     enable = true;
