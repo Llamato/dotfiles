@@ -10,13 +10,6 @@
 }:
 let
   semisecrets = (import ../../semisecrets.nix { inherit config lib pkgs; });
-
-  # The kernel's 2 MiB huge-page pool as one fixed root command, so the Strata run script can take
-  # the pool when the server starts and hand it back when the server stops. Writing nr_hugepages is
-  # root-only in the kernel ("A user with root privileges can dynamically allocate more or free some
-  # persistent huge pages", kernel HugeTLB admin guide), so this one command is what the sudoers rule
-  # below allows without a password. It is a store path: it changes with every rebuild, and sudoers is
-  # rebuilt together with it.
   strataHugepages = pkgs.writeShellScriptBin "strata-hugepages" ''
     # strata-hugepages <pages>: set the 2 MiB pool, then print what the kernel actually gave.
     # strata-hugepages 0 hands the whole pool back. IQ3_XXS asks for 20464 pages (40 GiB), IQ3_S for 23983.
@@ -289,19 +282,8 @@ in
     ];
   };
 
-  #Wireshark
-  programs.wireshark = {
-    enable = true;
-    package = pkgs.wireshark;
-    dumpcap.enable = true;
-    usbmon.enable = true;
-  };
-  users.groups.wireshark.members = [ "tina" ];
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    strataHugepages
     wget
     dig
     libspnav
@@ -349,13 +331,12 @@ in
     cinny
     fortune
     gzdoom
-
+    mumble
+    
     jetbrains.clion
     jetbrains.pycharm
     android-studio
     android-tools
-
-    mumble
 
     (pkgs.callPackage ../packages/serial-tether/package.nix { })
   ];
