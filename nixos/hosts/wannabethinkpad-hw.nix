@@ -14,6 +14,18 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.efi.canTouchEfiVariables = false;
+  boot.supportedFilesystems = [
+    "xfs"
+    "ntfs"
+    "bitlocker"
+    "exfat"
+    "vfat"
+    "f2fs"
+  ];
+  
   boot.kernelParams = lib.mkAfter [
     "appledrm.show_notch=1"
   ];

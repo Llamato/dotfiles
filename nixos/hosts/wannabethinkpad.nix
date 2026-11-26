@@ -11,18 +11,6 @@ in
 
   system.stateVersion = "26.05";
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
-  boot.supportedFilesystems = [
-    "xfs"
-    "ntfs"
-    "bitlocker"
-    "exfat"
-    "vfat"
-    "f2fs"
-  ];
-
   # Nix
   #nix.config.trusted-users = [ "root" "tina" ];
   nixpkgs.config.allowUnfree = true;
