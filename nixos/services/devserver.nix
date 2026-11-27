@@ -7,14 +7,16 @@
 {
 
   programs.nix-ld.enable = lib.mkDefault true;
-  #Set up git
   programs.git = {
     enable = true;
     lfs.enable = true;
     prompt.enable = true;
     lfs.enablePureSSHTransfer = true;
   };
-
+  services.iperf3 = {
+    enable = true;
+    openFirewall = true;
+  };
   environment.systemPackages = with pkgs; [
     imhex
     #lldb

@@ -71,7 +71,7 @@ in
   programs.wayvnc.enable = true;
 
   # Enable firefox bowser
-  #programs.firefox.enable = true;
+  programs.firefox.enable = true;
 
   programs.localsend = {
     enable = true;
@@ -79,7 +79,10 @@ in
   };
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+  };
 
   # Enable sound without pipewire.
   services.pulseaudio = {
@@ -97,8 +100,8 @@ in
   };
 
   # Enable the KDE Plasma Desktop Environment.
-  #services.displayManager.sddm.enable = true;
-  #services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.enable = false;
+  services.desktopManager.plasma6.enable = true;
   
   # Enable the Cosmic Desktop Environment.
   services.desktopManager.cosmic.enable = true;

@@ -204,6 +204,7 @@
 
               ./nixos/hosts/wannabeonyx.nix
               ./nixos/hosts/wannabeonyx-hw.nix
+              ./nixos/modules/rtd8159.nix
 
               /*{
                 nixpkgs = { 
@@ -252,6 +253,7 @@
               ./nixos/services/storageserver.nix
               ./nixos/services/hydraheart.nix
               ./nixos/services/hydrastomach.nix
+              ./nixos/services/devserver.nix
               (import ./nixos/services/smb.nix {
                 shares = [
                   "osraid"
@@ -291,7 +293,7 @@
               #./nixos/services/qbittorrent-nox.nix
               #./nixos/services/hydrastomach.nix
 
-              (import ./nixos/services/wireguard.nix {
+              /*(import ./nixos/services/wireguard.nix {
                 peers = [
                   {
                     publicKey = "q6ezuOFhYdjmQzcO/h/1R6R+Q9nmtgww7FtwpsaXd2w=";
@@ -316,7 +318,7 @@
                 shares = [
                   "raid"
                 ];
-              })
+              })*/
               (import ./nixos/services/bunserver.nix {
                 pkgs = nixpkgs.legacyPackages.${system};
                 bun = self.packages.${system}.bun-baseline;
@@ -327,7 +329,7 @@
           };
             wannabethinkpad = aurora.inputs.nixpkgs.lib.nixosSystem  rec {
               system = "aarch64-linux";
-              specialArgs = { inherit inputs outputs; };
+              specialArgs = { inherit inputs outputs aurora; };
               modules = [
                 ./common.nix
                 
@@ -337,28 +339,13 @@
                 aurora.inputs.apple-silicon.nixosModules.default
                 aurora.nixosModules.default
                 aurora.nixosModules.installed
-                {
-                  nixpkgs.overlays = [
-                    aurora.inputs.apple-silicon.overlays.default
-                    aurora.overlays.default
-                    (final: prev: {
-                      fprintd = prev.emptyDirectory;
-                    })
-                    (final: prev: {
-                      libfprint = prev.libfprint.overrideAttrs {
-                        doCheck = false;
-                      };
-                    })
-                  ];
-                  aurora.desktop = "minimal";
-                  programs.steam.enable = false;
-                  aurora.fexMesa.enable = false;
-                }
+                ./nixos/modules/aurora.nix
 
                 ./nixos/modules/modelm.nix
+                ./nixos/modules/rtd8159.nix
 
                 ./nixos/workspace/dev.nix
-                ./nixos/workspace/3d.nix
+                #./nixos/workspace/3d.nix
                 ./nixos/workspace/office.nix
                 ./nixos/workspace/communications.nix
                 ./nixos/workspace/monitoring.nix

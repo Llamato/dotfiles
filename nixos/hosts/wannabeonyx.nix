@@ -421,6 +421,16 @@ in
           }
         ];
       };
+      enp60s0u1 = {
+        # 10gbit/s direct connect (testing)
+        useDHCP = false;
+        ipv4.addresses = [
+          {
+            address = "10.20.30.6";
+            prefixLength = 24;
+          }
+        ];
+      };
     };
 
     wireless = {

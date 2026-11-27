@@ -5,12 +5,13 @@
 }:
 {
   environment.systemPackages = with pkgs; [
-    vnstat
     iperf3
+    vnstat
     mission-center
     ethtool
     inetutils
     net-tools
+    usbutils
     mtr
     htop
     iotop
