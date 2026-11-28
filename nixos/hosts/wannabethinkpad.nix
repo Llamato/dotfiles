@@ -26,6 +26,7 @@ in
   networking = {
     hostName = "wannabethinkpad";
     networkmanager.enable = true;
+    firewall.enable = false;
   };
 
   # Set your time zone.
@@ -118,6 +119,19 @@ in
         "docker"
       ];
       openssh.authorizedKeys.keys = semisecrets.semisecrets.tina.keys.ssh;
+    };
+    zvit = {
+      isNormalUser = true;
+      description = "Zvit";
+      initialPassword = "6301";
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "scanner"
+        "lp"
+        "docker"
+      ];
+      openssh.authorizedKeys.keys = semisecrets.semisecrets.zvit.keys.ssh;
     };
   };
 }
